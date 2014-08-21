@@ -31,7 +31,7 @@
             template: 'Widgets/Search',
             tagName: 'span',
             events: {
-                'keypress #tasks-search': 'filterTasks'
+                'keydown #tasks-search': 'filterTasks'
             },
             ui: {
                 $search: '#tasks-search',
