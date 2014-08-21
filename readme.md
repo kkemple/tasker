@@ -14,6 +14,10 @@ In `static/img/` dir create a `screens` dir, and in that create a `thumbs` dir, 
 
 If you have Node.js installed run `npm install` (if not go [here](http://nodejs.org) to download Node.js) *You may need to run with sudo*
 
+Now run `bower install`, if you do not have bower installed run `npm install bower -g`
+
+Next run `grunt build`
+
 Now, to start your server run `npm start`
 
 In Chrome navigate to `https://localhost:8888` and you will be up and running with Tasker!
