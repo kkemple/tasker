@@ -31,7 +31,7 @@
             template: 'Widgets/Search',
             tagName: 'span',
             events: {
-                'keyup #tasks-search': 'filterTasks'
+                'keypress #tasks-search': 'filterTasks'
             },
             ui: {
                 $search: '#tasks-search',
@@ -71,6 +71,8 @@
             },
             filterTasks: function(e) {
                 var self = this;
+
+                if (e && e.which === 13) { e.preventDefault(); }
 
                 if (this.timeoutId) { clearTimeout(this.timeoutId); }
 
