@@ -1,0 +1,75 @@
+.navbar-inverse {
+    background-color: @backgroundDark;
+    border-bottom: 1px solid @borderDark;
+}
+
+.nav {
+    > li {
+
+        > a {
+
+            &:hover,
+            &:focus,
+            &.active {
+                text-decoration: none;
+                background-color: @appBackground;
+                color: #fff;
+            }
+        }
+    }
+}
+
+.btn-default,
+.btn-default:hover,
+.btn-default:focus,
+.btn-default.active {
+    background-color: @backgroundDark;
+    color: @lightText;
+    border-color: @borderDark;
+}
+
+.form-control {
+    background-color: @backgroundLight;
+    border-color: @borderDark;
+    color: @lightText;
+
+    &.error {
+        border-color: red;
+    }
+}
+
+.badge {
+    background-color: @backgroundLight;
+    color: @lightText;
+}
+
+.list-group-item {
+    background-color: @backgroundLight;
+    border: 1px solid @borderDark;
+}
+
+.dropdown-menu {
+    background-color: @backgroundDark;
+
+    li {
+
+        a {
+            color: @defaultText;
+        }
+    }
+
+    .active > a,
+    .active > a:hover,
+    .active > a:focus {
+        background-color: @backgroundLight;
+        color: @lightText;
+    }
+}
+
+.modal-header {
+    border-bottom: 1px solid @borderDark;
+}
+
+.modal-content {
+    background-color: @backgroundLight;
+}

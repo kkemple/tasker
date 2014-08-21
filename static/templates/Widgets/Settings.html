@@ -1,0 +1,26 @@
+<section class="settings-container">
+    <div class="basic-settings">
+        <h4>Settings</h4>
+        <button class="allow-browser-notifications btn btn-sm <%= (allowBrowserNotifications) ? 'btn-danger' : 'btn-success' %>">
+            <%= (allowBrowserNotifications) ? 'Disable' : 'Enable' %> Browser Notifications
+        </button>
+        <button class="allow-voice-notifications btn btn-sm <%= (allowVoiceNotifications) ? 'btn-danger' : 'btn-success' %>">
+            <%= (allowVoiceNotifications) ? 'Disable' : 'Enable' %> Voice Notifications
+        </button>
+        <button class="allow-screencapture btn btn-sm <%= (allowScreenCapture) ? 'btn-danger' : 'btn-success' %>">
+            <%= (allowScreenCapture) ? 'Disable' : 'Enable' %> Screen Capture
+        </button>
+        <button class="btn btn-sm btn-info backup">Backup Local Storage</button>
+        <button class="btn btn-sm btn-warning restore">Restore From Local Storage</button>
+        <form class="form-inline duration notifications">
+            <div class="form-group">
+                Send notifications every <input type="number" id="notification-duration" class="form-control input-sm" value="<%= notificationDuration %>" /> min
+            </div>
+        </form>
+        <form class="form-inline duration backups">
+            <div class="form-group">
+                Backup local storage every <input type="number" id="backup-duration" class="form-control input-sm" value="<%= backupDuration %>" /> min
+            </div>
+        </form>
+    </div>
+</section>

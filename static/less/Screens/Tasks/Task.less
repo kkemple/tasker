@@ -1,0 +1,39 @@
+.task {
+    .border-radius(3px);
+    background-color: @backgroundLight;
+    margin-bottom: 6px;
+    padding: 10px;
+    font-size: 16px;
+
+    .tags {
+
+        .tag-container {
+            display: inline-block;
+            padding: 3px 8px;
+            background-color: @backgroundDark;
+            margin-left: 5px;
+            .border-radius(3px);
+
+            &.active {
+                background-color: @warning;
+            }
+        }
+    }
+
+    .count {
+        text-align: center;
+    }
+
+    .tracker {
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .actions {
+        text-align: center;
+
+        span {
+            cursor: pointer;
+        }
+    }
+}

@@ -1,0 +1,53 @@
+.screentime {
+    padding-top: 15px;
+
+    .list-group-item {
+
+        .badge {
+            background-color: @backgroundDark;
+        }
+    }
+
+    .shot {
+        margin: 10px;
+        padding: 5px;
+        border: 1px solid @borderDark;
+        display: inline-block;
+        cursor: pointer;
+        background-color: @backgroundDark;
+    }
+
+    .shots {
+        img {
+            width: 120px;
+            border: 1px solid @borderDark;
+        }
+    }
+
+    .zoomed {
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            border: 1px solid @borderDark;
+        }
+    }
+
+    #control-bar-region {
+        display: none;
+    }
+
+    /* spinner code not working for some reason */
+    .glyphicon-spin {
+        animation-name: spinThis;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        display: inline-block;
+    }
+
+    @keyframes spinThis {
+        from { transform: scale( 1 ) rotate( 0deg );   }
+        to   { transform: scale( 1 ) rotate( 360deg ); }
+    }
+    /* end spinner code */
+}

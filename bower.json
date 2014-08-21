@@ -1,0 +1,27 @@
+{
+  "name": "timeassistant",
+  "version": "0.0.1",
+  "homepage": "https://github.com/kkemple/timeassistant",
+  "main": "index.html",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone.localstorage": "~1.1.7",
+    "bootstrap": "~3.1.1",
+    "fontawesome": "~4.0.3",
+    "jquery": "~2.1.1",
+    "marionette": "~1.8.5",
+    "momentjs": "~2.6.0",
+    "underscore": "~1.6.0"
+  }
+}

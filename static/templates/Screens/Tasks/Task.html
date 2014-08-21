@@ -1,0 +1,24 @@
+<div class="task">
+    <div class="row">
+        <div class="col-xs-4">
+            <span><%= taskName %></span>
+        </div>
+        <div class="col-xs-5 tags">
+            <% if (tags.length > 0) { %>
+                <% for (var i = 0, len = tags.length; i < len; i++) { %>
+                        <span class="tag-container" data-tag="<%= tags[i] %>"><%= tags[i] %></span>
+                <% } %>
+            <% } %>
+        </div>
+        <div class="col-xs-1 tracker">
+            <span><i class="toggle-timer fa <%= (isRunning) ? 'fa-pause' : 'fa-play' %>"></i></span>
+        </div>
+        <div class="col-xs-1 count">
+            <span><%= displayTime %></span>
+        </div>
+        <div class="col-xs-1 actions">
+            <span class="reset-count" title="Reset Count"><i class="fa fa-repeat"></i></span>
+            <span class="delete-task" title="Delete Task"><i class="fa fa-times-circle"></i></span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<section class="settings-container">
+    <div class="jira-settings">
+        <h4>JIRA Login  <span class="toggle-jira-settings"><i class="fa fa-toggle-up"></i></span></h4>
+        <form action="" class="form-inline">
+            <input type="text" id="jira-username" class="form-control input-sm" placeholder="Username" value="<%= (username) ? username : '' %>" />
+            <input type="password" id="jira-password" class="form-control input-sm" placeholder="Password" value="<%= (password) ? password : '' %>" />
+            <input type="url" id="jira-url" class="form-control input-sm" placeholder="Jira Url" value="<%= (jiraUrl) ? jiraUrl : '' %>" />
+            <button id="update-jira-settings" class="btn btn-sm btn-success"><%= (hasLoginCreds) ? 'Update' : 'Save' %></button>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,24 @@
+default:
+    - 'clean'
+    - 'newer:less'
+    - 'newer:jshint:tests'
+    - 'jasmine'
+    - 'buildJS'
+test:
+    - 'jasmine'
+lint:
+    - 'newer:jshint:beforeconcat'
+    - 'newer:jshint:tests'
+build:
+    - 'clean'
+    - 'buildJS'
+    - 'newer:less'
+dev:
+    - 'newer:jshint:beforeconcat'
+    - 'writeDevJsFiles'
+    - 'copy'
+prod:
+    - 'newer:jshint:beforeconcat'
+    - 'concat'
+    - 'newer:jshint:afterconcat'
+    - 'writeProdJsFiles'
