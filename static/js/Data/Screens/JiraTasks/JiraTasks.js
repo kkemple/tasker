@@ -2,7 +2,7 @@
     "use strict";
 
     TA.module('Data', function(Mod, App, Backbone, Marionette, $, _) {
-        var JiraTask = App.Data.Task.extend({
+        var JiraTask = Mod.DefaultTask.extend({
             defaults: {
                 key: '',
                 taskName: '',
@@ -15,11 +15,20 @@
                 isFiltered: false,
                 created: ''
             },
-            sync: function() { return false; }
+            initialize: function(attrs) {
+                var self = this;
+
+                //this.id = attrs.key;
+
+                this.buildDisplayTime();
+
+                this.on('change:isRunning', function() {
+                    self.toggleRunning();
+                });
+            },
         });
 
-        var JiraTasks = App.Data.Tasks.extend({
-            url: 'jira/tasks',
+        var JiraTasks = Backbone.Collection.extend({
             localStorage: new Backbone.LocalStorage('JiraTaskCollection'),
             model: JiraTask,
             filters: [
@@ -28,7 +37,12 @@
                 {id: 'priority', label: 'Priority'},
                 {id: 'key', label: 'Key'}
             ],
-            parse: function(data) {
+            initialize: function(models, options) {
+                var self = this;
+
+                this.jiraSettings = options.jiraSettings;
+            },
+            parseJiraJSON: function(data) {
                 var tasks = [];
 
                 if (data && data.issues) {
@@ -52,7 +66,7 @@
 
                 return tasks;
             },
-            fetch: function() {
+            fetchJiraJSON: function() {
                 var self = this,
                     deferred = new $.Deferred();
 
@@ -63,18 +77,34 @@
                             '&password=' +
                             this.jiraSettings.get('password');
 
-                    $.get(this.url + '?jiraUrl=' + encodeURIComponent(jiraUrl) + '&username=' + encodeURIComponent(this.jiraSettings.get('username')) + '&password=' + encodeURIComponent(this.jiraSettings.get('password')), function(data) {
-                        self.set(self.parse(JSON.parse(data)));
+                    $.get('jira/tasks?jiraUrl=' + encodeURIComponent(jiraUrl) + '&username=' + encodeURIComponent(this.jiraSettings.get('username')) + '&password=' + encodeURIComponent(this.jiraSettings.get('password')), function(data) {
+                        var jiraKeys = [];
+
+                        _(self.parseJiraJSON(JSON.parse(data))).each(function(modelAttrs) {
+                            var model = self.findWhere({key: modelAttrs.key});
+
+                            if (!model) {
+                                self.add(modelAttrs);
+                            }
+
+                            jiraKeys.push(modelAttrs.key);
+                        });
+
+                        self.each(function(model) {
+                            if (_.indexOf(jiraKeys, model.get('key')) === -1) {
+                                model.destroy();
+                            }
+                        });
+
                         deferred.resolve();
+                        self.trigger('jira:loaded');
                     });
                 } else {
                     deferred.resolve();
+                    self.trigger('jira:loaded');
                 }
 
                 return deferred.promise();
-            },
-            initialize: function(models, options) {
-                this.jiraSettings = options.jiraSettings;
             },
             filterTasks: function(filter, term) {
 
@@ -97,8 +127,10 @@
             App.reqres.setHandler('jiraTasks', function() {
                 var deferred = new $.Deferred();
 
-                jiraTasks.fetch().always(function() {
-                    deferred.resolve(jiraTasks);
+                jiraTasks.fetch().done(function() {
+                    jiraTasks.fetchJiraJSON().done(function() {
+                        deferred.resolve(jiraTasks);
+                    });
                 });
 
                 return deferred.promise();

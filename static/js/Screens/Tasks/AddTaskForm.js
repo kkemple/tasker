@@ -51,7 +51,7 @@
             clearForm: function() {
                 this.ui.$taskName.val('');
                 this.ui.$tags.val('');
-                this.ui.$startTracker.prop('checked', false);
+                this.ui.$startTimer.prop('checked', false);
             },
             clearErrors: function() {
                 this.ui.$taskName.removeClass('error');

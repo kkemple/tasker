@@ -3,7 +3,7 @@
 
     TA.module('JIRA', function(Mod, App, Backbone, Marionette, $, _) {
         var JiraSettings = Backbone.Model.extend({
-            localStorage: new Backbone.LocalStorage('Plugins.Jira.Settings'),
+            localStorage: new Backbone.LocalStorage('JiraSettings'),
             defaults: {
                 username: '',
                 password: '',

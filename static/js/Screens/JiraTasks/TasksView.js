@@ -7,17 +7,18 @@
             itemViewContainer: '.jira-tasks',
             itemView: Mod.TaskView,
             collectionEvents: function() {
-                return _.extend(App.Tasks.TasksView.prototype.collectionEvents || {}, {
-                    'sorted': 'render'
+                return _.extend(_(App.Tasks.TasksView.prototype.collectionEvents).clone() || {}, {
+                    'sorted': 'render',
+                    'jira:loaded': 'updateVisibility',
                 });
             },
             events: function() {
-                return _.extend(App.Tasks.TasksView.prototype.events || {}, {
+                return _.extend(_(App.Tasks.TasksView.prototype.events).clone() || {}, {
                     'click .sorter': 'sortTasks'
                 });
             },
             ui: function() {
-                return _.extend(App.Tasks.TasksView.prototype.ui || {}, {
+                return _.extend(_(App.Tasks.TasksView.prototype.ui).clone() || {}, {
                     $sorters: '.sorter'
                 });
             },
