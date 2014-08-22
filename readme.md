@@ -25,7 +25,7 @@ Copy the following command in to the terminal to get the app set up `chmod 700 c
 ___
 
 #### Starting the Server
-To start your server run `npm start`
+To start your server run `npm start` (After running the install script, this is the only step necessary to start Tasker)
 
 In Chrome navigate to `https://localhost:8888` and you will be up and running with Tasker!
 
