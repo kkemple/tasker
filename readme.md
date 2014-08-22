@@ -12,6 +12,8 @@ Then run `cd tasker`
 
 **You must have Node.js installed to run this app!!**
 
+If you do not have Node.js installed, you can get it [here](https://nodejs.org).
+
 Now copy the following command in to the terminal to get the app set up `chmod 700 capture.sh && chmod 700 install.sh && ./install.sh`
 
 Now, to start your server run `npm start`
