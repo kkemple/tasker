@@ -3,27 +3,52 @@
 
     TA.module('Search', function(Mod, App, Backbone, Marionette, $, _) {
 
-        var SearchOption = Marionette.ItemView.extend({
-            template: 'Widgets/SearchFilterOption',
-            tagName: 'option',
-            onRender: function() {
-                this.$el.attr('value', this.model.get('id'));
+        var Filter = Backbone.Model.extend({
+            defaults: {
+                isActive: false
             }
         });
 
-        var SearchOptions = Marionette.CollectionView.extend({
+        var Filters = Backbone.Collection.extend({
+            model: Filter,
+            setActive: function(val) {
+                this.each(function(model) {
+                    if (model.get('id') === val) {
+                        model.set('isActive', true);
+                    } else {
+                        model.set('isActive', false);
+                    }
+                });
+            }
+        });
+
+        var FilterOption = Marionette.ItemView.extend({
+            template: 'Widgets/SearchFilterOption',
+            tagName: 'option',
+            modelEvents: {
+                'change:isActive': 'toggleSelected'
+            },
+            onRender: function() {
+                this.$el.attr('value', this.model.get('id'));
+            },
+            toggleSelected: function() {
+                this.$el.prop('selected', this.model.get('isActive'));
+            }
+        });
+
+        var FilterOptions = Marionette.CollectionView.extend({
             tagName: 'select',
             id: 'tasks-search-filter',
             className: 'form-control',
-            itemView: SearchOption,
+            itemView: FilterOption,
             events: {
-                'change': 'updateActiveFilter'
+                'change': 'updateActiveFilter',
             },
             onRender: function() {
                 this.updateActiveFilter();
             },
             updateActiveFilter: function() {
-                this.collection.activeFilter = this.$el.val();
+                this.collection.setActive(this.$el.val());
             }
         });
 
@@ -42,6 +67,8 @@
             initialize: function() {
                 var self = this;
 
+                this.model = new Backbone.Model();
+
                 this.listenTo(App.router, 'route', function(route) {
                     if (route === 'jira-tasks' || route === 'tasks') {
                         self.initSearch(route);
@@ -57,6 +84,7 @@
                 $.when(App.request('tasks'), App.request('jiraTasks')).done(function(tasks, jiraTasks) {
                     self.tasksCollection = tasks;
                     self.jiraTasksCollection = jiraTasks;
+                    self.route = route;
 
                     if (route === 'tasks') {
                         self.currentCollection = self.tasksCollection;
@@ -64,10 +92,21 @@
                         self.currentCollection = self.jiraTasksCollection;
                     }
 
-                    self.optionsCollection = new Backbone.Collection(self.currentCollection.filters);
-                    self.optionsCollectionView = new SearchOptions({collection: self.optionsCollection});
+                    self.optionsCollection = new Filters(self.currentCollection.filters);
+                    self.optionsCollectionView = new FilterOptions({collection: self.optionsCollection});
                     self.filterContainer.show(self.optionsCollectionView);
+
+                    if (self.model.get(route)) {
+                        self.updateForm(self.model.get(route));
+                        self.filterTasks();
+                    } else {
+                        self.ui.$search.val('');
+                    }
                 });
+            },
+            updateForm: function(activeSearch) {
+                this.ui.$search.val(activeSearch.term);
+                this.optionsCollection.setActive(activeSearch.filter);
             },
             filterTasks: function(e) {
                 var self = this;
@@ -78,7 +117,16 @@
 
                 this.timeoutId = setTimeout(function() {
                     var term = self.ui.$search.val().trim(),
-                        filter = self.optionsCollection.activeFilter;
+                        filter = self.optionsCollection.findWhere({isActive: true}).get('id');
+
+                    if (term === '') {
+                        self.model.set(self.route, undefined);
+                    } else {
+                        self.model.set(self.route, {
+                            term: term,
+                            filter: filter
+                        });
+                    }
 
                     self.currentCollection.filterTasks(filter, term);
                 }, 500);
