@@ -6,17 +6,13 @@ Time Assistant is a very simple task runner that will verbally and visually noti
 
 *You must use chrome to run this app!*
 
-In the directory you wish to install Tasker run `git clone git@github.com:kkemple/tasker.git Tasker`
+In the directory you wish to install Tasker run `git clone git@github.com:kkemple/tasker.git tasker`
 
-Then run `cd Tasker`
+Then run `cd tasker`
 
-In `static/img/` dir create a `screens` dir, and in that create a `thumbs` dir, and a `full` dir. *These are used by the screen capture component.*
+**You must have Node.js installed to run this app!!**
 
-If you have Node.js installed run `npm install` (if not go [here](http://nodejs.org) to download Node.js) *You may need to run with sudo*
-
-Now run `bower install`, if you do not have bower installed run `npm install bower -g`
-
-Next run `grunt build`
+Now copy the following command in to the terminal to get the app set up `chmod 700 capture.sh && chmod 700 install.sh && ./install.sh`
 
 Now, to start your server run `npm start`
 
@@ -25,15 +21,6 @@ In Chrome navigate to `https://localhost:8888` and you will be up and running wi
 Helpful Tips:
 - You can enable all of Tasker's great features on the "App Settings" page.
 - In order to get Jira Tasks, on Jira Tasks screen you must enter your JIRA username, password, and JIRA url. (The url of your JIRA instance)
-- Time tracking persists through page refreshes for default tasks, but not for JIRA tasks.
-
-TODOS:
-- Maybe add projects?? (Although I like the idea of this beinging on the simple side configuration < tracking)
-- Add dashboard
-- Add overview
-- Add reports
-- Add exporting
-- Add help
-- Add support for jira tasks to persist tracking on page refresh
+- Use the "Report Bug" link in the header if you discover something amiss! :smiley:
 
 Contributions and input are strongly recommended!!

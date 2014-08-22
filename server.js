@@ -20,7 +20,7 @@ app.get('/', function(req, res) {
 
 // start screencapture
 app.get('/screencapture/start', function(req, res) {
-    child = spawn('bash', ['capture.sh']);
+    child = spawn('bash', ['./capture.sh']);
     child.stdout.on('data', function(data) {
         console.log(data.toString());
     });
