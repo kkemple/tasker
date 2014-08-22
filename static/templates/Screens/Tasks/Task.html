@@ -1,9 +1,9 @@
 <div class="task">
     <div class="row">
-        <div class="col-xs-4">
+        <div class="col-xs-5">
             <span><%= taskName %></span>
         </div>
-        <div class="col-xs-5 tags">
+        <div class="col-xs-4 tags">
             <% if (tags.length > 0) { %>
                 <% for (var i = 0, len = tags.length; i < len; i++) { %>
                         <span class="tag-container" data-tag="<%= tags[i] %>"><%= tags[i] %></span>
