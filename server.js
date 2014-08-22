@@ -42,19 +42,19 @@ app.get('/jira/tasks', function(req, res) {
         password = decodeURIComponent(req.query.password);
 
 
-    // request.get(jiraUrl, function(error, response, body) {
-    //     if (error) {
-    //         res.json(error);
-    //         res.end();
-    //     }
-    //     res.json(body);
-    //     res.end();
-    // }).auth(username, password, true);
+    request.get(jiraUrl, function(error, response, body) {
+        if (error) {
+            res.json(error);
+            res.end();
+        }
+        res.json(body);
+        res.end();
+    }).auth(username, password, true);
 
 
-    fs.readFile('jiraTasks.json', 'utf-8', function(err, content) {
-        res.json(content);
-    });
+    // fs.readFile('jiraTasks.json', 'utf-8', function(err, content) {
+    //     res.json(content);
+    // });
 
 
 });
