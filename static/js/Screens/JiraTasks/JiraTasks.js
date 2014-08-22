@@ -3,7 +3,7 @@
 
     TA.module('JIRA', function(Mod, App, Backbone, Marionette, $, _) {
 
-        var MainView = Marionette.Layout.extend({
+        var JiraTasksLayout = Marionette.Layout.extend({
             template: 'Screens/Jira/Tasks',
             regions: {
                 settings: '.settings-region',
@@ -26,7 +26,7 @@
             }
         });
 
-        Mod.MainView = MainView;
+        Mod.JiraTasksLayout = JiraTasksLayout;
 
         Mod.addInitializer(function() {
             App.execute('registerScreen', {
@@ -35,7 +35,7 @@
                 iconClass: 'fa-rocket',
                 anchorText: 'JIRA Tasks',
                 initializer: function() {
-                    TA.execute('showScreen', new MainView());
+                    return new JiraTasksLayout();
                 }
             });
         });

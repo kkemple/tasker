@@ -6,7 +6,7 @@
         var GrowlModel = Backbone.Model.extend({
             defaults: {
                 top: 70,
-                isSticky: true,
+                isSticky: false,
                 title: '',
                 message: '',
                 type: 'default'
@@ -47,10 +47,10 @@
                 return 'growl ' + this.model.get('type');
             },
             events: {
-                'click .growl-close': 'removeView'
+                'click .growl-close': 'selfDestruct'
             },
             modelEvents: {
-                'change:active': 'removeView',
+                'change:active': 'selfDestruct',
             },
             ui: {
                 $childView: '.growl-childview'
@@ -79,15 +79,19 @@
                 this.$el.fadeIn(300).promise().done(function() {
                     if (!self.model.get('isSticky')) {
                         setTimeout(function() {
-                            self.removeView();
+                            self.selfDestruct();
                         }, 1000 * 7);
+                    } else {
+                        setTimeout(function() {
+                            self.selfDestruct();
+                        }, 1000 * 60 * 10);
                     }
                 });
             },
             onBeforeClose: function() {
                 this.model.destroy();
             },
-            removeView: function(e) {
+            selfDestruct: function(e) {
                 var self = this;
 
                 if (e) { e.preventDefault(); }

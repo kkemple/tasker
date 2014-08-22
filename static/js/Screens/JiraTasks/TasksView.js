@@ -26,6 +26,7 @@
                 this.model = new Backbone.Model();
             },
             onRender: function() {
+                this.renderTotal();
                 this.updateUI();
             },
             updateUI: function() {

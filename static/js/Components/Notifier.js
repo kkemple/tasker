@@ -40,17 +40,16 @@
                     message = 'You are currently tracking time for task: ' + this.at(0).get('taskName') + '.';
                 }
 
-                if (document.hidden) {
-                    if (this.userSettings.get('allowBrowserNotifications')) {
-                        new Notification('Time Assistant', {
-                            body: message,
-                            icon: 'img/time.png'
-                        });
-                    }
+                if (document.hidden && this.userSettings.get('allowBrowserNotifications')) {
+                    new Notification('Tasker', {
+                        body: message,
+                        icon: 'img/time.png'
+                    });
                 } else {
                     TA.Growler.growl({
                         title: 'Tasker Alert',
-                        message: message
+                        message: message,
+                        isSticky: true
                     });
                 }
 

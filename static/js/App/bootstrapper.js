@@ -29,21 +29,7 @@
     // create our router
     TA.router = new Backbone.Router();
 
-    // set up our sidebar collection, may be a better way to do this
-    var sidebarCollection = new Backbone.Collection();
-    sidebarCollection.comparator = function(model) {
-        return model.get('position');
-    };
-
-    TA.reqres.setHandler('sidebarCollection', function() {
-        return sidebarCollection;
-    });
-
-    TA.commands.setHandler('registerScreen', function(opts) {
-        TA.router.route(opts.screenKey + '/', opts.screenKey, opts.initializer);
-        sidebarCollection.add(opts);
-    });
-
+    // add command for updating the current screen
     TA.commands.setHandler('showScreen', function(screen) {
         TA.main.show(screen);
     });

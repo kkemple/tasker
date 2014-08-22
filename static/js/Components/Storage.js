@@ -19,8 +19,7 @@
             }).done(function(response) {
                 TA.Growler.growl({
                     title: 'LocalStorage Backed Up',
-                    message: response.message,
-                    isSticky: false
+                    message: response.message
                 });
             });
         };

@@ -1,6 +1,6 @@
 # Tasker
 
-Time Assistant is a very simple task runner that will verbally and visually notify you of currently running tasks. You can enable/disable either notification type (or both). You can also set the duration of time in between notifications. It will also only notify you if you are running a task.
+Time Assistant is a very simple task runner that will verbally and visually notify you of currently running tasks. You can enable/disable either notification type (or both). You can also set the duration of time in between notifications.
 
 ### Quick Start Guide
 

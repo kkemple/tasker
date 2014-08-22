@@ -3,7 +3,7 @@
 
     TA.module('Tasks', function(Mod, App, Backbone, Marionette, $, _) {
 
-        var MainView = Marionette.Layout.extend({
+        var TasksLayout = Marionette.Layout.extend({
             template: 'Screens/Tasks/Tasks',
             regions: {
                 addTask: '.add-task-region',
@@ -22,7 +22,7 @@
             }
         });
 
-        Mod.MainView = MainView;
+        Mod.TasksLayout = TasksLayout;
 
         Mod.addInitializer(function(opts) {
             App.execute('registerScreen', {
@@ -31,7 +31,7 @@
                 iconClass: 'fa-tasks',
                 anchorText: 'Tasks',
                 initializer: function() {
-                    TA.execute('showScreen', new MainView());
+                    return new TasksLayout();
                 }
             });
         });

@@ -25,7 +25,10 @@
             className: 'nav nav-sidebar',
             itemView: SidebarNavItem,
             itemViewContainer: '.nav',
-            collection: TA.request('sidebarCollection'),
+            collection: TA.request('screens'),
+            collectionEvents: {
+                'sort': 'render'
+            },
             initialize: function() {
                 var self = this;
 

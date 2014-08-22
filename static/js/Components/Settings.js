@@ -20,6 +20,13 @@
                 'change:allowVoiceCommands': 'render',
                 'change:allowScreenCapture': 'render'
             },
+            initialize: function() {
+                var self = this;
+
+                App.request('userSettings').done(function(settings) {
+                    self.model = settings;
+                });
+            },
             setBrowserNotifications: function() {
                 this.model.set('allowBrowserNotifications', !this.model.get('allowBrowserNotifications'));
                 this.model.save();
@@ -70,9 +77,7 @@
                 iconClass: 'fa-cog',
                 anchorText: 'App Settings',
                 initializer: function() {
-                    App.request('userSettings').done(function(settings) {
-                        TA.execute('showScreen', new SettingsView({model: settings}));
-                    });
+                    return new SettingsView();
                 }
             });
         });

@@ -84,7 +84,7 @@
                             var model = self.findWhere({key: modelAttrs.key});
 
                             if (!model) {
-                                self.add(modelAttrs);
+                                self.add(modelAttrs, {merge: true});
                             }
 
                             jiraKeys.push(modelAttrs.key);

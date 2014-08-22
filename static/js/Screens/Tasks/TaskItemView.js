@@ -46,7 +46,7 @@
                 }
             },
             resetTimer: function() {
-                this.model.clearTimer();
+                this.model.clearCount();
             },
             deleteTask: function() {
                 if(confirm('Are you sure you want to delete this task?')) {

@@ -5,6 +5,7 @@ module.exports = {
     dist: {
         src: [
             'static/js/App/bootstrapper.js',
+            'static/js/Data/App/*.js',
             'static/js/Data/Components/*.js',
             'static/js/Data/Screens/Tasks/*.js',
             'static/js/Data/Screens/JiraTasks/*.js',
