@@ -1,26 +1,24 @@
-<div class="task">
-    <div class="row">
-        <div class="col-xs-6">
-            <span><%= taskName %></span>
-        </div>
-        <div class="col-xs-1 key">
-            <%= key %>
-        </div>
-        <div class="col-xs-1 status">
-            <%= status %>
-        </div>
-        <div class="col-xs-1 priority">
-            <%= priority %>
-        </div>
-        <div class="col-xs-1 tracker">
-            <span><i class="toggle-timer fa <%= (isRunning) ? 'fa-pause' : 'fa-play' %>"></i></span>
-        </div>
-        <div class="col-xs-1 count">
-            <span><%= displayTime %></span>
-        </div>
-        <div class="col-xs-1 actions">
-            <span class="reset-count" title="Reset Count"><i class="fa fa-repeat"></i></span>
-            <span class="save-worklog" title="Save Worklog"><i class="fa fa-rocket"></i></span>
-        </div>
+<div class="row">
+    <div class="col-xs-6">
+        <span><%= taskName %></span>
+    </div>
+    <div class="col-xs-1 key">
+        <%= key %>
+    </div>
+    <div class="col-xs-1 status">
+        <%= status %>
+    </div>
+    <div class="col-xs-1 priority">
+        <%= priority %>
+    </div>
+    <div class="col-xs-1 tracker">
+        <span><i class="toggle-timer fa <%= (isRunning) ? 'fa-pause' : 'fa-play' %>"></i></span>
+    </div>
+    <div class="col-xs-1 count">
+        <span><%= displayTime %></span>
+    </div>
+    <div class="col-xs-1 actions">
+        <span class="reset-count" title="Reset Count"><i class="fa fa-repeat"></i></span>
+        <span class="save-worklog" title="Save Worklog"><i class="fa fa-rocket"></i></span>
     </div>
 </div>

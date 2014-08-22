@@ -1,9 +1,14 @@
 .task {
     .border-radius(3px);
+    border: 1px solid @backgroundDark;
     background-color: @backgroundLight;
     margin-bottom: 6px;
     padding: 10px;
     font-size: 12px;
+
+    &.active {
+        border-color: @warning;
+    }
 
     .tags {
 

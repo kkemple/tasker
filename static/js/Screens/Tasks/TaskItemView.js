@@ -4,6 +4,8 @@
     TA.module('Tasks', function(Mod, App, Backbone, Marionette, $, _) {
         var TaskView = Marionette.ItemView.extend({
             template: 'Screens/Tasks/Task',
+            tagName: 'div',
+            className: 'task',
             events: {
                 'click .reset-count': 'resetTimer',
                 'click .delete-task': 'deleteTask',
@@ -11,8 +13,7 @@
             },
             modelEvents: {
                 'change:displayTime': 'renderTimer',
-                'change:isRunning': 'updateTimerControls',
-                'change:isVisible': 'toggleVisibility',
+                'change:isRunning': 'updateUI',
                 'change:isFiltered': 'toggleVisibility'
             },
             ui: {
@@ -26,7 +27,7 @@
 
                 // check to see if model is running, if so update to accomodate
                 this.model.toggleRunning();
-                this.updateTimerControls();
+                this.updateUI();
             },
             renderTimer: function() {
                 this.ui.$countContainer.html(this.model.get('displayTime'));
@@ -38,12 +39,14 @@
             toggleTimer: function() {
                 this.model.set('isRunning', !this.model.get('isRunning'));
             },
-            updateTimerControls: function() {
+            updateUI: function() {
                 if (this.model.get('isRunning')) {
                     this.ui.$toggleTimer.removeClass('fa-play').addClass('fa-pause');
                 } else {
                     this.ui.$toggleTimer.removeClass('fa-pause').addClass('fa-play');
                 }
+
+                this.$el.toggleClass('active', this.model.get('isRunning'));
             },
             resetTimer: function() {
                 this.model.clearCount();

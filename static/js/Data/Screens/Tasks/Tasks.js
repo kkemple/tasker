@@ -9,7 +9,6 @@
                 tags: [],
                 count: 0,
                 isRunning: false,
-                isVisible: true,
                 isFiltered: false,
                 createdAt: null
             },
