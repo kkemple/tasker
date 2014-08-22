@@ -16,7 +16,7 @@
                 iconClass: 'fa-dashboard',
                 anchorText: 'Dashboard',
                 initializer: function() {
-                    new DashboardLayout();
+                    return new DashboardLayout();
                 }
             });
         });
