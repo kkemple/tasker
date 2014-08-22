@@ -14,7 +14,7 @@ ___
 ___
 
 #### Installing Tasker
-In the directory you wish to install Tasker run `git clone git@github.com:kkemple/tasker.git tasker && cd tasker`
+In the terminal, navigate to the directory you wish to install Tasker run `git clone git@github.com:kkemple/tasker.git tasker && cd tasker`
 
 ___
 
