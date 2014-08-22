@@ -49,7 +49,9 @@
                     _(data.issues).each(function(issue) {
 
                         // exclude tickets that are closed and done
-                        if (issue.fields.status.name !== 'Closed' && issue.fields.status.name !== 'Done') {
+                        if (issue.fields.status.name !== 'Closed' &&
+                            issue.fields.status.name !== 'Done' &&
+                            issue.fields.status.name !== 'Resolved') {
                             tasks.push({
                                 key: issue.key,
                                 taskName: issue.fields.summary,

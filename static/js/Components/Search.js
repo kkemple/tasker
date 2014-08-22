@@ -49,6 +49,7 @@
             },
             updateActiveFilter: function() {
                 this.collection.setActive(this.$el.val());
+                this.collection.trigger('active:changed');
             }
         });
 
@@ -93,6 +94,9 @@
                     }
 
                     self.optionsCollection = new Filters(self.currentCollection.filters);
+
+                    self.listenTo(self.optionsCollection, 'active:changed', self.filterTasks);
+
                     self.optionsCollectionView = new FilterOptions({collection: self.optionsCollection});
                     self.filterContainer.show(self.optionsCollectionView);
 
