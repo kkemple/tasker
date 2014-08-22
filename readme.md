@@ -27,7 +27,7 @@ ___
 #### Starting the Server
 To start your server run `npm start` (After running the install script, this is the only step necessary to start Tasker)
 
-In Chrome navigate to `https://localhost:8888` and you will be up and running with Tasker!
+In Chrome navigate to `http://localhost:8888` and you will be up and running with Tasker!
 
 ___
 
