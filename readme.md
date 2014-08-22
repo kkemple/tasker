@@ -9,6 +9,7 @@ ___
 **You must use Chrome Browser to run this app!**
 **You must have Node.js installed to run this app!!**
 > If you do not have Node.js installed, you can get it [here](https://nodejs.org).
+
 ___
 
 #### Installing Tasker
