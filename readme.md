@@ -13,14 +13,14 @@ ___
 
 ___
 
-#### Installing Tasker
-In the terminal, navigate to the directory you wish to install Tasker run `git clone git@github.com:kkemple/tasker.git tasker && cd tasker`
+#### Cloning Tasker
+In the terminal, navigate to the directory you wish to install Tasker and run `git clone git@github.com:kkemple/tasker.git tasker && cd tasker`
 
 ___
 
-#### Running the Build Script
+#### Running the Install Script
 
-Now copy the following command in to the terminal to get the app set up `chmod 700 capture.sh && chmod 700 install.sh && ./install.sh`
+Copy the following command in to the terminal to get the app set up `chmod 700 capture.sh && chmod 700 install.sh && ./install.sh`
 
 ___
 
