@@ -26,9 +26,25 @@
             updateSettings: function(e) {
                 e.preventDefault();
 
-                this.model.set('username', this.ui.$username.val().trim());
-                this.model.set('password', this.ui.$password.val().trim());
-                this.model.set('jiraUrl', this.ui.$url.val().trim());
+                var data = {
+                    username: this.ui.$username.val().trim(),
+                    password: this.ui.$password.val().trim(),
+                    jiraUrl: this.ui.$url.val().trim(),
+                };
+
+                $.ajax({
+                    async: false,
+                    method: 'GET',
+                    dataType: 'json',
+                    url: '/encrypt',
+                    data: {password: data.password}
+                }).done(function(res) {
+                    data.password = res.password;
+                });
+
+                this.model.set('username', data.username);
+                this.model.set('password', data.password);
+                this.model.set('jiraUrl', data.jiraUrl);
                 this.model.set('hasLoginCreds', true);
                 this.model.save();
 

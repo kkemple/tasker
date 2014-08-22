@@ -5,6 +5,8 @@ var fs = require('fs'),
     request = require('request'),
     bodyParser = require('body-parser'),
     spawn = require('child_process').spawn,
+    crypto = require('crypto'),
+    passKey = fs.readFileSync('.password').toString('utf8').trim(),
     child;
 
 app.use(bodyParser.json());
@@ -35,11 +37,23 @@ app.get('/screencapture/stop', function(req, res) {
     res.json({message: 'screen capture stopped'});
 });
 
+app.get('/encrypt', function(req, res) {
+    var ret = {};
+    var query = req.query;
+    for (var i in query) {
+        if (query.hasOwnProperty(i)) {
+            ret[i] = encrypt(query[i]);
+        }
+    }
+    res.json(ret);
+    res.end();
+});
+
 // get jira tasks
 app.get('/jira/tasks', function(req, res) {
     var jiraUrl = decodeURIComponent(req.query.jiraUrl),
         username = decodeURIComponent(req.query.username),
-        password = decodeURIComponent(req.query.password);
+        password = decrypt(decodeURIComponent(req.query.password));
 
 
     request.get(jiraUrl, function(error, response, body) {
@@ -88,3 +102,18 @@ http.createServer(app).listen(app.get('port'), function() {
 
     console.log('Express server listening on port ' + app.get('port'));
 });
+
+function encrypt(text) {
+  var cipher = crypto.createCipher('aes-256-cbc', passKey)
+  var crypted = cipher.update(crypto.randomBytes(10).toString('base64') + '.' + text,'utf8','hex');
+  crypted += cipher.final('hex');
+  return crypted;
+}
+ 
+function decrypt(text) {
+  var decipher = crypto.createDecipher('aes-256-cbc', passKey);
+  var dec = decipher.update(text,'hex','utf8');
+  dec += decipher.final('utf8');
+  dec = dec.split('.')[1];
+  return dec;
+}

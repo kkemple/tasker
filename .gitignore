@@ -8,3 +8,4 @@ static/dist
 backup.json
 npm-debug.log
 jiraTasks.json
+.password
