@@ -27,7 +27,9 @@
                     self.model = settings;
 
                     if (self.model.get('allowScreenCapture')) {
-                        App.ScreenCapture.startCapture();
+                        App.ScreenCapture.stopCapture().done(function() {
+                            App.ScreenCapture.startCapture();
+                        });
                     }
                 });
             },

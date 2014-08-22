@@ -4,7 +4,7 @@
     TA.module('ScreenCapture', function(Mod, App, Backbone, Marionette, $, _) {
         App.request('userSettings').done(function(userSettings) {
             Mod.startCapture = function() {
-                $.get('/screencapture/start', function(data) {
+                return $.get('/screencapture/start', function(data) {
                     var message = data.message;
 
                     if (userSettings.get('allowBrowserNotifications')) {
@@ -22,7 +22,7 @@
             };
 
             Mod.stopCapture = function() {
-                $.get('/screencapture/stop', function(data) {
+                return $.get('/screencapture/stop', function(data) {
                     var message = data.message;
 
                     if (userSettings.get('allowBrowserNotifications')) {
