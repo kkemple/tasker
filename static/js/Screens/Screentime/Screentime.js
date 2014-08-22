@@ -4,7 +4,7 @@
     var DEFAULT_PAGE_SIZE = 150;
 
     TA.module('Screentime.Layout', function(Mod, App, Backbone, Marionette, $, _) {
-        var MainView = Marionette.Layout.extend({
+        var ScreentimeLayout = Marionette.Layout.extend({
             template: 'Screens/Screentime/Screentime',
             className: 'screentime',
             regions: {
@@ -52,7 +52,7 @@
                 iconClass: 'fa-laptop',
                 anchorText: 'Screentime',
                 initializer: function() {
-                    TA.execute('showScreen', new MainView());
+                    return new ScreentimeLayout();
                 }
             });
         });

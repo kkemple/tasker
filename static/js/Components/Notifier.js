@@ -43,7 +43,7 @@
                 if (document.hidden && this.userSettings.get('allowBrowserNotifications')) {
                     new Notification('Tasker', {
                         body: message,
-                        icon: 'img/time.png'
+                        icon: 'img/numbered-list.png'
                     });
                 } else {
                     TA.Growler.growl({
