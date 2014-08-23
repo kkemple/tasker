@@ -1,9 +1,41 @@
 ;(function(TA, Backbone, Marionette, $, _) {
     "use strict";
 
+    /**
+     * @module Data
+     * @namespace  TA
+     *
+     */
     TA.module('Data', function(Mod, App, Backbone, Marionette, $, _) {
 
+        /**
+         * ## DefaultTask
+         *
+         * The base Task Model class
+         *
+         * @class DefaultTask
+         * @constructor
+         * @namespace TA.Data
+         * @extends Backbone.Model
+         * @public
+         */
         var DefaultTask = Backbone.Model.extend({
+            initialize: function() {
+                var self = this;
+
+                this.buildDisplayTime();
+
+                this.on('change:isRunning', function() {
+                    self.toggleRunning();
+                });
+            },
+
+            /**
+             * Responsible for starting and stopping internal count for the model
+             *
+             * @method  toggleRunning
+             * @public
+             */
             toggleRunning: function() {
                 if (this.get('isRunning')) {
                     this.startCount();
@@ -11,6 +43,14 @@
                     this.stopCount();
                 }
             },
+
+            /**
+             * Responsible for clearing any interval running and then starting a new one,
+             * also responsible for adding the model to the Notifier module's activeTasks collection
+             *
+             * @method  startCount
+             * @public
+             */
             startCount: function() {
                 var self = this;
 
@@ -30,19 +70,42 @@
                 // add the model to the notifier list
                 App.Notifier.add(this);
             },
+
+            /**
+             * Responsible for clearing any interval running,
+             * also responsible for removing the model from the Notifier module's activeTasks collection
+             *
+             * @method  stopCount
+             * @public
+             */
             stopCount: function() {
+                this.set('isRunning', false);
                 clearInterval(this.get('timerId'));
                 this.save();
 
                 // remove the model from the notifier list
                 App.Notifier.remove(this);
             },
+
+            /**
+             * Responsible for clearing any interval running as well as clearing the internal count and updating display,
+             * also responsible for removing the model from the Notifier module's activeTasks collection (by calling the `stopCount()` method)
+             *
+             * @method  clearCount
+             * @public
+             */
             clearCount: function() {
-                this.set('isRunning', false);
                 this.set('count', 0);
                 this.buildDisplayTime();
-                this.save();
+                this.stopCount();
             },
+
+            /**
+             * Parses count in to human readable HH:mm:ss format
+             *
+             * @method  buildDisplayTime
+             * @public
+             */
             buildDisplayTime: function() {
                 var count = this.get('count');
 
@@ -61,6 +124,15 @@
 
                 this.set('displayTime', moment({hour: hours, minute: minutes, second: seconds}).format('HH:mm:ss'));
             },
+
+            /**
+             * Sugar for `!this.get('isFiltered')`
+             *
+             *     if (this.isViewable()) { ... }
+             *
+             * @method  isViewable
+             * @public
+             */
             isViewable: function() {
                 return !this.get('isFiltered');
             }

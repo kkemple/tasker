@@ -1,16 +1,37 @@
 ;(function(TA, Backbone, Marionette, $, _) {
     "use strict";
 
+    /**
+     * ## ScreenCapture
+     * The ScreenCapture module is responsible for handling screenshot captures for Screentime
+     *
+     * It has a `startCapture()` method and a `stopCapture()` method that are used to send the calls
+     * to the server to start and stop screen captures, they both return the promise for ajax request
+     *
+     *      TA.ScreenCapture.startCapture().done(function() { ... });
+     *
+     *      TA.ScreenCapture.stopCapture().done(function() { ... });
+     *
+     *
+     * @module ScreenCapture
+     * @constructor
+     * @namespace  TA
+     *
+     */
     TA.module('ScreenCapture', function(Mod, App, Backbone, Marionette, $, _) {
         App.request('userSettings').done(function(userSettings) {
+
             Mod.startCapture = function() {
-                return $.get('/screencapture/start', function(data) {
+                var promise = $.get('/screencapture/start');
+
+                promise.then(function(data) {
+
                     var message = data.message;
 
                     if (userSettings.get('allowBrowserNotifications')) {
-                        new Notification('Time Assistant', {
+                        new Notification('Tasker Alert', {
                             body: message,
-                            icon: 'img/time.png'
+                            icon: 'img/numbered-list.png'
                         });
                     }
 
@@ -19,16 +40,21 @@
                         speechSynthesis.speak(utterance);
                     }
                 });
+
+                return promise;
             };
 
             Mod.stopCapture = function() {
-                return $.get('/screencapture/stop', function(data) {
+                var promise = $.get('/screencapture/stop');
+
+                promise.then(function(data) {
+
                     var message = data.message;
 
                     if (userSettings.get('allowBrowserNotifications')) {
-                        new Notification('Time Assistant', {
+                        new Notification('Takser Alert', {
                             body: message,
-                            icon: 'img/time.png'
+                            icon: 'img/numbered-list.png'
                         });
                     }
 
@@ -37,6 +63,8 @@
                         speechSynthesis.speak(utterance);
                     }
                 });
+
+                return promise;
             };
         });
     });

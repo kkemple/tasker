@@ -1,8 +1,36 @@
 ;(function(TA, Backbone, Marionette, $, _) {
     "use strict";
 
+
+    /**
+     * ## Notifier
+     * The Notifier module is responsible for sending task notifications to the user
+     *
+     * It provides an `add()` method and a `remove()` method for updating the active tasks collection.
+     *
+     *      TA.Notifier.add(task);
+     *
+     *      TA.Notifier.remove(task);
+     *
+     *
+     * @module Notifier
+     * @namespace  TA
+     *
+     */
     TA.module('Notifier', function(Mod, App, Backbone, Marionette, $, _) {
 
+
+        /**
+         * ## ActiveTasks
+         *
+         * The collection of currently active tasks
+         *
+         * @class ActiveTasks
+         * @constructor
+         * @namespace TA.Notifier
+         * @extends Backbone.Collection
+         * @private
+         */
         var ActiveTasks = Backbone.Collection.extend({
             initialize: function() {
                 var self = this;
@@ -31,6 +59,13 @@
                     }
                 });
             },
+
+            /**
+             * Responsible for actually sending the notification to the user
+             *
+             * @method notify
+             * @public
+             */
             notify: function() {
                 var message;
 
@@ -58,6 +93,13 @@
                     speechSynthesis.speak(utterance);
                 }
             },
+
+            /**
+             * Responsible for starting the timer if not already running
+             *
+             * @method startNotificationTimer
+             * @public
+             */
             startNotificationTimer: function() {
                 var self = this;
 
@@ -68,6 +110,13 @@
                     this.isRunning = true;
                 }
             },
+
+            /**
+             * Responsible for stopping the timer if already running
+             *
+             * @method stopNotificationTimer
+             * @public
+             */
             stopNotificationTimer: function() {
                 if (this.isRunning) {
                     clearInterval(this.notificationTimerId);

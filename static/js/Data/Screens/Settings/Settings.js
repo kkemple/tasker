@@ -1,8 +1,26 @@
 ;(function(TA, Backbone, Marionette, $, _) {
     "use strict";
 
+    /**
+     * @module Data
+     * @namespace  TA
+     *
+     */
     TA.module('Data', function(Mod, App, Backbone, Marionette, $, _) {
 
+
+        /**
+         * ## Settings
+         *
+         * The model behind all App settings
+         *
+         *
+         * @class Settings
+         * @constructor
+         * @namespace TA.Data
+         * @extends Backbone.Model
+         * @private
+         */
         var Settings = Backbone.Model.extend({
             localStorage: new Backbone.LocalStorage('UserSettings'),
             defaults: {

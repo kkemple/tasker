@@ -13,6 +13,7 @@ build:
     - 'clean'
     - 'buildJS'
     - 'newer:less'
+    - 'yuidoc'
 dev:
     - 'newer:jshint:beforeconcat'
     - 'writeDevJsFiles'

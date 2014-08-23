@@ -1,7 +1,29 @@
 ;(function(TA, Backbone, Marionette, $, _) {
     "use strict";
 
+    /**
+     * ## Settings
+     * The Settings module is responsible tracking app settings, it is a screen level component
+     *
+     *
+     *
+     * @module Settings
+     * @namespace  TA
+     *
+     */
     TA.module('Settings', function(Mod, App, Backbone, Marionette, $, _) {
+
+        /**
+         * ## SettingsView
+         *
+         * The view created when the settings screen is activated
+         *
+         * @class SettingsView
+         * @constructor
+         * @namespace TA.Settings
+         * @extends Marionette.ItemView
+         * @private
+         */
         var SettingsView = Marionette.ItemView.extend({
             template: 'Widgets/Settings',
             className: 'settings-view',
@@ -33,6 +55,13 @@
                     }
                 });
             },
+
+            /**
+             * Responsible for setting the allowBrowserNotifications prop on model, and getting user permission
+             *
+             * @method setBrowserNotifications
+             * @public
+             */
             setBrowserNotifications: function() {
                 this.model.set('allowBrowserNotifications', !this.model.get('allowBrowserNotifications'));
                 this.model.save();
@@ -43,19 +72,47 @@
                     Notification.requestPermission();
                 }
             },
+
+            /**
+             * Responsible for setting allowVoiceNotifications prop on model
+             *
+             * @method setVoiceNotifications
+             * @public
+             */
             setVoiceNotifications: function() {
                 this.model.set('allowVoiceNotifications', !this.model.get('allowVoiceNotifications'));
                 this.model.save();
 
             },
+
+            /**
+             * Responsible for settings the notificationDuration prop on model
+             *
+             * @method setNotificationDuration
+             * @public
+             */
             setNotificationDuration: function() {
                 this.model.set('notificationDuration', this.$('#notification-duration').val());
                 this.model.save();
             },
+
+            /**
+             * Responsible for settings the backupDuration prop on model
+             *
+             * @method setBackupDuration
+             * @public
+             */
             setBackupDuration: function() {
                 this.model.set('backupDuration', this.$('#backup-duration').val());
                 this.model.save();
             },
+
+            /**
+             * Responsible for settings the allowScreenCapture prop on model
+             *
+             * @method setScreenCapture
+             * @public
+             */
             setScreenCapture: function() {
                 this.model.set('allowScreenCapture', !this.model.get('allowScreenCapture'));
                 this.model.save();
@@ -66,9 +123,23 @@
                     App.ScreenCapture.stopCapture();
                 }
             },
+
+            /**
+             * Responsible for calling the backup method on the Storage module
+             *
+             * @method backUpLocalStorage
+             * @public
+             */
             backUpLocalStorage: function() {
                 App.Storage.backup();
             },
+
+            /**
+             * Responsible for calling the restore method on the Storage module
+             *
+             * @method restoreLocalStorage
+             * @public
+             */
             restoreLocalStorage: function() {
                 App.Storage.restore();
             }

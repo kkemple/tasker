@@ -1,0 +1,22 @@
+<div>
+    <h3>Modules</h3>
+    <div id="sidebar">
+        <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+            <li class="active"><a href="#modules" data-toggle="tab">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" class="form-control" placeholder="Type to filter modules">
+        </div>
+
+        <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+            <div class="tab-pane active" id="modules">
+                <ul id="api-modules" class="nav nav-list">
+                    {{#allModules}}
+                        <li><a href="{{../projectRoot}}modules/{{name}}.html">{{displayName}}</a></li>
+                    {{/allModules}}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

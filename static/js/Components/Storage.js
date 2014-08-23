@@ -1,6 +1,24 @@
 ;(function(TA, Backbone, Marionette, $, _) {
     "use strict";
 
+    /**
+     * ## Storage
+     * The Storage module is responsible backing up and restoring localStorage data
+     *
+     * It has a `backup()` method responsible for gathering all localStorage data and sending it to the server
+     *
+     *      TA.Storage.backup();
+     *
+     * It has a `restore()` method responsible for fetching data from server and re-populating localStorage
+     *
+     *      TA.Storage.restore();
+     *
+     *
+     * @module Storage
+     * @namespace  TA
+     * @static
+     *
+     */
     TA.module('Storage', function(Mod, App, Backbone, Marionette, $, _) {
 
         Mod.backup = function() {

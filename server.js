@@ -4,6 +4,7 @@ var fs = require('fs'),
     http = require('http'),
     request = require('request'),
     bodyParser = require('body-parser'),
+    favicon = require('serve-favicon'),
     spawn = require('child_process').spawn,
     crypto = require('crypto'),
     passKey = fs.readFileSync('.password').toString('utf8').trim(),
@@ -11,17 +12,22 @@ var fs = require('fs'),
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/static'));
+app.use(favicon(__dirname + '/static/favicon.ico'));
 app.set('port', process.env.PORT || 8888);
 app.set('views', __dirname + '/express/views');
 
 
 // load app
 app.get('/', function(req, res) {
+    "use strict";
+
     res.render('index.ejs');
 });
 
 // start screencapture
 app.get('/screencapture/start', function(req, res) {
+    "use strict";
+
     child = spawn('bash', ['./capture.sh']);
     child.stdout.on('data', function(data) {
         console.log(data.toString());
@@ -31,6 +37,8 @@ app.get('/screencapture/start', function(req, res) {
 
 // stop screencapture
 app.get('/screencapture/stop', function(req, res) {
+    "use strict";
+
     if (child) {
         child.kill('SIGTERM');
     }
@@ -51,10 +59,11 @@ app.get('/encrypt', function(req, res) {
 
 // get jira tasks
 app.get('/jira/tasks', function(req, res) {
+    "use strict";
+
     var jiraUrl = decodeURIComponent(req.query.jiraUrl),
         username = decodeURIComponent(req.query.username),
         password = decrypt(decodeURIComponent(req.query.password));
-
 
     request.get(jiraUrl, function(error, response, body) {
         if (error) {
@@ -65,12 +74,9 @@ app.get('/jira/tasks', function(req, res) {
         res.end();
     }).auth(username, password, true);
 
-
     // fs.readFile('jiraTasks.json', 'utf-8', function(err, content) {
     //     res.json(content);
     // });
-
-
 });
 
 // log jira work
@@ -80,6 +86,8 @@ app.post('/jira/tasks/worklog', function(req, res) {
 
 // backup localstorage
 app.post('/app/backup', function(req, res) {
+    "use strict";
+
     fs.writeFile('backup.json', JSON.stringify(req.body), function(err) {
         if(err) {
             res.json(err);
@@ -91,6 +99,8 @@ app.post('/app/backup', function(req, res) {
 
 // restore localstorage from backup
 app.get('/app/backup', function(req, res) {
+    "use strict";
+
     fs.readFile('backup.json', 'utf-8', function(err, content) {
         res.json(content);
     });
@@ -109,7 +119,7 @@ function encrypt(text) {
   crypted += cipher.final('hex');
   return crypted;
 }
- 
+
 function decrypt(text) {
   var decipher = crypto.createDecipher('aes-256-cbc', passKey);
   var dec = decipher.update(text,'hex','utf8');
@@ -117,3 +127,4 @@ function decrypt(text) {
   dec = dec.split('.')[1];
   return dec;
 }
+
