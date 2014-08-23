@@ -113,13 +113,25 @@
                     deferred = new $.Deferred();
 
                 if (this.jiraSettings.get('hasLoginCreds')) {
-                    var jiraUrl = this.jiraSettings.get('jiraUrl') +
-                            'rest/api/2/search?jql=assignee=' +
-                            this.jiraSettings.get('username') +
-                            '&password=' +
-                            this.jiraSettings.get('password');
 
-                    $.get('jira/tasks?jiraUrl=' + encodeURIComponent(jiraUrl) + '&username=' + encodeURIComponent(this.jiraSettings.get('username')) + '&password=' + encodeURIComponent(this.jiraSettings.get('password')), function(data) {
+                    var data = {
+                        jiraUrl: this.jiraSettings.get('jiraUrl'),
+                        queryParams: [
+                            'rest/api/2/search?jql=assignee=',
+                            this.jiraSettings.get('username'),
+                            '&password=',
+                            this.jiraSettings.get('password')
+                        ].join(''),
+                        username: this.jiraSettings.get('username'),
+                        password: this.jiraSettings.get('password')
+                    };
+
+                    $.ajax({
+                        url: 'jira/tasks',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data)
+                    }).done(function(data) {
                         var jiraKeys = [];
 
                         _(self.parseJiraJSON(JSON.parse(data))).each(function(modelAttrs) {

@@ -60,7 +60,7 @@
 
                 var timerId = setInterval(function() {
                     self.set('count', self.get('count') + 1);
-                    self.buildDisplayTime();
+                    self.set('displayTime', self.buildDisplayTime('HH:mm:ss'));
                     self.save();
                 }, 1000);
 
@@ -106,7 +106,7 @@
              * @method  buildDisplayTime
              * @public
              */
-            buildDisplayTime: function() {
+            buildDisplayTime: function(formatter) {
                 var count = this.get('count');
 
                 if (count === 0) {
@@ -122,7 +122,11 @@
                 var divisor_for_seconds = divisor_for_minutes % 60;
                 var seconds = Math.ceil(divisor_for_seconds);
 
-                this.set('displayTime', moment({hour: hours, minute: minutes, second: seconds}).format('HH:mm:ss'));
+                if (formatter) {
+                   return moment({hour: hours, minute: minutes, second: seconds}).format(formatter);
+                } else {
+                    return {hour: hours, minute: minutes, second: seconds};
+                }
             },
 
             /**

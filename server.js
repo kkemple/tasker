@@ -8,7 +8,10 @@ var fs = require('fs'),
     spawn = require('child_process').spawn,
     crypto = require('crypto'),
     passKey = fs.readFileSync('.password').toString('utf8').trim(),
-    child;
+    child,
+    jiraUrl,
+    username,
+    password;
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/static'));
@@ -58,14 +61,15 @@ app.get('/encrypt', function(req, res) {
 });
 
 // get jira tasks
-app.get('/jira/tasks', function(req, res) {
+app.post('/jira/tasks', function(req, res) {
     "use strict";
 
-    var jiraUrl = decodeURIComponent(req.query.jiraUrl),
-        username = decodeURIComponent(req.query.username),
-        password = decrypt(decodeURIComponent(req.query.password));
+    var queryParams = req.body.queryParams;
+    jiraUrl = req.body.jiraUrl;
+    username = req.body.username;
+    password = decrypt(req.body.password);
 
-    request.get(jiraUrl, function(error, response, body) {
+    request.get(jiraUrl + queryParams, function(error, response, body) {
         if (error) {
             res.json(error);
             res.end();
@@ -82,6 +86,19 @@ app.get('/jira/tasks', function(req, res) {
 // log jira work
 app.post('/jira/tasks/worklog', function(req, res) {
 
+    request.post(jiraUrl + 'rest/api/2/issue/' + req.body.key + '/worklog', function(err, httpResponse, body) {
+
+        if (err) {
+            console.log(err);
+            res.json(err);
+        }
+
+        res.json({ message: 'Worklog saved for issue: ' + req.body.key, response: body });
+
+    }).json({
+        timeSpent: req.body.timeSpent,
+        comment: req.body.comment
+    }).auth(username, password, true);
 });
 
 // backup localstorage
