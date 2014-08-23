@@ -26,10 +26,16 @@
             updateSettings: function(e) {
                 e.preventDefault();
 
+                // check for trailing "/", if not found, add it
+                var url = this.ui.$url.val().trim();
+                var lastChar = url.substr(url.length - 1);
+
+                if (lastChar !== '/') { url += '/'; }
+
                 var data = {
                     username: this.ui.$username.val().trim(),
                     password: this.ui.$password.val().trim(),
-                    jiraUrl: this.ui.$url.val().trim(),
+                    jiraUrl: url,
                 };
 
                 $.ajax({
