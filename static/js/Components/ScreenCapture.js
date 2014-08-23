@@ -6,7 +6,7 @@
      * The ScreenCapture module is responsible for handling screenshot captures for Screentime
      *
      * It has a `startCapture()` method and a `stopCapture()` method that are used to send the calls
-     * to the server to start and stop screen, they both return the promise for ajax request
+     * to the server to start and stop screen captures, they both return the promise for ajax request
      *
      *      TA.ScreenCapture.startCapture().done(function() { ... });
      *
@@ -21,13 +21,6 @@
     TA.module('ScreenCapture', function(Mod, App, Backbone, Marionette, $, _) {
         App.request('userSettings').done(function(userSettings) {
 
-            /**
-             * Responsible for sending the call to server to start screen captures
-             *
-             * @method  startCapture
-             * @return {Promise} the jQuery ajax promise
-             * @for ScreenCapture
-             */
             Mod.startCapture = function() {
                 var promise = $.get('/screencapture/start');
 
@@ -36,9 +29,9 @@
                     var message = data.message;
 
                     if (userSettings.get('allowBrowserNotifications')) {
-                        new Notification('Time Assistant', {
+                        new Notification('Tasker Alert', {
                             body: message,
-                            icon: 'img/time.png'
+                            icon: 'img/numbered-list.png'
                         });
                     }
 
@@ -51,13 +44,6 @@
                 return promise;
             };
 
-            /**
-             * Responsible for sending the call to server to stop screen captures
-             *
-             * @method  stopCapture
-             * @return {Promise} the jQuery ajax promise
-             * @for ScreenCapture
-             */
             Mod.stopCapture = function() {
                 var promise = $.get('/screencapture/stop');
 
@@ -66,9 +52,9 @@
                     var message = data.message;
 
                     if (userSettings.get('allowBrowserNotifications')) {
-                        new Notification('Time Assistant', {
+                        new Notification('Takser Alert', {
                             body: message,
-                            icon: 'img/time.png'
+                            icon: 'img/numbered-list.png'
                         });
                     }
 

@@ -5,6 +5,14 @@
      * ## Storage
      * The Storage module is responsible backing up and restoring localStorage data
      *
+     * It has a `backup()` method responsible for gathering all localStorage data and sending it to the server
+     *
+     *      TA.Storage.backup();
+     *
+     * It has a `restore()` method responsible for fetching data from server and re-populating localStorage
+     *
+     *      TA.Storage.restore();
+     *
      *
      * @module Storage
      * @namespace  TA
@@ -13,13 +21,6 @@
      */
     TA.module('Storage', function(Mod, App, Backbone, Marionette, $, _) {
 
-        /**
-         * Responsible for gathering all localStorage data and sending it to the server
-         *
-         * @method  backup
-         * @public
-         * @for  Storage
-         */
         Mod.backup = function() {
             var data = {},
                 keys = Object.keys(localStorage);
@@ -41,13 +42,6 @@
             });
         };
 
-        /**
-         * Responsible for fetching data from server and re-populating localStorage
-         *
-         * @method  restore
-         * @public
-         * @for  Storage
-         */
         Mod.restore = function() {
             var GrowlExtender = Marionette.ItemView.extend({
                 template: _.template('<button class="btn btn-block btn-success">Reload Page</button>'),

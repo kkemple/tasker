@@ -11,15 +11,14 @@
      *
      *      // or
      *
-     *      var screens = App.request('screens');
+     *      var screens = App.request('screens'); // gives the main instance, shared across app
      *
      *
      * Any data class that pulls from local storage or other endpoints will return a promise when requested,
      * the deferred is resolved with the data class once it has fetched the latest data
      *
-     *      App.request('someDataClass').done(function(someCollection) { ... });
+     *      App.request('someCollectionOrModel').done(function(someCollectionOrModel) { ... });
      *
-     * If you need to extend a Data Class you can attach it
      *
      * @module Data
      * @namespace  TA
@@ -38,7 +37,7 @@
          * @constructor
          * @namespace TA.Data
          * @extends Backbone.Model
-         * @private
+         * @public
          */
         var Screen = Backbone.Model.extend({
             defaults: {
@@ -92,7 +91,7 @@
          * @constructor
          * @namespace TA.Data
          * @extends Backbone.Collection
-         * @private
+         * @public
          */
         var Screens = Backbone.Collection.extend({
             model: Screen,

@@ -5,6 +5,10 @@
      * ## Search
      * The Search module is responsible for handling all task searches
      *
+     * It has a `get()` method that will return an instance of SearchView, it takes no options
+     *
+     *      var search = TA.Search.get();
+     *      someLayout.someRegion.show(search);
      *
      * @module Search
      * @namespace  TA
@@ -238,14 +242,6 @@
             }
         });
 
-        /**
-         * Returns an instance of the SearchView
-         *
-         * @method  get
-         * @return {SearchView}  The search view instance
-         * @public
-         * @for Search
-         */
         Mod.get = function() {
             return new SearchView();
         };

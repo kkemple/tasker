@@ -1,7 +1,24 @@
 ;(function(TA, Backbone, Marionette, $, _) {
     "use strict";
 
-    TA.module("Data.Screentime", function(Mod, App, Backbone, Marionette, $, _){
+    /**
+     * @module Data
+     * @namespace  TA
+     *
+     */
+    TA.module("Data", function(Mod, App, Backbone, Marionette, $, _){
+
+        /**
+         * ## Screenshot
+         *
+         * The model behind each screen capture
+         *
+         * @class Screenshot
+         * @constructor
+         * @namespace TA.Data
+         * @extends Backbone.Model
+         * @public
+         */
         var Screenshot = Backbone.Model.extend({
             defaults: {
                 src: null,
@@ -23,7 +40,19 @@
             }
         });
 
+        /**
+         * ## ScreenshotCollection
+         *
+         * The collection of screen capture models
+         *
+         * @class ScreenshotCollection
+         * @constructor
+         * @namespace TA.Data
+         * @extends Backbone.Collection
+         * @public
+         */
         var ScreenshotCollection = Backbone.Collection.extend({
+            localStorage: new Backbone.LocalStorage('Screenshots'),
             model: Screenshot,
             comparitor: function(model) {
                 return model.get('moment').unix();
@@ -33,6 +62,17 @@
             }
         });
 
+        /**
+         * ## Activity
+         *
+         * The model behind each group of screen captures (or ScreenshotCollection instance)
+         *
+         * @class Activity
+         * @constructor
+         * @namespace TA.Data
+         * @extends Backbone.Model
+         * @public
+         */
         var Activity = Backbone.Model.extend({
             defaults: {
                 screenshots: null,
@@ -54,17 +94,48 @@
             }
         });
 
+        /**
+         * ## ActivityCollection
+         *
+         * The collection of activity models (groups of screen shots)
+         *
+         * @class ActivityCollection
+         * @constructor
+         * @namespace TA.Data
+         * @extends Backbone.Model
+         * @public
+         */
         var ActivityCollection = Backbone.Collection.extend({
-            model: Activity
+            model: Activity,
+            localStorage: new Backbone.LocalStorage('ScreenshotActivities')
         });
 
-        // TODO: make more like a namespace
+        var screenshotCollection = new ScreenshotCollection();
+        App.reqres.setHandler('screenshots', function() {
+            var deferred = new $.Deferred();
+
+            screenshotCollection.fetch().always(function() {
+                deferred.resolve(screenshotCollection);
+            });
+
+            return deferred.promise();
+        });
+
+        var activityCollection = new ActivityCollection();
+        App.reqres.setHandler('activities', function() {
+            var deferred = new $.Deferred();
+
+            activityCollection.fetch().always(function() {
+                deferred.resolve(activityCollection);
+            });
+
+            return deferred.promise();
+        });
+
         Mod.Screenshot = Screenshot;
         Mod.ScreenshotCollection = ScreenshotCollection;
-        Mod.screenshotCollection = new ScreenshotCollection();
 
         Mod.Activity = Activity;
         Mod.ActivityCollection = ActivityCollection;
-        Mod.activityCollection = new ActivityCollection();
     });
 })(TA, Backbone, Marionette, jQuery, _);

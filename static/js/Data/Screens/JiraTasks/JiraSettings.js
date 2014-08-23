@@ -18,7 +18,7 @@
          * @constructor
          * @namespace TA.Data
          * @extends Backbone.Model
-         * @private
+         * @public
          */
         var JiraSettings = Backbone.Model.extend({
             localStorage: new Backbone.LocalStorage('JiraSettings'),

@@ -18,7 +18,7 @@
          * @constructor
          * @namespace TA.Data
          * @extends Data.DefaultTask
-         * @private
+         * @public
          */
         var JiraTask = Mod.DefaultTask.extend({
             defaults: {
@@ -36,6 +36,17 @@
             }
         });
 
+        /**
+         * ## JiraTasks
+         *
+         * The collection of all JIRA tasks
+         *
+         * @class JiraTasks
+         * @constructor
+         * @namespace TA.Data
+         * @extends Backbone.Collection
+         * @public
+         */
         var JiraTasks = Backbone.Collection.extend({
             localStorage: new Backbone.LocalStorage('JiraTaskCollection'),
             model: JiraTask,
@@ -50,6 +61,15 @@
 
                 this.jiraSettings = options.jiraSettings;
             },
+
+            /**
+             * Responsible for parsing return JSON from JIRA to mutate to a jira task config object
+             *
+             * @method  parseJiraJSON
+             * @param  {JSON} data the return JSON from JIRA
+             * @return {Array}      an array of mutated objects ready to be added to a JiraTasks collection
+             * @public
+             */
             parseJiraJSON: function(data) {
                 var self = this,
                     tasks = [];
@@ -80,6 +100,14 @@
 
                 return tasks;
             },
+
+            /**
+             * Responsible for fetching JIRA tasks JSON, and adding return tasks to the collection
+             *
+             * @method  fetchJiraJSON
+             * @return {Promise} a promise that is resolved once the tasks have been parsed and added to the collection
+             * @public
+             */
             fetchJiraJSON: function() {
                 var self = this,
                     deferred = new $.Deferred();
@@ -128,6 +156,16 @@
 
                 return deferred.promise();
             },
+
+            /**
+             * Responsible for setting the `isFiltered` property on it's models,
+             * determined by the filter type (model property), and the filter term (what to match)
+             *
+             * @method  filterTasks
+             * @param  {String} filter the model property to check against
+             * @param  {String} term   the string to match agains model property
+             * @public
+             */
             filterTasks: function(filter, term) {
 
                 this.each(function(model) {
@@ -159,6 +197,7 @@
             });
         });
 
+        Mod.JiraTask = JiraTask;
         Mod.JiraTasks = JiraTasks;
 
     });

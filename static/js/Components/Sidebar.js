@@ -6,6 +6,8 @@
      * ## Sidebar
      * The Sidebar module is responsible displaying the sidebar view
      *
+     * The sidebar instance is added to `App.sidebar` region in an initializer,
+     * it listens to the `App.router` for `route` events, and updates the links active states accordingly
      *
      * @module Sidebar
      * @namespace  TA

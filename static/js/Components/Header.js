@@ -5,7 +5,7 @@
      * ## Header
      * The Header module is responsible displaying the header and search views
      *
-     * The header instance is added to `App.header` region in an initializer
+     * The header instance is added to the `App.header` region in an initializer
      *
      * @module Header
      * @namespace  TA

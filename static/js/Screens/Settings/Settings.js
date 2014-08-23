@@ -3,7 +3,8 @@
 
     /**
      * ## Settings
-     * The Settings module is responsible tracking app settings
+     * The Settings module is responsible tracking app settings, it is a screen level component
+     *
      *
      *
      * @module Settings

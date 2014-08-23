@@ -3,7 +3,7 @@
 
     var DEFAULT_PAGE_SIZE = 150;
 
-    TA.module('Screentime.Layout', function(Mod, App, Backbone, Marionette, $, _) {
+    TA.module('Screentime', function(Mod, App, Backbone, Marionette, $, _) {
         var ScreentimeLayout = Marionette.Layout.extend({
             template: 'Screens/Screentime/Screentime',
             className: 'screentime',
@@ -15,21 +15,24 @@
                 var self = this;
 
                 $.get('/img/screens/screens-list.txt').done(function(data) {
-                    var imageArr = _(data.split("\n")).compact().map(function(item) { return 'img/screens/thumbs/' + item; });
+                    var imageArr = _(data.split("\n")).compact().map(function(item) { return 'img/screens/thumbs/' + item; }),
+                        currentImages = imageArr.slice(-DEFAULT_PAGE_SIZE),
+                        imgs = _(currentImages).map(function(item, i) { return { src: item, globalIndex: i }; });
 
-                    var currentImages = imageArr.slice(-DEFAULT_PAGE_SIZE);
-                    var imgs = _(currentImages).map(function(item, i) { return { src: item, globalIndex: i }; });
+                    App.request('screenshots').done(function(screenshots) {
+                        screenshots.set(imgs);
 
-                    App.Data.Screentime.screenshotCollection.set(imgs);
+                        var currentActivities = screenshots.groupBy(function(item) {
+                            return item.get('moment').format('YYYY-MM-DD HH');
+                        });
 
-                    var activities = App.Data.Screentime.screenshotCollection.groupBy(function(item) {
-                        // TODO: be smarter about grouping?
-                        return item.get('moment').format('YYYY-MM-DD HH');
+                        currentActivities = _(currentActivities).map(function(item) { return { screenshots: item }; });
+
+                        App.request('activities').done(function(activities) {
+                            activities.set(currentActivities);
+                            self.activitiesRegion.show(new Mod.ActivityGroup({collection: activities}));
+                        });
                     });
-                    activities = _(activities).map(function(item) { return { screenshots: item }; });
-                    App.Data.Screentime.activityCollection.set(activities);
-
-                    self.activitiesRegion.show(new TA.Screentime.ActivityGroup({collection: App.Data.Screentime.activityCollection}));
                 });
 
                 // setup prev/next buttons on modal.
