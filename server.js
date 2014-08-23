@@ -51,7 +51,6 @@ app.get('/jira/tasks', function(req, res) {
         username = decodeURIComponent(req.query.username),
         password = decodeURIComponent(req.query.password);
 
-
     request.get(jiraUrl, function(error, response, body) {
         if (error) {
             res.json(error);
@@ -60,7 +59,6 @@ app.get('/jira/tasks', function(req, res) {
         res.json(body);
         res.end();
     }).auth(username, password, true);
-
 
     // fs.readFile('jiraTasks.json', 'utf-8', function(err, content) {
     //     res.json(content);

@@ -99,6 +99,14 @@
 
                             if (!model) {
                                 self.add(modelAttrs, {merge: true});
+                            } else {
+                                model.set({
+                                    priority: modelAttrs.priority,
+                                    status: modelAttrs.status,
+                                    taskName: modelAttrs.taskName,
+                                    project: modelAttrs.project
+                                });
+                                model.save();
                             }
 
                             jiraKeys.push(modelAttrs.key);

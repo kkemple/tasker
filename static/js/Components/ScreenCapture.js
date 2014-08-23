@@ -32,6 +32,7 @@
                 var promise = $.get('/screencapture/start');
 
                 promise.then(function(data) {
+
                     var message = data.message;
 
                     if (userSettings.get('allowBrowserNotifications')) {
@@ -61,6 +62,7 @@
                 var promise = $.get('/screencapture/stop');
 
                 promise.then(function(data) {
+
                     var message = data.message;
 
                     if (userSettings.get('allowBrowserNotifications')) {
