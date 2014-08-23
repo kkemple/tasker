@@ -1,16 +1,55 @@
 ;(function(TA, Backbone, Marionette, $, _) {
     "use strict";
 
+    /**
+     * ## Search
+     * The Search module is responsible for handling all task searches
+     *
+     *
+     * @module Search
+     * @namespace  TA
+     *
+     */
     TA.module('Search', function(Mod, App, Backbone, Marionette, $, _) {
 
-        var Filter = Backbone.Model.extend({
+        /**
+         * ## FilterModel
+         *
+         * The model behind each filter option view
+         *
+         * @class FilterModel
+         * @constructor
+         * @namespace TA.Search
+         * @extends Backbone.Model
+         * @private
+         */
+        var FilterModel = Backbone.Model.extend({
             defaults: {
                 isActive: false
             }
         });
 
-        var Filters = Backbone.Collection.extend({
-            model: Filter,
+        /**
+         * ## FiltersCollection
+         *
+         * The collection behind each growl collection view
+         *
+         * @class FiltersCollection
+         * @constructor
+         * @namespace TA.Search
+         * @extends Backbone.Collection
+         * @private
+         */
+        var FiltersCollection = Backbone.Collection.extend({
+            model: FilterModel,
+
+            /**
+             * Responsible for updating the isActive flag on the model
+             * with the id that matches the value passed in
+             *
+             * @method  setActive
+             * @param {String} val the value/id of the filter option to set active
+             */
             setActive: function(val) {
                 this.each(function(model) {
                     if (model.get('id') === val) {
@@ -22,6 +61,17 @@
             }
         });
 
+        /**
+         * ## FilterOption
+         *
+         * The view created when a new FilterModel is added to the FiltersCollection
+         *
+         * @class FilterOption
+         * @constructor
+         * @namespace TA.Search
+         * @extends Marionette.ItemView
+         * @private
+         */
         var FilterOption = Marionette.ItemView.extend({
             template: 'Widgets/SearchFilterOption',
             tagName: 'option',
@@ -36,6 +86,17 @@
             }
         });
 
+        /**
+         * ## FilterOptions
+         *
+         * The view that contains all current filter options
+         *
+         * @class FilterOptions
+         * @constructor
+         * @namespace TA.Search
+         * @extends Marionette.CollectionView
+         * @private
+         */
         var FilterOptions = Marionette.CollectionView.extend({
             tagName: 'select',
             id: 'tasks-search-filter',
@@ -47,12 +108,29 @@
             onRender: function() {
                 this.updateActiveFilter();
             },
+
+            /**
+             * Responsible for letting the FiltersCollection instance know that a new option has been selected
+             *
+             * @method  updateActiveFilter
+             * @public
+             */
             updateActiveFilter: function() {
                 this.collection.setActive(this.$el.val());
                 this.collection.trigger('active:changed');
             }
         });
 
+        /**
+         * ## SearchView
+         *
+         * The layout that is rendered when a search view is requested
+         *
+         * @class  SearchView
+         * @namespace TA.Search
+         * @extends Marionette.Layout
+         * @private
+         */
         var SearchView = Marionette.Layout.extend({
             template: 'Widgets/Search',
             tagName: 'span',
@@ -79,6 +157,14 @@
                     }
                 });
             },
+
+            /**
+             * Responsible for running a search
+             *
+             * @method initSearch
+             * @param  {String} route the route that triggered initSearch to be fired
+             * @public
+             */
             initSearch: function(route) {
                 var self = this;
 
@@ -93,7 +179,7 @@
                         self.currentCollection = self.jiraTasksCollection;
                     }
 
-                    self.optionsCollection = new Filters(self.currentCollection.filters);
+                    self.optionsCollection = new FiltersCollection(self.currentCollection.filters);
 
                     self.listenTo(self.optionsCollection, 'active:changed', self.filterTasks);
 
@@ -108,10 +194,25 @@
                     }
                 });
             },
+
+            /**
+             * Responsible for updating form values
+             *
+             * @method updateForm
+             * @public
+             */
             updateForm: function(activeSearch) {
                 this.ui.$search.val(activeSearch.term);
                 this.optionsCollection.setActive(activeSearch.filter);
             },
+
+            /**
+             * Responsible for prepping form data and passing to collection fitlerTasks method
+             *
+             * @method  filterTasks
+             * @param  {Event} e the DOM event object
+             * @public
+             */
             filterTasks: function(e) {
                 var self = this;
 
@@ -137,9 +238,16 @@
             }
         });
 
-        Mod.get = function(model) {
-            model = model || App.Data.Search;
-            return new SearchView({model: model});
+        /**
+         * Returns an instance of the SearchView
+         *
+         * @method  get
+         * @return {SearchView}  The search view instance
+         * @public
+         * @for Search
+         */
+        Mod.get = function() {
+            return new SearchView();
         };
     });
 })(TA, Backbone, Marionette, jQuery, _);

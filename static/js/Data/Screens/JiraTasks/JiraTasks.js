@@ -1,7 +1,25 @@
 ;(function(TA, Backbone, Marionette, jQuery, _) {
     "use strict";
 
+
+    /**
+     * @module Data
+     * @namespace  TA
+     *
+     */
     TA.module('Data', function(Mod, App, Backbone, Marionette, $, _) {
+
+        /**
+         * ## JiraTask
+         *
+         * The model behind each JIRA task
+         *
+         * @class JiraTask
+         * @constructor
+         * @namespace TA.Data
+         * @extends Data.DefaultTask
+         * @private
+         */
         var JiraTask = Mod.DefaultTask.extend({
             defaults: {
                 key: '',
@@ -13,19 +31,9 @@
                 isRunning: false,
                 isVisible: true,
                 isFiltered: false,
-                created: ''
-            },
-            initialize: function(attrs) {
-                var self = this;
-
-                //this.id = attrs.key;
-
-                this.buildDisplayTime();
-
-                this.on('change:isRunning', function() {
-                    self.toggleRunning();
-                });
-            },
+                created: '',
+                jiraUrl: ''
+            }
         });
 
         var JiraTasks = Backbone.Collection.extend({
@@ -43,7 +51,8 @@
                 this.jiraSettings = options.jiraSettings;
             },
             parseJiraJSON: function(data) {
-                var tasks = [];
+                var self = this,
+                    tasks = [];
 
                 if (data && data.issues) {
                     _(data.issues).each(function(issue) {
@@ -53,6 +62,9 @@
                             issue.fields.status.name !== 'Done' &&
                             issue.fields.status.name !== 'Resolved') {
                             tasks.push({
+                                jiraId: issue.id,
+                                jiraApiUrl: issue.self,
+                                jiraUrl: self.jiraSettings.get('jiraUrl') + 'browse/' + issue.key,
                                 key: issue.key,
                                 taskName: issue.fields.summary,
                                 status: issue.fields.status.name,

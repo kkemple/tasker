@@ -11,17 +11,6 @@
                 isRunning: false,
                 isFiltered: false,
                 createdAt: null
-            },
-            initialize: function(attrs) {
-                var self = this;
-
-                this.id = attrs.taskName.replace(' ', '').toLowerCase().trim();
-
-                this.buildDisplayTime();
-
-                this.on('change:isRunning', function() {
-                    self.toggleRunning();
-                });
             }
         });
 

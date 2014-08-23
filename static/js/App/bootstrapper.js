@@ -16,7 +16,6 @@
         return template;
     };
 
-    // create our app object
     var TA = new Marionette.Application();
 
     // add our app regions

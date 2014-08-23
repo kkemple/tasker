@@ -4,6 +4,15 @@
     TA.module('Data', function(Mod, App, Backbone, Marionette, $, _) {
 
         var DefaultTask = Backbone.Model.extend({
+            initialize: function() {
+                var self = this;
+
+                this.buildDisplayTime();
+
+                this.on('change:isRunning', function() {
+                    self.toggleRunning();
+                });
+            },
             toggleRunning: function() {
                 if (this.get('isRunning')) {
                     this.startCount();

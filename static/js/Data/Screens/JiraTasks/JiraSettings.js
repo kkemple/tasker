@@ -1,7 +1,25 @@
 ;(function(TA, Backbone, Marionette, jQuery, _) {
     "use strict";
 
+    /**
+     * @module Data
+     * @namespace  TA
+     *
+     */
     TA.module('JIRA', function(Mod, App, Backbone, Marionette, $, _) {
+
+        /**
+         * ## JiraSettings
+         *
+         * The model behind all App settings
+         *
+         *
+         * @class JiraSettings
+         * @constructor
+         * @namespace TA.Data
+         * @extends Backbone.Model
+         * @private
+         */
         var JiraSettings = Backbone.Model.extend({
             localStorage: new Backbone.LocalStorage('JiraSettings'),
             defaults: {

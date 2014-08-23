@@ -1,8 +1,45 @@
 ;(function(TA, Backbone, Marionette, $, _) {
     "use strict";
 
+    /**
+     * ## Data
+     * The Data module is responsible for handling all data
+     *
+     * All data classes can be accessed through namespacing or for an updated instance, through an `App.request()` call
+     *
+     *      var screens = new App.Data.Screens();
+     *
+     *      // or
+     *
+     *      var screens = App.request('screens');
+     *
+     *
+     * Any data class that pulls from local storage or other endpoints will return a promise when requested,
+     * the deferred is resolved with the data class once it has fetched the latest data
+     *
+     *      App.request('someDataClass').done(function(someCollection) { ... });
+     *
+     * If you need to extend a Data Class you can attach it
+     *
+     * @module Data
+     * @namespace  TA
+     *
+     */
     TA.module('Data', function(Mod, App, Backbone, Marionette, $, _) {
 
+        /**
+         * ## Screen
+         *
+         * The model behind each screen, screens are registered with the App
+         *
+         *      App.execute('registerScreen', { ... });
+         *
+         * @class Screen
+         * @constructor
+         * @namespace TA.Data
+         * @extends Backbone.Model
+         * @private
+         */
         var Screen = Backbone.Model.extend({
             defaults: {
                 position: 0,
@@ -46,6 +83,17 @@
             }
         });
 
+        /**
+         * ## Screens
+         *
+         * The collection of all registered screens
+         *
+         * @class Screens
+         * @constructor
+         * @namespace TA.Data
+         * @extends Backbone.Collection
+         * @private
+         */
         var Screens = Backbone.Collection.extend({
             model: Screen,
             comparator: function(model) {

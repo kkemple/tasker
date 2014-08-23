@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Docs: {{htmlTitle}}</title>
+    <link rel="stylesheet" href="{{yuiGridsUrl}}">
+    <link rel="stylesheet" href="{{projectAssets}}/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="{{projectAssets}}/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="{{projectAssets}}/css/custom.css">
+    <link rel="stylesheet" href="{{projectAssets}}/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="{{projectAssets}}/vendor/bootstrap/css/bootstrap-responsive.css">
+    <link rel="shortcut icon" type="image/png" href="{{projectAssets}}/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+
+<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/docs/">Tasker - Docs</a>
+    </div>
+  </div><!-- /.container -->
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+	    {{>sidebar}}
+        </div>
+        <div class="col-sm-9">
+            {{>options}}
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        {{>layout_content}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="{{projectAssets}}/vendor/twitter/typeahead.js"></script>
+<script src="{{projectAssets}}/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="{{projectAssets}}/vendor/prettify/prettify-min.js"></script>
+<script src="{{projectAssets}}/js/yuidoc-bootstrap.js"></script>
+<script>
+    $( 'pre' ).addClass( 'linenums' );
+    prettyPrint();
+</script>
+</body>
+</html>
