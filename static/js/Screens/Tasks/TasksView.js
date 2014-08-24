@@ -10,6 +10,9 @@
             collectionEvents: {
                 'add remove': 'renderTotal updateVisibility',
             },
+            events: {
+                'click .export': 'exportTasks'
+            },
             ui: {
                 $badge: '.tasks-title .badge'
             },
@@ -27,6 +30,16 @@
                     this.$el.show();
                 }
             },
+            exportTasks: function() {
+                var json = this.collection.toJSON(),
+                    url = 'data:text/json;charset=utf8,' + JSON.stringify(json),
+                    link = document.createElement("a");
+
+                link.setAttribute("href", url);
+                link.setAttribute("download", "tasks.json");
+
+                link.click();
+            }
         });
 
         Mod.TasksView = TasksView;

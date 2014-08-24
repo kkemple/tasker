@@ -6,7 +6,8 @@
             events: {
                 'click button[type="submit"]': 'createTask',
                 'blur #task-name': 'clearErrors',
-                'click .toggle-add-task': 'toggleForm'
+                'click .toggle-add-task': 'toggleForm',
+                'change .import': 'importTasks'
             },
             ui: {
                 $taskName: '#task-name',
@@ -64,6 +65,23 @@
             toggleVisibility: function() {
                 var upDown = (this.isVisible) ? 'Down' : 'Up';
                 this.ui.$addTaskForm['slide' + upDown]();
+            },
+            importTasks: function(e) {
+                var self = this,
+                    files = e.target.files;
+
+
+                _(files).each(function(file) {
+                    if (file.type.match('application/json')) {
+
+                        var reader = new FileReader();
+                        reader.onload = function(event) {
+                            self.taskCollection.set(JSON.parse(event.target.result));
+                        };
+
+                        reader.readAsText(file);
+                    }
+                });
             }
         });
 
