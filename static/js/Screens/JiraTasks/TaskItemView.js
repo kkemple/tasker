@@ -52,6 +52,8 @@
 
                     $target.removeClass('fa-spin');
                     console.log('Worklog saved for task: ' + self.model.get('key'), data.response);
+
+                    self.model.clearCount();
                 });
             }
         });
