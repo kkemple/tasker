@@ -61,7 +61,7 @@
             toggleNote: function() {
                 if (!this.todaysJiraTasks.length && !this.todaysCustomTasks.length) {
                     var view = new Marionette.ItemView({
-                        template: _.template('<h3>Mark some tasks for today by clicking the star in the actions.')
+                        template: _.template('<h3>Mark some tasks for today by clicking the calendar.')
                     });
 
                     this.note.show(view);
