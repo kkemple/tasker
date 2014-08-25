@@ -8,7 +8,7 @@ In Tasker, there are multiple ways data is passed about and stored. The reason f
 
 App settings, tasks, and JIRA login info are stored in localStorage. JIRA tasks get stored but are updated from the latest info from JIRA every time you navigate to the `JIRA Tasks` page.
 
-You can back up localStorage at any point by going to the `App Settings` and clicking the `Backup Localstorage` button.
+You can back up localStorage at any point by going to the `App Settings` and clicking the `Backup Localstorage` button. localStorage is also backed up regularly autonomously.
 
 This information is backed up to `backup.json` in the root dir of the Tasker install.
 
