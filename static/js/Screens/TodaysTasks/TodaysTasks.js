@@ -6,10 +6,11 @@
 
         var TodaysTasksLayout = Marionette.Layout.extend({
             template: 'Screens/TodaysTasks/TodaysTasks',
+            className: 'todays-tasks',
             regions: {
                 note: '.note',
-                jira: '.jira-tasks',
-                custom: '.custom-tasks'
+                jira: '.jira-tasks-today',
+                custom: '.custom-tasks-today'
             },
             onRender: function() {
                 var self = this;
@@ -35,7 +36,7 @@
 
 
 
-                        self.todaysJiraTasks.on('change:today', function() {
+                        self.listenTo(self.todaysJiraTasks, 'change:today', function() {
                             self.todaysJiraTasks = new App.Data.JiraTasks(jiraTasks.where({today: true}), {jiraSettings: jiraSettings});
 
                             jiraTasksView = new App.Screens.JIRA.TasksView({collection: self.todaysJiraTasks});
@@ -44,7 +45,7 @@
                             self.toggleNote();
                         });
 
-                        self.todaysCustomTasks.on('change:today', function() {
+                        self.listenTo(self.todaysCustomTasks, 'change:today', function() {
                             self.todaysCustomTasks = new App.Data.Tasks(tasks.where({today: true}));
 
                             tasksView = new App.Screens.Tasks.TasksView({collection: self.todaysCustomTasks});
