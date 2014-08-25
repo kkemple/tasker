@@ -17,5 +17,5 @@ Tasker provides desktop, voice, and in app notifications set to a duration of yo
 
 - JIRA integration: Simply log in to your JIRA instance (login for is on the `JIRA Tasks` page) and all JIRA tasks assigned to you that are not (Closed|Done|Resolved) will be pulled in for you. Not only that but you can post worklogs to JIRA! Simply click the rocket icon in the actions section and away your worklog goes!
 
-- Screentime integration: Sometimes you can forget to even start tracking your time. Have no fear, <a href="https://github.com/sprugman/screentime" target="_blank">Screentime</a>
+- Screentime integration: Sometimes you can forget to even start tracking your time. Have no fear, <a href="https://github.com/sprugman/screentime" target="_blank">Screentime</a> can help with that! It will capture screenshots of your desktop so you can reference them later. Don't worry, the screenshots are local and never leave your computer, for more info head over to the <a href="https://github.com/sprugman/screentime" target="_blank">repo</a> and read up on the app.
 
