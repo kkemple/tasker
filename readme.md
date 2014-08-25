@@ -34,9 +34,15 @@ In Chrome navigate to `http://localhost:8888` and you will be up and running wit
 
 ___
 
+#### Help / User Documentation
+
+You can view all user documentation on the [wiki](https://github.com/kkemple/tasker/wiki/Application).
+
+___
+
 #### Development Documentation
 
-You can view all documentation by navigating to `http://localhost:8888/docs/`
+You can view all development documentation by navigating to `http://localhost:8888/docs/`
 
 ___
 
