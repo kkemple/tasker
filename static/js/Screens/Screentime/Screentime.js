@@ -50,7 +50,7 @@
 
         Mod.addInitializer(function() {
             App.execute('registerScreen', {
-                position: 4,
+                position: 5,
                 screenKey: 'screentime',
                 iconClass: 'fa-laptop',
                 anchorText: 'Screentime',

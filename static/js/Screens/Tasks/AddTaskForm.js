@@ -1,6 +1,6 @@
 ;(function(TA, Backbone, Marionette, $, _) {
 
-    TA.module('Tasks', function(Mod, App, Backbone, Marionette, $, _) {
+    TA.module('Screens.Tasks', function(Mod, App, Backbone, Marionette, $, _) {
         var AddTaskForm = Marionette.ItemView.extend({
             template: 'Screens/Tasks/AddTaskForm',
             events: {

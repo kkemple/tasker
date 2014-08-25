@@ -20,6 +20,9 @@
          * @public
          */
         var DefaultTask = Backbone.Model.extend({
+            events: {
+                'change:today': 'bubbleTodayChange'
+            },
             initialize: function() {
                 var self = this;
 
@@ -28,6 +31,16 @@
                 this.on('change:isRunning', function() {
                     self.toggleRunning();
                 });
+            },
+
+            /**
+             * Responsible for firing collection event for a task being marked for today
+             *
+             * @method  bubbleTodayChange
+             * @public
+             */
+            bubbleTodayChange: function() {
+                this.collection.trigger('change:today');
             },
 
             /**

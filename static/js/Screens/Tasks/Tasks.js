@@ -1,7 +1,7 @@
 ;(function(TA, Backbone, Marionette, $, _) {
     "use strict";
 
-    TA.module('Tasks', function(Mod, App, Backbone, Marionette, $, _) {
+    TA.module('Screens.Tasks', function(Mod, App, Backbone, Marionette, $, _) {
 
         var TasksLayout = Marionette.Layout.extend({
             template: 'Screens/Tasks/Tasks',

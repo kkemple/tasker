@@ -24,7 +24,7 @@
          * @private
          */
         var HeaderView = Marionette.Layout.extend({
-            template: 'Widgets/Header',
+            template: 'Components/Header',
             regions: {
                 search: '#header-search'
             },

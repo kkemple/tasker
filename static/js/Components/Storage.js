@@ -13,6 +13,8 @@
      *
      *      TA.Storage.restore();
      *
+     * The data is backed up to `backup.json` in the root folder of the app
+     *
      *
      * @module Storage
      * @namespace  TA

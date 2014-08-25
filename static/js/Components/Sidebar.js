@@ -27,7 +27,7 @@
          * @private
          */
         var SidebarNavItem = Marionette.ItemView.extend({
-            template: 'Widgets/SidebarNavItem',
+            template: 'Components/SidebarNavItem',
             tagName: 'li',
             events: {
                 'click a': 'setActive'

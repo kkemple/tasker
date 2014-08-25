@@ -8,11 +8,13 @@ module.exports = {
             'static/js/Data/Screens/JiraTasks/*.js',
             'static/js/Data/Screens/Screentime/*.js',
             'static/js/Components/**/*.js',
+            'static/js/Widgets/**/*.js',
             'static/js/Screens/Dashboard/*.js',
             'static/js/Screens/Settings/*.js',
             'static/js/Screens/Tasks/*.js',
             'static/js/Screens/JiraTasks/*.js',
             'static/js/Screens/Screentime/*.js',
+            'static/js/Screens/TodaysTasks/*.js',
             'static/js/App/init.js'
         ]
     }

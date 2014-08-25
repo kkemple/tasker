@@ -1,7 +1,7 @@
 ;(function(TA, Backbone, Marionette, $, _) {
     "use strict";
 
-    TA.module('Tasks', function(Mod, App, Backbone, Marionette, $, _) {
+    TA.module('Screens.Tasks', function(Mod, App, Backbone, Marionette, $, _) {
         var TaskView = Marionette.ItemView.extend({
             template: 'Screens/Tasks/Task',
             tagName: 'div',
@@ -9,7 +9,8 @@
             events: {
                 'click .reset-count': 'resetTimer',
                 'click .delete-task': 'deleteTask',
-                'click .toggle-timer': 'toggleTimer'
+                'click .toggle-timer': 'toggleTimer',
+                'click .today i': 'markForToday'
             },
             modelEvents: {
                 'change:displayTime': 'renderTimer',
@@ -55,6 +56,14 @@
                 if(confirm('Are you sure you want to delete this task?')) {
                     this.model.destroy();
                 }
+            },
+            markForToday: function(e) {
+                var $target = $(e.target);
+
+                this.model.set('today', !this.model.get('today'));
+                this.model.save();
+
+                $target.toggleClass('active');
             }
         });
 

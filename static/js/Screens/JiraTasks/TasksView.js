@@ -1,24 +1,24 @@
 ;(function(TA, Backbone, Marionette, $, _) {
     "use strict";
 
-    TA.module('JIRA', function(Mod, App, Backbone, Marionette, $, _) {
-        var TasksView = App.Tasks.TasksView.extend({
+    TA.module('Screens.JIRA', function(Mod, App, Backbone, Marionette, $, _) {
+        var TasksView = App.Screens.Tasks.TasksView.extend({
             template: 'Screens/JIRA/TasksView',
             itemViewContainer: '.jira-tasks',
             itemView: Mod.TaskView,
             collectionEvents: function() {
-                return _.extend(_(App.Tasks.TasksView.prototype.collectionEvents).clone() || {}, {
+                return _.extend(_(App.Screens.Tasks.TasksView.prototype.collectionEvents).clone() || {}, {
                     'sorted': 'render',
                     'jira:loaded': 'updateVisibility',
                 });
             },
             events: function() {
-                return _.extend(_(App.Tasks.TasksView.prototype.events).clone() || {}, {
+                return _.extend(_(App.Screens.Tasks.TasksView.prototype.events).clone() || {}, {
                     'click .sorter': 'sortTasks'
                 });
             },
             ui: function() {
-                return _.extend(_(App.Tasks.TasksView.prototype.ui).clone() || {}, {
+                return _.extend(_(App.Screens.Tasks.TasksView.prototype.ui).clone() || {}, {
                     $sorters: '.sorter'
                 });
             },
@@ -28,6 +28,7 @@
             onRender: function() {
                 this.renderTotal();
                 this.updateUI();
+                this.updateVisibility();
             },
             updateUI: function() {
                 if (this.model.get('sorter')) {
@@ -38,6 +39,13 @@
                     } else if (this.model.get('sortOrder') === 'desc') {
                         $target.children('i').removeClass('fa-sort-desc').addClass('fa-sort-asc');
                     }
+                }
+            },
+            updateVisibility: function() {
+                if (!this.collection.length) {
+                    this.$el.hide();
+                } else {
+                    this.$el.show();
                 }
             },
             sortTasks: function(e) {

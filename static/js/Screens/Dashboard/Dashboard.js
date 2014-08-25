@@ -3,11 +3,11 @@
 
     TA.module('Screens.Dashboard', function(Mod, App, Backbone, Marionette, $, _) {
 
-        var DashboardLayout = Marionette.ItemView.extend({
+        var DashboardView = Marionette.ItemView.extend({
             template: 'Screens/Dashboard/Main'
         });
 
-        Mod.DashboardLayout = DashboardLayout;
+        Mod.DashboardView = DashboardView;
 
         Mod.addInitializer(function() {
             App.execute('registerScreen', {
@@ -16,7 +16,7 @@
                 iconClass: 'fa-dashboard',
                 anchorText: 'Dashboard',
                 initializer: function() {
-                    return new DashboardLayout();
+                    return new DashboardView();
                 }
             });
         });

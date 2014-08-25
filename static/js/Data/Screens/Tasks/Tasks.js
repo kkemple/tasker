@@ -26,6 +26,7 @@
                 count: 0,
                 isRunning: false,
                 isFiltered: false,
+                today: false,
                 createdAt: null
             }
         });

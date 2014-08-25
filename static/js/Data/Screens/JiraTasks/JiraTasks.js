@@ -31,6 +31,7 @@
                 isRunning: false,
                 isVisible: true,
                 isFiltered: false,
+                today: false,
                 created: '',
                 jiraUrl: ''
             }
@@ -52,13 +53,12 @@
             model: JiraTask,
             filters: [
                 {id: 'taskName', label: 'Task Name'},
+                {id: 'key', label: 'Key'},
                 {id: 'status', label: 'Status'},
-                {id: 'priority', label: 'Priority'},
-                {id: 'key', label: 'Key'}
+                {id: 'priority', label: 'Priority'}
             ],
             initialize: function(models, options) {
                 var self = this;
-
                 this.jiraSettings = options.jiraSettings;
             },
 

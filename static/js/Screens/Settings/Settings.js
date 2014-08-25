@@ -25,7 +25,7 @@
          * @private
          */
         var SettingsView = Marionette.ItemView.extend({
-            template: 'Widgets/Settings',
+            template: 'Screens/Settings/Settings',
             className: 'settings-view',
             events: {
                 'click .allow-browser-notifications': 'setBrowserNotifications',
@@ -86,7 +86,7 @@
             },
 
             /**
-             * Responsible for settings the notificationDuration prop on model
+             * Responsible for setting the notificationDuration prop on model
              *
              * @method setNotificationDuration
              * @public
@@ -97,7 +97,7 @@
             },
 
             /**
-             * Responsible for settings the backupDuration prop on model
+             * Responsible for setting the backupDuration prop on model
              *
              * @method setBackupDuration
              * @public
@@ -108,7 +108,7 @@
             },
 
             /**
-             * Responsible for settings the allowScreenCapture prop on model
+             * Responsible for setting the allowScreenCapture prop on model
              *
              * @method setScreenCapture
              * @public

@@ -1,7 +1,7 @@
 ;(function(TA, Backbone, Marionette, $, _) {
     "use strict";
 
-    TA.module('JIRA', function(Mod, App, Backbone, Marionette, $, _) {
+    TA.module('Screens.JIRA', function(Mod, App, Backbone, Marionette, $, _) {
         var SettingsView = Marionette.ItemView.extend({
             template: 'Screens/JIRA/JiraSettings',
             events: {
