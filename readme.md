@@ -36,7 +36,7 @@ ___
 
 #### Help / User Documentation
 
-You can view all user documentation on the [wiki](https://github.com/kkemple/tasker/wiki/Application).
+You can view all user documentation on the [wiki](https://github.com/kkemple/tasker/wiki/Overview).
 
 ___
 
