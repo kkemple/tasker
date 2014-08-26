@@ -26,3 +26,10 @@ Not having to go back to JIRA to log your time on a task can be nice, especially
 
 ___
 
+
+### Searching Tasks
+
+You can search tasks by any field, tasks that do not meet your search term will be hidden from view
+
+![Search](https://github.com/kkemple/tasker/wiki/img/search.jpg)
+
