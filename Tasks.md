@@ -33,3 +33,5 @@ You can search tasks by any field, tasks that do not meet your search term will 
 
 ![Search](https://github.com/kkemple/tasker/wiki/img/search.jpg)
 
+___
+
