@@ -3,7 +3,7 @@ There are quite a few features that can be enabled and customized on the `App Se
 
 ![App Settings Guide](https://github.com/kkemple/tasker/wiki/img/app-settings.jpg)
 
-1. **Enable Browser Notifications**: This turns on Chrome's destop notifications, when you are tracking a task and the Tasker tap becomes hidden, it will send desktop notifications instead of in app notifications.
+1. **Enable Browser Notifications**: This turns on Chrome's destop notifications, when you are tracking a task and the Tasker tab becomes hidden, it will send desktop notifications instead of in app notifications.
 
 2. **Enable Voice Notifications**: When enabled you will get an auditory alert as well as a visual alert.
 
