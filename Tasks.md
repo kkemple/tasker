@@ -29,9 +29,20 @@ ___
 
 ### Searching Tasks
 
-You can search tasks by any field, tasks that do not meet your search term will be hidden from view
+You can search tasks by any attribute, tasks that do not meet your search term will be hidden from view
 
 ![Search](https://github.com/kkemple/tasker/wiki/img/search.jpg)
 
 ___
+
+
+### Marking Tasks for Today
+
+Since tasks you need to work on may come from different groups, it's nice to have a place where they can all be viewed together. Simply click the calendar icon in the task actions to add it to Today's Tasks.
+
+![Mark for Today](https://github.com/kkemple/tasker/wiki/img/mark-for-today.jpg)
+
+___
+
+
 
