@@ -5,7 +5,7 @@ Tasker is a timer app for tracking the amount of time you spend on tasks. There 
 
 Normally I am good at starting my tasks (have no fear, Tasker has a feature to help you out if you forget to start tracking your time when you start working on a task, for more info see [Screentime](https://github.com/kkemple/tasker/wiki/Screentime)), but I am horrible at stopping them!
 
-Tasker provides desktop, voice, and in app notifications set to a duration of your choosing. You can enable/disable desktop and voice notifications on the `App Settings` page.
+Tasker provides desktop, voice, and in app notifications set to a duration of your choosing. You can enable/disable desktop and voice notifications on the [App Settings](https://github.com/kkemple/tasker/wiki/App-Settings) page.
 
 #### Features of Tasker
 
