@@ -1,4 +1,3 @@
-## Tasker Application Overview
 
 ### Overview
 Tasker is a timer app for tracking the amount of time you spend on tasks. There are a ton of great timer apps with neat features; however, it seems the one thing they all lack is notifications.

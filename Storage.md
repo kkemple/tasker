@@ -1,4 +1,3 @@
-## Storage
 
 ### Where is the data at!?
 

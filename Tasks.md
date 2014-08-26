@@ -1,4 +1,3 @@
-## How To: Tasks
 
 ### Creating Tasks (Custom tasks only)
 
