@@ -22,7 +22,7 @@ ___
 
 Not having to go back to JIRA to log your time on a task can be nice, especially when that important issue comes in and you don't have time to jump around the Internet to stop and start new tasks. Well just hit the Rocket icon in the task actions and your time will be logged and you can move on to other matters.
 
-![JIRA Worklogs](https://github.com/kkemple/tasker/wiki/img/jira-worklog)
+![JIRA Worklogs](https://github.com/kkemple/tasker/wiki/img/jira-worklog.jpg)
 
 ___
 
