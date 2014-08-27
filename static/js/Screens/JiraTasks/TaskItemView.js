@@ -22,15 +22,48 @@
             saveWorklog: function(e) {
                 var self = this;
 
+                /* stats collecting */
+                App.execute('stats:jira:project', {
+                    taskName: this.model.get('taskName'),
+                    key: this.model.get('key'),
+                    project: this.model.get('project'),
+                    date: moment()
+                });
+
+                App.execute('stats:jira:status', {
+                    taskName: this.model.get('taskName'),
+                    key: this.model.get('key'),
+                    status: this.model.get('status'),
+                    date: moment()
+                });
+
+                App.execute('stats:jira:priority', {
+                    taskName: this.model.get('taskName'),
+                    key: this.model.get('key'),
+                    priority: this.model.get('count'),
+                    date: moment()
+                });
+
+                App.execute('stats:jira:logged', {
+                    taskName: this.model.get('taskName'),
+                    key: this.model.get('key'),
+                    count: this.model.get('count'),
+                    date: moment()
+                });
+
+                App.execute('stats:jira:tracked', {
+                    taskName: this.model.get('taskName'),
+                    key: this.model.get('key'),
+                    count: this.model.get('count'),
+                    date: moment()
+                });
+
                 var $target = $(e.target).addClass('fa-spin');
                 var timeSpent = '';
                 var displayTime = this.model.buildDisplayTime();
 
-                timeSpent = (displayTime.hour > 0) ? displayTime.hour + 'h ' : '';
-                timeSpent = (displayTime.minute > 0) ? displayTime.minute + 'm' : '';
-                timeSpent = (displayTime.hour === 0 &&
-                                displayTime.minute === 0 &&
-                                displayTime.second > 0) ? '1m' : '';
+                timeSpent += (displayTime.hour > 0) ? displayTime.hour + 'h ' : '';
+                timeSpent += displayTime.minute + 'm';
 
                 var data = {
                     timeSpent: timeSpent,

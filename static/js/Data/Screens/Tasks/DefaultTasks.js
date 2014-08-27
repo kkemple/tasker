@@ -26,7 +26,7 @@
             initialize: function() {
                 var self = this;
 
-                this.buildDisplayTime();
+                this.set('displayTime', this.buildDisplayTime('HH:mm:ss'));
 
                 this.on('change:isRunning', function() {
                     self.toggleRunning();
@@ -109,7 +109,7 @@
              */
             clearCount: function() {
                 this.set('count', 0);
-                this.buildDisplayTime();
+                this.set('displayTime', this.buildDisplayTime('HH:mm:ss'));
                 this.stopCount();
             },
 
@@ -123,17 +123,16 @@
                 var count = this.get('count');
 
                 if (count === 0) {
-                    this.set('displayTime', moment({second: 0}).format('HH:mm:ss'));
-                    return;
+                    return (formatter) ? moment({second: 0}).format('HH:mm:ss') : {hour: 0, minute: 0, second: 0};
                 }
 
                 var hours = Math.floor(count / (60 * 60));
 
-                var divisor_for_minutes = count % (60 * 60);
-                var minutes = Math.floor(divisor_for_minutes / 60);
+                var divisorForMinutes = count % (60 * 60);
+                var minutes = Math.floor(divisorForMinutes / 60);
 
-                var divisor_for_seconds = divisor_for_minutes % 60;
-                var seconds = Math.ceil(divisor_for_seconds);
+                var divisorForSeconds = divisorForMinutes % 60;
+                var seconds = Math.ceil(divisorForSeconds);
 
                 if (formatter) {
                    return moment({hour: hours, minute: minutes, second: seconds}).format(formatter);

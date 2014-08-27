@@ -50,6 +50,11 @@
                 this.$el.toggleClass('active', this.model.get('isRunning'));
             },
             resetTimer: function() {
+
+                if (this.model.get('key')) {
+                    App.execute('stats:jira:tracked', this.model.attributes);
+                }
+
                 this.model.clearCount();
             },
             deleteTask: function() {
