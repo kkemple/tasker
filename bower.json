@@ -22,6 +22,8 @@
     "jquery": "~2.1.1",
     "marionette": "~1.8.5",
     "momentjs": "~2.6.0",
-    "underscore": "~1.6.0"
+    "underscore": "~1.6.0",
+    "d3": "~3.4.11",
+    "moment-range": "~1.0.2"
   }
 }

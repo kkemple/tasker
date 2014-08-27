@@ -41,8 +41,18 @@
          * @extends Marionette.ItemView
          * @public
          */
-        var DashboardView = Marionette.ItemView.extend({
-            template: 'Screens/Dashboard/Main'
+        var DashboardView = Marionette.Layout.extend({
+            template: 'Screens/Dashboard/Main',
+            regions: {
+                timeTrackedWeekly: '.time-tracked-weekly',
+                timeLoggedWeekly: '.time-logged-weekly',
+                projectsWeekly: '.projects-weekly'
+            },
+            onRender: function() {
+                this.timeTrackedWeekly.show(App.Widgets.Reporting.JIRA.TimeTracked.getWeekly());
+                this.timeLoggedWeekly.show(App.Widgets.Reporting.JIRA.TimeLogged.getWeekly());
+                this.projectsWeekly.show(App.Widgets.Reporting.JIRA.ProjectsWorkedOn.getWeekly());
+            }
         });
 
         Mod.DashboardView = DashboardView;

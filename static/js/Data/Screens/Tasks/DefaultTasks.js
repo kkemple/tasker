@@ -26,7 +26,7 @@
             initialize: function() {
                 var self = this;
 
-                this.set('displayTime', this.buildDisplayTime('HH:mm:ss'));
+                this.buildDisplayTime();
 
                 this.on('change:isRunning', function() {
                     self.toggleRunning();
@@ -73,7 +73,7 @@
 
                 var timerId = setInterval(function() {
                     self.set('count', self.get('count') + 1);
-                    self.set('displayTime', self.buildDisplayTime('HH:mm:ss'));
+                    self.buildDisplayTime();
                     self.save();
                 }, 1000);
 
@@ -109,7 +109,7 @@
              */
             clearCount: function() {
                 this.set('count', 0);
-                this.set('displayTime', this.buildDisplayTime('HH:mm:ss'));
+                this.buildDisplayTime();
                 this.stopCount();
             },
 
@@ -119,26 +119,9 @@
              * @method  buildDisplayTime
              * @public
              */
-            buildDisplayTime: function(formatter) {
-                var count = this.get('count');
-
-                if (count === 0) {
-                    return (formatter) ? moment({second: 0}).format('HH:mm:ss') : {hour: 0, minute: 0, second: 0};
-                }
-
-                var hours = Math.floor(count / (60 * 60));
-
-                var divisorForMinutes = count % (60 * 60);
-                var minutes = Math.floor(divisorForMinutes / 60);
-
-                var divisorForSeconds = divisorForMinutes % 60;
-                var seconds = Math.ceil(divisorForSeconds);
-
-                if (formatter) {
-                   return moment({hour: hours, minute: minutes, second: seconds}).format(formatter);
-                } else {
-                    return {hour: hours, minute: minutes, second: seconds};
-                }
+            buildDisplayTime: function() {
+                var time = App.DateTime.parseSeconds(this.get('count'));
+                this.set('displayTime', App.DateTime.formatTime(time, 'HH:mm:ss'));
             },
 
             /**

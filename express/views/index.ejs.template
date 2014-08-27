@@ -22,10 +22,12 @@
         </div>
 
         <script src="js/libraries/notification.js"></script>
+        <script src="js/libraries/chartjs/Chart.min.js"></script>
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="bower_components/underscore/underscore.js"></script>
         <script src="bower_components/momentjs/moment.js"></script>
+        <script src="bower_components/moment-range/lib/moment-range.js"></script>
         <script src="bower_components/backbone/backbone.js"></script>
         <script src="bower_components/backbone.localstorage/backbone.localstorage.js"></script>
         <script src="bower_components/marionette/lib/core/backbone.marionette.min.js"></script>

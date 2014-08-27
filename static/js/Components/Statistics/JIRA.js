@@ -9,6 +9,17 @@
         // priority worked on
         // marked for today
 
+        var StatsCollection = Backbone.Collection.extend({
+            thisWeek: function() {
+                var today = moment();
+                var range = moment.range(moment(today).startOf('week'), moment(today).endOf('week'));
+
+                return new StatsCollection(this.filter(function(m) {
+                    return range.contains(moment(m.get('date')));
+                }));
+            }
+        });
+
         var TimeTracked = Backbone.Model.extend({
             defaults: {
                 taskName: '',
@@ -18,7 +29,7 @@
             }
         });
 
-        var TimesTracked = Backbone.Collection.extend({
+        var TimesTracked = StatsCollection.extend({
             localStorage: new Backbone.LocalStorage('Statistics.JIRA.TimeTracked'),
             model: TimeTracked
         });
@@ -53,7 +64,7 @@
             }
         });
 
-        var TimesLogged = Backbone.Collection.extend({
+        var TimesLogged = StatsCollection.extend({
             localStorage: new Backbone.LocalStorage('Statistics.JIRA.TimeLogged'),
             model: TimeLogged
         });
@@ -88,7 +99,7 @@
             }
         });
 
-        var ProjectsWorkedOn = Backbone.Collection.extend({
+        var ProjectsWorkedOn = StatsCollection.extend({
             localStorage: new Backbone.LocalStorage('Statistics.JIRA.ProjectWorkedOn'),
             model: ProjectWorkedOn
         });
@@ -123,7 +134,7 @@
             }
         });
 
-        var PrioritiesWorkedOn = Backbone.Collection.extend({
+        var PrioritiesWorkedOn = StatsCollection.extend({
             localStorage: new Backbone.LocalStorage('Statistics.JIRA.PriorityWorkedOn'),
             model: PriorityWorkedOn
         });
@@ -158,7 +169,7 @@
             }
         });
 
-        var StatusesWorkedOn = Backbone.Collection.extend({
+        var StatusesWorkedOn = StatsCollection.extend({
             localStorage: new Backbone.LocalStorage('Statistics.JIRA.StatusWorkedOn'),
             model: StatusWorkedOn
         });

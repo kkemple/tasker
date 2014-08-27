@@ -60,7 +60,7 @@
 
                 var $target = $(e.target).addClass('fa-spin');
                 var timeSpent = '';
-                var displayTime = this.model.buildDisplayTime();
+                var displayTime = App.DateTime.parseSeconds(this.model.get('count'));
 
                 timeSpent += (displayTime.hour > 0) ? displayTime.hour + 'h ' : '';
                 timeSpent += displayTime.minute + 'm';
