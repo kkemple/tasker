@@ -20,6 +20,29 @@
             return {hour: hours, minute: minutes, second: seconds};
         };
 
+        Mod.timeStringToSeconds = function(input) {
+            var parts = input.split(/\s+/);
+
+            var hours, minutes, seconds;
+            _(parts).each(function(part) {
+                part = part.toLowerCase();
+
+                if (part.indexOf('h') > -1) {
+                    hours = parseInt(part.replace('h', ''), 10);
+                } else if (part.indexOf('m') > -1) {
+                    minutes = parseInt(part.replace('m', ''), 10);
+                } else if (part.indexOf('s') > -1) {
+                    seconds = parseInt(part.replace('s', ''), 10);
+                }
+            });
+
+            seconds = (seconds) ? seconds : 0;
+            seconds += (hours) ? hours * (60 * 60) : 0;
+            seconds += (minutes) ? minutes * 60 : 0;
+
+            return (isNaN(seconds)) ? 0 : seconds;
+        };
+
         Mod.formatTime = function(timeObj, formatter) {
             return moment(timeObj).format(formatter);
         };

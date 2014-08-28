@@ -31,6 +31,14 @@
                 this.on('change:isRunning', function() {
                     self.toggleRunning();
                 });
+
+                this.on('change:count', function() {
+                    self.buildDisplayTime();
+                });
+
+                this.on('change', function() {
+                    self.save();
+                });
             },
 
             /**
@@ -73,12 +81,9 @@
 
                 var timerId = setInterval(function() {
                     self.set('count', self.get('count') + 1);
-                    self.buildDisplayTime();
-                    self.save();
                 }, 1000);
 
                 this.set('timerId', timerId);
-                this.save();
 
                 // add the model to the notifier list
                 App.Notifier.add(this);
@@ -94,7 +99,6 @@
             stopCount: function() {
                 this.set('isRunning', false);
                 clearInterval(this.get('timerId'));
-                this.save();
 
                 // remove the model from the notifier list
                 App.Notifier.remove(this);
@@ -109,7 +113,6 @@
              */
             clearCount: function() {
                 this.set('count', 0);
-                this.buildDisplayTime();
                 this.stopCount();
             },
 
@@ -121,7 +124,11 @@
              */
             buildDisplayTime: function() {
                 var time = App.DateTime.parseSeconds(this.get('count'));
-                this.set('displayTime', App.DateTime.formatTime(time, 'HH:mm:ss'));
+                var hours = (time.hour > 9) ? time.hour : '0' + time.hour;
+                var minutes = (time.minute > 9) ? time.minute : '0' + time.minute;
+                var seconds = (time.second > 9) ? time.second : '0' + time.second;
+
+                this.set('displayTime', '' + hours + ':' + minutes + ':' + seconds);
             },
 
             /**
