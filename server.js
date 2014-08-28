@@ -135,7 +135,7 @@ http.createServer(app).listen(app.get('port'), function() {
 });
 
 function encrypt(text) {
-  var cipher = crypto.createCipher('aes-256-cbc', passKey)
+  var cipher = crypto.createCipher('aes-256-cbc', passKey);
   var crypted = cipher.update(crypto.randomBytes(10).toString('base64') + '.' + text,'utf8','hex');
   crypted += cipher.final('hex');
   return crypted;
