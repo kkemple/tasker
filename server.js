@@ -123,6 +123,10 @@ app.get('/app/backup', function(req, res) {
     });
 });
 
+
+// load stats endpoints
+require(__dirname + '/express/routes/stats.js')(app);
+
 // create and run the server
 http.createServer(app).listen(app.get('port'), function() {
     "use strict";

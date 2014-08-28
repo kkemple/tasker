@@ -13,58 +13,42 @@
                 $canvas: 'canvas'
             },
             initialize: function(opts) {
-                var self = this;
 
-                this.model = new Backbone.Model();
-                this.loadCount = 0;
+                this.collection = opts.collection;
 
-                App.request('stats:jira:logged').done(function(stats) {
-                    self.collection = stats.thisWeek();
-                    self.statsLoaded = true;
+                var timetracked = 0;
 
-                    var timetracked = 0;
-
-                    self.collection.each(function(m) {
-                        timetracked += m.get('count');
-                    });
-
-                    self.model.set('tracked', timetracked);
-                    self.model.set('untracked', WEEK - timetracked);
-
-                    var time = App.DateTime.parseSeconds(timetracked);
-                    self.model.set('hours', time.hour);
-                    self.model.set('minutes', time.minute);
-                    self.model.set('seconds', time.second);
+                this.collection.each(function(m) {
+                    timetracked += m.get('count');
                 });
+
+                this.model.set('tracked', timetracked);
+                this.model.set('untracked', WEEK - timetracked);
+
+                var time = App.DateTime.parseSeconds(timetracked);
+                this.model.set('hours', time.hour);
+                this.model.set('minutes', time.minute);
+                this.model.set('seconds', time.second);
 
             },
             onRender: function() {
                 var self = this;
 
-                if (this.statsLoaded) {
+                var data = [
+                    {value: this.model.get('tracked'), color: colors.green, label: 'Time Tracked'},
+                    {value: this.model.get('untracked'), color: colors.red, label: 'Time Not Tracked'}
+                ];
+                var ctx = this.ui.$canvas.get(0).getContext('2d');
 
-                    var data = [
-                        {value: this.model.get('tracked'), color: colors.green, label: 'Time Tracked'},
-                        {value: this.model.get('untracked'), color: colors.red, label: 'Time Not Tracked'}
-                    ];
-                    var ctx = this.ui.$canvas.get(0).getContext('2d');
-
-                    this.chart = new Chart(ctx).Doughnut(data, _({
-                        segmentShowStroke : false,
-                        percentageInnerCutout : 45,
-                    }).extend(App.Config.get('chartjs')));
-                } else if (this.loadCount < 50) {
-                    setTimeout(function() {
-                        self.onRender();
-                    }, 500);
-
-                    this.loadCount++;
-                }
+                this.chart = new Chart(ctx).Doughnut(data, _({
+                    segmentShowStroke : false,
+                    percentageInnerCutout : 45,
+                }).extend(App.Config.get('chartjs')));
             }
         });
 
-        Mod.get = function() {
-            return new TimeLoggedThisWeekWidget();
+        Mod.get = function(opts) {
+            return new TimeLoggedThisWeekWidget(opts);
         };
     });
 })(TA, Backbone, Marionette, jQuery, _);

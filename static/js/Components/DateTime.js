@@ -5,7 +5,7 @@
 
         Mod.parseSeconds = function(count) {
 
-            if (count === 0) {
+            if (count === 0 || count === undefined) {
                 return {hour: 0, minute: 0, second: 0};
             }
 

@@ -30,7 +30,7 @@
         });
 
         var TimesTracked = StatsCollection.extend({
-            localStorage: new Backbone.LocalStorage('Statistics.JIRA.TimeTracked'),
+            url: '/stats/jira/tracked',
             model: TimeTracked
         });
 
@@ -65,7 +65,7 @@
         });
 
         var TimesLogged = StatsCollection.extend({
-            localStorage: new Backbone.LocalStorage('Statistics.JIRA.TimeLogged'),
+            url: '/stats/jira/logged',
             model: TimeLogged
         });
 
@@ -100,7 +100,7 @@
         });
 
         var ProjectsWorkedOn = StatsCollection.extend({
-            localStorage: new Backbone.LocalStorage('Statistics.JIRA.ProjectWorkedOn'),
+            url: '/stats/jira/project',
             model: ProjectWorkedOn
         });
 
@@ -135,7 +135,7 @@
         });
 
         var PrioritiesWorkedOn = StatsCollection.extend({
-            localStorage: new Backbone.LocalStorage('Statistics.JIRA.PriorityWorkedOn'),
+            url: '/stats/jira/priority',
             model: PriorityWorkedOn
         });
 
@@ -170,7 +170,7 @@
         });
 
         var StatusesWorkedOn = StatsCollection.extend({
-            localStorage: new Backbone.LocalStorage('Statistics.JIRA.StatusWorkedOn'),
+            url: '/stats/jira/status',
             model: StatusWorkedOn
         });
 
