@@ -4,21 +4,13 @@
     TA.module('Widgets.Reporting.JIRA.TimeTracked', function(Mod, App, Backbone, Marionette, $, _) {
 
         var WEEK = 60 * 60 * 25; // 40 hr work week
-        var colors = {
-            warning: '#f0ad4e',
-            info: '#5bc0de',
-            danger: '#d9534f',
-            success: '#5cb85c'
-        };
+        var colors = App.Texts.get('colors');
 
         var TimeTrackedThisWeekWidget = Marionette.ItemView.extend({
             template: 'Widgets/Reporting/JIRA/TimeTrackedWeek',
             className: 'widget time-tracked-weekly',
             ui: {
                 $canvas: 'canvas'
-            },
-            events: {
-                'stats:loaded': 'renderChart'
             },
             initialize: function(opts) {
                 var self = this;
@@ -53,11 +45,15 @@
 
                     var data = [
                         {value: this.model.get('tracked'), color: colors.info, label: 'Time Tracked'},
-                        {value: this.model.get('untracked'), color: colors.warning, label: 'Time Not Tracked'}
+                        {value: this.model.get('untracked'), color: colors.red, label: 'Time Not Tracked'}
                     ];
                     var ctx = this.ui.$canvas.get(0).getContext('2d');
 
-                    this.chart = new Chart(ctx).Doughnut(data);
+                    this.chart = new Chart(ctx).Doughnut(data, _({
+                        segmentShowStroke : false,
+                        percentageInnerCutout : 45,
+                        //segmentStrokeWidth : 1
+                    }).extend(App.Config.get('chartjs')));
                 } else if (this.loadCount < 50) {
                     setTimeout(function() {
                         self.onRender();
@@ -68,7 +64,7 @@
             }
         });
 
-        Mod.getWeekly = function() {
+        Mod.get = function() {
             return new TimeTrackedThisWeekWidget();
         };
     });

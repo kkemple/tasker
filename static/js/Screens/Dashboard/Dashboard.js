@@ -33,7 +33,7 @@
          * ## DashboardView
          *
          *  The dashboard view provides quick links to tasks and JIRA tasks,
-         *  it's the future home of widgets!!
+         *  it contains reporting widgets when signed in to JIRA
          *
          * @class DashboardView
          * @constructor
@@ -46,12 +46,25 @@
             regions: {
                 timeTrackedWeekly: '.time-tracked-weekly',
                 timeLoggedWeekly: '.time-logged-weekly',
-                projectsWeekly: '.projects-weekly'
+                projectsWeekly: '.projects-weekly',
+                prioritiesWeekly: '.priorities-weekly'
+            },
+            ui: {
+                $intro: '.intro',
+                $widgets: '.widgets'
             },
             onRender: function() {
-                this.timeTrackedWeekly.show(App.Widgets.Reporting.JIRA.TimeTracked.getWeekly());
-                this.timeLoggedWeekly.show(App.Widgets.Reporting.JIRA.TimeLogged.getWeekly());
-                this.projectsWeekly.show(App.Widgets.Reporting.JIRA.ProjectsWorkedOn.getWeekly());
+                var self = this;
+
+                App.request('jiraSettings').done(function(jSettings) {
+                    if (jSettings.get('hasLoginCreds')) {
+                        self.ui.$intro.hide();
+                        self.timeTrackedWeekly.show(App.Widgets.Reporting.JIRA.TimeTracked.get());
+                        self.timeLoggedWeekly.show(App.Widgets.Reporting.JIRA.TimeLogged.get());
+                        self.prioritiesWeekly.show(App.Widgets.Reporting.JIRA.Priority.get());
+                        self.projectsWeekly.show(App.Widgets.Reporting.JIRA.ProjectsWorkedOn.get());
+                    }
+                });
             }
         });
 

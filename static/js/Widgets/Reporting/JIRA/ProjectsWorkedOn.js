@@ -4,23 +4,15 @@
     TA.module('Widgets.Reporting.JIRA.ProjectsWorkedOn', function(Mod, App, Backbone, Marionette, $, _) {
 
         var WEEK = 60 * 60 * 25; // 40 hr work week
-        var colors = {
-            warning: '#f0ad4e',
-            info: '#5bc0de',
-            danger: '#d9534f',
-            success: '#5cb85c'
-        };
-        var colorKeys = ['warning', 'info', 'danger', 'success'];
-        var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        var colors = App.Texts.get('colors');
+        var colorKeys = App.Texts.get('colorKeys');
+        var weekdays = App.Texts.get('weekdays');
 
         var ProjectsWorkedOnWidget = Marionette.ItemView.extend({
             template: 'Widgets/Reporting/JIRA/ProjectsWorkedOn',
             className: 'widget projects-worked-on-weekly',
             ui: {
                 $canvas: 'canvas'
-            },
-            events: {
-                'stats:loaded': 'renderChart'
             },
             initialize: function(opts) {
                 var self = this;
@@ -60,7 +52,7 @@
                     self.model.set('projects', {
                         labels: weekdays,
                         datasets: _(data).map(function(p, key) {
-                            return { label: key, data: p, fillColor: colors[colorKeys[Math.floor(Math.random() * 4)]] };
+                            return { label: key, data: p, fillColor: colors[colorKeys[Math.floor(Math.random() * 13)]] };
                         })
                     });
                 });
@@ -73,9 +65,9 @@
 
                     var ctx = this.ui.$canvas.get(0).getContext('2d');
 
-                    this.chart = new Chart(ctx).Bar(this.model.get('projects'), {
+                    this.chart = new Chart(ctx).Bar(this.model.get('projects'), _({
                         scaleShowGridLines: false,
-                        showBarStroke: false,
+                        barShowStroke : false,
                         legendTemplate: '' +
                             '<ul class=\"<%= name.toLowerCase() %>-legend\">' +
                                 '<% for (var i = 0; i<datasets.length; i++) {%>' +
@@ -85,7 +77,7 @@
                                     '</li>' +
                                 '<% } %>' +
                             '</ul>'
-                    });
+                    }).extend(App.Config.get('chartjs')));
 
                     this.$el.find('.footer').prepend(this.chart.generateLegend());
                 } else if (this.loadCount < 50) {
@@ -98,7 +90,7 @@
             }
         });
 
-        Mod.getWeekly = function() {
+        Mod.get = function() {
             return new ProjectsWorkedOnWidget();
         };
     });

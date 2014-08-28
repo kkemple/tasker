@@ -40,7 +40,7 @@
                 App.execute('stats:jira:priority', {
                     taskName: this.model.get('taskName'),
                     key: this.model.get('key'),
-                    priority: this.model.get('count'),
+                    priority: this.model.get('priority'),
                     date: moment()
                 });
 
