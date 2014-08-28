@@ -119,6 +119,8 @@
                         queryParams: [
                             'rest/api/2/search?jql=assignee=',
                             this.jiraSettings.get('username'),
+                            '+order+by+updated',
+                            '&maxResults=150',
                             '&password=',
                             this.jiraSettings.get('password')
                         ].join(''),
