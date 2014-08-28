@@ -69,18 +69,18 @@ app.post('/jira/tasks', function(req, res) {
     username = req.body.username;
     password = decrypt(req.body.password);
 
-    // request.get(jiraUrl + queryParams, function(error, response, body) {
-    //     if (error) {
-    //         res.json(error);
-    //         res.end();
-    //     }
-    //     res.json(body);
-    //     res.end();
-    // }).auth(username, password, true);
+    request.get(jiraUrl + queryParams, function(error, response, body) {
+        if (error) {
+            res.json(error);
+            res.end();
+        }
+        res.json(body);
+        res.end();
+    }).auth(username, password, true);
 
-    fs.readFile('jiraTasks.json', 'utf-8', function(err, content) {
-        res.json(content);
-    });
+    // fs.readFile('jiraTasks.json', 'utf-8', function(err, content) {
+    //     res.json(content);
+    // });
 });
 
 // log jira work
