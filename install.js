@@ -1,5 +1,5 @@
 var prompt = require('prompt'),
-    Q = require('Q'),
+    //Q = require('Q'),
     fs = require('fs'),
     //path = require('path'),
     //sys = require('sys'),
@@ -102,8 +102,6 @@ exec('npm install', function(code, output) {
 
         exec('grunt build', function(code, output) {
             prompt.logger.info('grunt build \n', output);
-
-            prompt.logger.log('info', 'Tasker is ready for use');
         });
     });
 });
