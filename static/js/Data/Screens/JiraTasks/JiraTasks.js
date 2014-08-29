@@ -74,6 +74,20 @@
                 var self = this,
                     tasks = [];
 
+                try {
+                    data = JSON.parse(data);
+                } catch (e) {
+                    TA.Growler.growl({
+                        type: 'danger',
+                        title: 'Fetch Error (JIRA)',
+                        message: 'Failed to fetch JIRA tasks. Check console for more information.',
+                        isSticky: true
+                    });
+
+                    console.warn('ERROR :: Failed to fetch JIRA tasks ::', e);
+                    return tasks;
+                }
+
                 if (data && data.issues) {
                     _(data.issues).each(function(issue) {
 
@@ -136,7 +150,7 @@
                     }).done(function(data) {
                         var jiraKeys = [];
 
-                        _(self.parseJiraJSON(JSON.parse(data))).each(function(modelAttrs) {
+                        _(self.parseJiraJSON(data)).each(function(modelAttrs) {
                             var model = self.findWhere({key: modelAttrs.key});
 
                             if (!model) {
