@@ -7,7 +7,7 @@ module.exports = function(app) {
     app.get('/app/backup', function(req, res) {
         "use strict";
 
-        fs.readFile('backup.json', 'utf-8', function(err, content) {
+        fs.readFile(path.resolve(__dirname, '../../data/backup.json'), 'utf-8', function(err, content) {
             res.json(content);
         });
     });
@@ -16,7 +16,7 @@ module.exports = function(app) {
     app.post('/app/backup', function(req, res) {
         "use strict";
 
-        fs.writeFile('backup.json', JSON.stringify(req.body), function(err) {
+        fs.writeFile(path.resolve(__dirname, '../../data/backup.json'), JSON.stringify(req.body), function(err) {
             if(err) {
                 res.json(err);
             } else {
