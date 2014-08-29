@@ -30,8 +30,8 @@
                 screenKey: 'tasks',
                 iconClass: 'fa-tasks',
                 anchorText: 'Tasks',
-                initializer: function() {
-                    return new TasksLayout();
+                initializer: function(screen) {
+                    screen.show(new TasksLayout());
                 }
             });
         });

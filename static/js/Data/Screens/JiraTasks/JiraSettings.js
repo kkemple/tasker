@@ -21,14 +21,12 @@
          * @public
          */
         var JiraSettings = Backbone.Model.extend({
-            localStorage: new Backbone.LocalStorage('JiraSettings'),
+            url: '/jira/settings',
             defaults: {
                 username: '',
                 password: '',
                 jiraUrl: '',
                 hasLoginCreds: false,
-                displayName: '',
-                avatars: {},
                 isVisible: true
             }
         });

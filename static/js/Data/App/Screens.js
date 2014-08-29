@@ -65,19 +65,14 @@
                 }
 
                 if (attrs.initializer === undefined ||
-                        (typeof attrs.initializer !== 'function' &&
-                            !attrs.initializer instanceof Marionette.View) ) {
+                        (typeof attrs.initializer !== 'function') ) {
 
                     return 'ERROR: Screen Model needs a screenKey property.';
                 }
             },
             initialize: function(attrs) {
                 TA.router.route(attrs.screenKey + '/', attrs.screenKey, function() {
-                    if (attrs.initializer instanceof Marionette.View) {
-                        TA.execute('showScreen', attrs.initializer);
-                    } else {
-                        TA.execute('showScreen', attrs.initializer());
-                    }
+                    TA.execute('showScreen', attrs.initializer);
                 });
             }
         });

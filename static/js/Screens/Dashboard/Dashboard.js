@@ -100,8 +100,8 @@
                 screenKey: 'dashboard',
                 iconClass: 'fa-dashboard',
                 anchorText: 'Dashboard',
-                initializer: function() {
-                    return new DashboardView();
+                initializer: function(screen) {
+                    screen.show(new DashboardView());
                 }
             });
         });

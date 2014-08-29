@@ -54,8 +54,8 @@
                 screenKey: 'screentime',
                 iconClass: 'fa-laptop',
                 anchorText: 'Screentime',
-                initializer: function() {
-                    return new ScreentimeLayout();
+                initializer: function(screen) {
+                    screen.show(new ScreentimeLayout());
                 }
             });
         });

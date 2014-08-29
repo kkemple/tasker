@@ -43,17 +43,11 @@
                 'change:allowScreenCapture': 'render'
             },
             initialize: function() {
-                var self = this;
-
-                App.request('userSettings').done(function(settings) {
-                    self.model = settings;
-
-                    if (self.model.get('allowScreenCapture')) {
-                        App.ScreenCapture.stopCapture().done(function() {
-                            App.ScreenCapture.startCapture();
-                        });
-                    }
-                });
+                if (this.model.get('allowScreenCapture')) {
+                    App.ScreenCapture.stopCapture().done(function() {
+                        App.ScreenCapture.startCapture();
+                    });
+                }
             },
 
             /**
@@ -148,13 +142,16 @@
         Mod.SettingsView = SettingsView;
 
         Mod.addInitializer(function() {
+
             App.execute('registerScreen', {
                 position: 9,
                 screenKey: 'settings',
                 iconClass: 'fa-cog',
                 anchorText: 'App Settings',
-                initializer: function() {
-                    return new SettingsView();
+                initializer: function(screen) {
+                    App.request('userSettings').done(function(settings) {
+                        screen.show(new SettingsView({model: settings}));
+                    });
                 }
             });
         });

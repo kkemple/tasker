@@ -77,8 +77,8 @@
                 screenKey: 'today',
                 iconClass: 'fa-calendar',
                 anchorText: 'Today\'s Tasks',
-                initializer: function() {
-                    return new TodaysTasksLayout();
+                initializer: function(screen) {
+                    screen.show(new TodaysTasksLayout());
                 }
             });
         });

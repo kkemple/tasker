@@ -84,7 +84,7 @@
                         isSticky: true
                     });
 
-                    console.warn('ERROR :: Failed to fetch JIRA tasks ::', e);
+                    console.warn('ERROR :: Failed to fetch JIRA tasks :: ', e);
                     return tasks;
                 }
 
@@ -178,6 +178,7 @@
                         self.trigger('jira:loaded');
                     });
                 } else {
+                    this.reset();
                     deferred.resolve();
                     self.trigger('jira:loaded');
                 }
@@ -209,20 +210,22 @@
             }
         });
 
-        App.request('jiraSettings').done(function(jiraSettings) {
-            var jiraTasks = new JiraTasks([], {jiraSettings: jiraSettings});
+        App.reqres.setHandler('jiraTasks', function() {
 
-            App.reqres.setHandler('jiraTasks', function() {
-                var deferred = new $.Deferred();
+            var deferred = new $.Deferred();
+
+            App.request('jiraSettings').done(function(jiraSettings) {
+                var jiraTasks = new JiraTasks([], {jiraSettings: jiraSettings});
+
 
                 jiraTasks.fetch().done(function() {
                     jiraTasks.fetchJiraJSON().done(function() {
                         deferred.resolve(jiraTasks);
                     });
                 });
-
-                return deferred.promise();
             });
+
+            return deferred.promise();
         });
 
         Mod.JiraTask = JiraTask;

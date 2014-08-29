@@ -6,7 +6,7 @@ var saveStats = function(stats) {
     var updatedStats;
 
     try {
-        updatedStats = JSON.stringify(stats, null, 4 );
+        updatedStats = JSON.stringify(stats, null, 4);
     } catch ( e ) {
 
         console.log(e);

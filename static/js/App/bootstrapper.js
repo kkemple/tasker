@@ -29,8 +29,8 @@
     TA.router = new Backbone.Router();
 
     // add command for updating the current screen
-    TA.commands.setHandler('showScreen', function(screen) {
-        TA.main.show(screen);
+    TA.commands.setHandler('showScreen', function(initializer) {
+        initializer(TA.main);
     });
 
     window.TA = TA;

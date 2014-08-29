@@ -22,7 +22,7 @@
          * @private
          */
         var Settings = Backbone.Model.extend({
-            localStorage: new Backbone.LocalStorage('UserSettings'),
+            url: '/settings',
             defaults: {
                 allowBrowserNotifications: false,
                 allowVoiceNotifications: false,

@@ -34,8 +34,8 @@
                 screenKey: 'jira-tasks',
                 iconClass: 'fa-rocket',
                 anchorText: 'JIRA Tasks',
-                initializer: function() {
-                    return new JiraTasksLayout();
+                initializer: function(screen) {
+                    screen.show(new JiraTasksLayout());
                 }
             });
         });
