@@ -22,7 +22,7 @@ ___
 
 #### Running the Install Script
 
-Copy the following command in to the terminal to get the app set up `chmod 700 capture.sh && chmod 700 install.sh && ./install.sh`
+Copy the following command in to the terminal to get the app set up `node install.js`
 
 ___
 
