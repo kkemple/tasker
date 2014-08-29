@@ -138,11 +138,14 @@
         var SearchView = Marionette.Layout.extend({
             template: 'Widgets/Search',
             tagName: 'span',
+            className: 'search-view',
             events: {
-                'keydown #tasks-search': 'filterTasks'
+                'keydown #tasks-search': 'filterTasks',
+                'click .remove-search': 'removeSearch'
             },
             ui: {
                 $search: '#tasks-search',
+                $removeSearch: '.remove-search'
             },
             regions: {
                 filterContainer: '.filter-container'
@@ -211,6 +214,21 @@
             },
 
             /**
+             * Called when the remove search icon is clicked
+             * Responsible for clearing the form to the default values
+             *
+             * @method  removeSearch
+             * @public
+             */
+            removeSearch: function() {
+                this.updateForm({
+                    term: '',
+                    filter: 'taskName'
+                });
+                this.filterTasks();
+            },
+
+            /**
              * Responsible for prepping form data and passing to collection fitlerTasks method
              *
              * @method  filterTasks
@@ -230,11 +248,14 @@
 
                     if (term === '') {
                         self.model.set(self.route, undefined);
+                        self.ui.$removeSearch.hide();
                     } else {
                         self.model.set(self.route, {
                             term: term,
                             filter: filter
                         });
+
+                        self.ui.$removeSearch.show();
                     }
 
                     self.currentCollection.filterTasks(filter, term);
