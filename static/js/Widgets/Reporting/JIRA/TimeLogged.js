@@ -41,7 +41,9 @@
                 var ctx = this.ui.$canvas.get(0).getContext('2d');
 
                 this.chart = new Chart(ctx).Doughnut(data, _({
-                    segmentShowStroke : false,
+                    //segmentShowStroke : false,
+                    segmentStrokeWidth: 1,
+                    segmentStrokeColor: '#3e3634',
                     percentageInnerCutout : 45,
                 }).extend(App.Config.get('chartjs')));
             }

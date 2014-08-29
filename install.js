@@ -16,8 +16,6 @@ var prompt = require('prompt'),
  *
  */
 
-prompt.start();
-
 if (!shell.which('grunt')) {
     prompt.logger.error('You need to install grunt-cli globally :: http://gruntjs.com/getting-started');
     prompt.logger.warn('If you get access errors, you need to set the proper permissions on your node_modules folder =>');
@@ -44,21 +42,24 @@ if (!shell.test('-d', 'data')) {
     }));
 
     prompt.logger.info('Creating `data/user.json` file');
-    fs.writeFile('data/user.json', JSON.stringify({
+    fs.writeFileSync('data/user.json', JSON.stringify({
         id: 1,
         allowBrowserNotifications: false,
         allowVoiceNotifications: false,
         allowVoiceCommands: false,
         notificationDuration: 10,
         backupDuration: 60,
-        allowScreenCapture: false
+        allowScreenCapture: false,
+        screenCaptureStartTime: '',
+        screenCaptureEndTime: ''
     }));
 
     prompt.logger.info('Creating `data/jira.json` file');
-    fs.writeFile('data/jira.json', JSON.stringify({
-        jiraUsername: '',
-        jiraPassword: '',
-        hasJiraSettings: false,
+    fs.writeFileSync('data/jira.json', JSON.stringify({
+        username: '',
+        password: '',
+        jiraUrl: '',
+        hasLoginCreds: false,
         isVisible: true
     }));
 }
