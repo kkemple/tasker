@@ -20,6 +20,6 @@ dev:
     - 'copy'
 prod:
     - 'newer:jshint:beforeconcat'
-    - 'concat'
+    - 'uglify'
     - 'newer:jshint:afterconcat'
     - 'writeProdJsFiles'

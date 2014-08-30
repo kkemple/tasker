@@ -55,7 +55,11 @@ module.exports = function(app) {
     });
 
     app.put('/stats/jira/tracked/:id', function(req, res) {
-        stats.jira.tracked[req.params.id] = req.body;
+        _(stats.jira.tracked).each(function(t, i) {
+            if (t.id === req.params.id) {
+                t = req.body;
+            }
+        });
 
         if (saveStats(stats)) {
             res.json({message: 'Statistic updated'});
@@ -65,12 +69,21 @@ module.exports = function(app) {
     });
 
     app.delete('/stats/jira/tracked/:id', function() {
-        delete stats.jira.tracked[req.params.id];
+       var index = -1;
 
-        if (saveStats(stats)) {
-            res.json({message: 'Statistic added'});
+        _(stats.jira.tracked).each(function(t, i) {
+            if (t.id === req.params.id) {
+                index = i;
+            }
+        });
+
+        if (index > -1) {
+            stats.jira.tracked = stats.jira.tracked.splice(index, 1);
+            saveStats(stats);
+
+            res.json({message: 'stat deleted'});
         } else {
-            res.json({message: 'Unable to save statistic'});
+            res.json({message: 'no tracked stat found with id: ' + req.params.id});
         }
     });
 
@@ -102,7 +115,11 @@ module.exports = function(app) {
     });
 
     app.put('/stats/jira/logged/:id', function(req, res) {
-        stats.jira.logged[req.params.id] = req.body;
+        _(stats.jira.logged).each(function(l, i) {
+            if (l.id === req.params.id) {
+                l = req.body;
+            }
+        });
 
         if (saveStats(stats)) {
             res.json({message: 'Statistic updated'});
@@ -112,12 +129,21 @@ module.exports = function(app) {
     });
 
     app.delete('/stats/jira/logged/:id', function() {
-        delete stats.jira.logged[req.params.id];
+        var index = -1;
 
-        if (saveStats(stats)) {
-            res.json({message: 'Statistic added'});
+        _(stats.jira.logged).each(function(t, i) {
+            if (t.id === req.params.id) {
+                index = i;
+            }
+        });
+
+        if (index > -1) {
+            stats.jira.logged = stats.jira.logged.splice(index, 1);
+            saveStats(stats);
+
+            res.json({message: 'stat deleted'});
         } else {
-            res.json({message: 'Unable to save statistic'});
+            res.json({message: 'no logged stat found with id: ' + req.params.id});
         }
     });
 
@@ -150,7 +176,11 @@ module.exports = function(app) {
     });
 
     app.put('/stats/jira/project/:id', function(req, res) {
-        stats.jira.project[req.params.id] = req.body;
+        _(stats.jira.project).each(function(p, i) {
+            if (p.id === req.params.id) {
+                p = req.body;
+            }
+        });
 
         if (saveStats(stats)) {
             res.json({message: 'Statistic updated'});
@@ -160,12 +190,21 @@ module.exports = function(app) {
     });
 
     app.delete('/stats/jira/project/:id', function() {
-        delete stats.jira.project[req.params.id];
+        var index = -1;
 
-        if (saveStats(stats)) {
-            res.json({message: 'Statistic added'});
+        _(stats.jira.project).each(function(t, i) {
+            if (t.id === req.params.id) {
+                index = i;
+            }
+        });
+
+        if (index > -1) {
+            stats.jira.project = stats.jira.project.splice(index, 1);
+            saveStats(stats);
+
+            res.json({message: 'stat deleted'});
         } else {
-            res.json({message: 'Unable to save statistic'});
+            res.json({message: 'no project stat found with id: ' + req.params.id});
         }
     });
 
@@ -197,7 +236,11 @@ module.exports = function(app) {
     });
 
     app.put('/stats/jira/priority/:id', function(req, res) {
-        stats.jira.priority[req.params.id] = req.body;
+        _(stats.jira.priority).each(function(p, i) {
+            if (p.id === req.params.id) {
+                p = req.body;
+            }
+        });
 
         if (saveStats(stats)) {
             res.json({message: 'Statistic updated'});
@@ -207,12 +250,21 @@ module.exports = function(app) {
     });
 
     app.delete('/stats/jira/priority/:id', function() {
-        delete stats.jira.priority[req.params.id];
+        var index = -1;
 
-        if (saveStats(stats)) {
-            res.json({message: 'Statistic added'});
+        _(stats.jira.priority).each(function(t, i) {
+            if (t.id === req.params.id) {
+                index = i;
+            }
+        });
+
+        if (index > -1) {
+            stats.jira.priority = stats.jira.priority.splice(index, 1);
+            saveStats(stats);
+
+            res.json({message: 'stat deleted'});
         } else {
-            res.json({message: 'Unable to save statistic'});
+            res.json({message: 'no priority stat found with id: ' + req.params.id});
         }
     });
 
@@ -245,7 +297,11 @@ module.exports = function(app) {
     });
 
     app.put('/stats/jira/status/:id', function(req, res) {
-        stats.jira.status[req.params.id] = req.body;
+        _(stats.jira.status).each(function(s, i) {
+            if (s.id === req.params.id) {
+                s = req.body;
+            }
+        });
 
         if (saveStats(stats)) {
             res.json({message: 'Statistic updated'});
@@ -255,12 +311,21 @@ module.exports = function(app) {
     });
 
     app.delete('/stats/jira/status/:id', function() {
-        delete stats.jira.status[req.params.id];
+        var index = -1;
 
-        if (saveStats(stats)) {
-            res.json({message: 'Statistic added'});
+        _(stats.jira.status).each(function(t, i) {
+            if (t.id === req.params.id) {
+                index = i;
+            }
+        });
+
+        if (index > -1) {
+            stats.jira.status = stats.jira.status.splice(index, 1);
+            saveStats(stats);
+
+            res.json({message: 'stat deleted'});
         } else {
-            res.json({message: 'Unable to save statistic'});
+            res.json({message: 'no status stat found with id: ' + req.params.id});
         }
     });
 };

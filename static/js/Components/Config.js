@@ -11,6 +11,9 @@
                 tooltipYPadding: 4,
                 tooltipXPadding: 4,
                 tooltipCornerRadius: 3
+            },
+            notification: {
+                icon: 'img/numbered-list.png'
             }
         };
 

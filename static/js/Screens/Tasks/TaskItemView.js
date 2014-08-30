@@ -30,7 +30,7 @@
 
                 var $target = $(e.target);
 
-                this.model.set('count', App.DateTime.timeStringToSeconds($target.val()));
+                this.model.set('count', App.DateTime.jiraTimeStringToSeconds($target.val()));
 
                 if (this.model.get('count') === 0) { this.model.trigger('change:displayTime'); }
                 this.close();

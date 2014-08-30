@@ -34,7 +34,10 @@
                 'click .backup': 'backUpLocalStorage',
                 'click .restore': 'restoreLocalStorage',
                 'change #notification-duration': 'setNotificationDuration',
-                'change #backup-duration': 'setBackupDuration'
+                'change #backup-duration': 'setBackupDuration',
+                'change #capture-duration': 'setScreenCaptureDuration',
+                'change #capture-start': 'setCaptureStartTime',
+                'change #capture-end': 'setCaptureEndTime'
             },
             modelEvents: {
                 'change:allowBrowserNotifications': 'render',
@@ -42,12 +45,18 @@
                 'change:allowVoiceCommands': 'render',
                 'change:allowScreenCapture': 'render'
             },
+            ui: {
+                $captureStart: '#capture-start',
+                $captureEnd: '#capture-end'
+            },
             initialize: function() {
                 if (this.model.get('allowScreenCapture')) {
-                    App.ScreenCapture.stopCapture().done(function() {
-                        App.ScreenCapture.startCapture();
-                    });
+                    App.ScreenCapture.startCapture();
                 }
+            },
+            onRender: function() {
+                this.ui.$captureStart[0].valueAsNumber = App.DateTime.timeStringToDate(this.model.get('screenCaptureStartTime'));
+                this.ui.$captureEnd[0].valueAsNumber = App.DateTime.timeStringToDate(this.model.get('screenCaptureEndTime'));
             },
 
             /**
@@ -98,6 +107,32 @@
              */
             setBackupDuration: function() {
                 this.model.set('backupDuration', this.$('#backup-duration').val());
+                this.model.save();
+            },
+
+            /**
+             * Responsible for setting the screenCaptureDuration prop on model
+             *
+             * @method setBackupDuration
+             * @public
+             */
+            setScreenCaptureDuration: function() {
+                this.model.set('screenCaptureDuration', this.$('#capture-duration').val());
+                this.model.save();
+
+                if (this.model.get('allowScreenCapture')) {
+                    App.ScreenCapture.stopCapture();
+                    App.ScreenCapture.startCapture();
+                }
+            },
+
+            setCaptureStartTime: function(e) {
+                this.model.set('screenCaptureStartTime', App.DateTime.dateToTimeString(this.ui.$captureStart[0].valueAsNumber));
+                this.model.save();
+            },
+
+            setCaptureEndTime: function(e) {
+                this.model.set('screenCaptureEndTime', App.DateTime.dateToTimeString(this.ui.$captureEnd[0].valueAsNumber));
                 this.model.save();
             },
 

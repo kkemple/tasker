@@ -54,7 +54,9 @@
     "serve-favicon": "~2.0.1",
     "prompt": "~0.2.13",
     "q": "~1.0.1",
-    "shelljs": "~0.3.0"
+    "shelljs": "~0.3.0",
+    "moment": "~2.8.2",
+    "underscore": "~1.7.0"
   },
   "development_mode": true
 }

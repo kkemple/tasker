@@ -20,7 +20,13 @@
             }
         });
 
-        var TimeTracked = Backbone.Model.extend({
+        var JiraStat = Backbone.Model.extend({
+            initialize: function(attrs) {
+                this.id = attrs.key;
+            }
+        });
+
+        var TimeTracked = JiraStat.extend({
             defaults: {
                 taskName: '',
                 key: '',
@@ -55,7 +61,7 @@
         /*****************************************/
 
 
-        var TimeLogged = Backbone.Model.extend({
+        var TimeLogged = JiraStat.extend({
             defaults: {
                 taskName: '',
                 key: '',
@@ -90,7 +96,7 @@
         /*****************************************/
 
 
-        var ProjectWorkedOn = Backbone.Model.extend({
+        var ProjectWorkedOn = JiraStat.extend({
             defaults: {
                 taskName: '',
                 key: '',
@@ -125,7 +131,7 @@
         /*****************************************/
 
 
-        var PriorityWorkedOn = Backbone.Model.extend({
+        var PriorityWorkedOn = JiraStat.extend({
             defaults: {
                 taskName: '',
                 key: '',
@@ -160,7 +166,7 @@
         /*****************************************/
 
 
-        var StatusWorkedOn = Backbone.Model.extend({
+        var StatusWorkedOn = JiraStat.extend({
             defaults: {
                 taskName: '',
                 key: '',

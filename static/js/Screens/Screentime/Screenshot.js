@@ -30,6 +30,11 @@
                     $modal.find('.modal-body').html($imgContainer);
                     $modal.find('.modal-header .caption').html(this.model.get('moment').calendar());
                     $modal.modal();
+                },
+                'click .fa.fa-times': function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.model.destroy();
                 }
             }
         });

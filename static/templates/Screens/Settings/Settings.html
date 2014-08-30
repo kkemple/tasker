@@ -22,5 +22,17 @@
                 Backup local storage every <input type="number" id="backup-duration" class="form-control input-sm" value="<%= backupDuration %>" /> min
             </div>
         </form>
+        <form class="form-inline duration notifications">
+            <div class="form-group">
+                Record screen captures every <input type="number" id="capture-duration" class="form-control input-sm" value="<%= screenCaptureDuration %>" /> min
+            </div>
+        </form>
+        <form class="form-inline duration backups">
+            <div class="form-group">
+                Record screen captures bewteen:
+                <input type="time" id="capture-start" class="form-control input-sm" /> and
+                <input type="time" id="capture-end" class="form-control input-sm" />
+            </div>
+        </form>
     </div>
 </section>

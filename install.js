@@ -5,8 +5,7 @@ var prompt = require('prompt'),
     //sys = require('sys'),
     prompt = require('prompt'),
     exec = require('child_process').exec,
-    shell = require('shelljs'),
-    child;
+    shell = require('shelljs');
 
 
 /**
@@ -49,19 +48,24 @@ if (!shell.test('-d', 'data')) {
         allowVoiceCommands: false,
         notificationDuration: 10,
         backupDuration: 60,
+        screenCaptureDuration: 10,
         allowScreenCapture: false,
-        screenCaptureStartTime: '',
-        screenCaptureEndTime: ''
+        screenCaptureStartTime: '9:00 AM',
+        screenCaptureEndTime: '5:00 PM'
     }));
 
     prompt.logger.info('Creating `data/jira.json` file');
     fs.writeFileSync('data/jira.json', JSON.stringify({
+        id: 1,
         username: '',
         password: '',
         jiraUrl: '',
         hasLoginCreds: false,
         isVisible: true
     }));
+
+    prompt.logger.info('Creating `data/captures.json` file');
+    fs.writeFileSync('data/captures.json', JSON.stringify([]));
 }
 
 // check for static/img/screens dir, if not found build files/folders
@@ -71,9 +75,6 @@ if (!shell.test('-d', 'static/img/screens')) {
 
     prompt.logger.info('Creating `static/img/screens/thumbs` directory');
     shell.mkdir('static/img/screens/thumbs');
-
-    prompt.logger.info('Creating `static/img/screens/screens-list.txt` file');
-    fs.writeFileSync('static/img/screens/screens-list.txt', '');
 }
 
 
@@ -103,6 +104,8 @@ exec('npm install', function(code, output) {
 
         exec('grunt build', function(code, output) {
             prompt.logger.info('grunt build \n', output);
+
+            prompt.logger.info('Tasker ready for use');
         });
     });
 });

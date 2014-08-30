@@ -21,22 +21,21 @@
          */
         var Screenshot = Backbone.Model.extend({
             defaults: {
-                src: null,
                 fullSrc: null,
+                thumbSrc: null,
                 moment: null,
                 timestamp: null
             },
-            initialize: function(attributes, options) {
-                if (this.validate(attributes, options)) {
-                    this.set('moment', moment(attributes.src, 'YYYY-MM-DD HH-mm-ss'));
-                    this.set('fullSrc', attributes.src.replace('thumbs', 'full'));
+            initialize: function() {
+                if (this.isNew()) {
+                    var now = moment();
+
+                    this.set('timestamp', now.toDate());
+                    this.set('fullSrc', 'img/screens/full/' + now.format('YYYY-MM-DD--HH-mm-ss') + '.png');
+                    this.set('thumbSrc', 'img/screens/thumbs/' + now.format('YYYY-MM-DD--HH-mm-ss') + '.png');
                 }
-            },
-            validate: function(attributes, options) {
-                return !!attributes.src;
-            },
-            parse: function(data) {
-                console.log(data);
+
+                this.set('moment', moment(this.get('timestamp')));
             }
         });
 
@@ -52,13 +51,10 @@
          * @public
          */
         var ScreenshotCollection = Backbone.Collection.extend({
-            localStorage: new Backbone.LocalStorage('Screenshots'),
+            url: '/captures',
             model: Screenshot,
             comparitor: function(model) {
                 return model.get('moment').unix();
-            },
-            parse: function(data) {
-                console.log(data);
             }
         });
 
@@ -110,11 +106,13 @@
             localStorage: new Backbone.LocalStorage('ScreenshotActivities')
         });
 
+
+
         var screenshotCollection = new ScreenshotCollection();
         App.reqres.setHandler('screenshots', function() {
             var deferred = new $.Deferred();
 
-            screenshotCollection.fetch().always(function() {
+            screenshotCollection.fetch().done(function() {
                 deferred.resolve(screenshotCollection);
             });
 

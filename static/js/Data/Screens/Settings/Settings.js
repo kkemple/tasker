@@ -30,6 +30,7 @@
                 notificationDuration: 10,
                 backupDuration: 60,
                 allowScreenCapture: false,
+                screenCaptureDuration: '',
                 screenCaptureStartTime: '',
                 screenCaptureEndTime: '',
                 jiraUsername: '',

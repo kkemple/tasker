@@ -14,24 +14,16 @@
             onRender: function() {
                 var self = this;
 
-                $.get('/img/screens/screens-list.txt').done(function(data) {
-                    var imageArr = _(data.split("\n")).compact().map(function(item) { return 'img/screens/thumbs/' + item; }),
-                        currentImages = imageArr.slice(-DEFAULT_PAGE_SIZE),
-                        imgs = _(currentImages).map(function(item, i) { return { src: item, globalIndex: i }; });
+                App.request('screenshots').done(function(screenshots) {
+                    var currentActivities = screenshots.groupBy(function(item) {
+                        return item.get('moment').format('YYYY-MM-DD HH');
+                    });
 
-                    App.request('screenshots').done(function(screenshots) {
-                        screenshots.set(imgs);
+                    currentActivities = _(currentActivities).map(function(item) { return { screenshots: item }; });
 
-                        var currentActivities = screenshots.groupBy(function(item) {
-                            return item.get('moment').format('YYYY-MM-DD HH');
-                        });
-
-                        currentActivities = _(currentActivities).map(function(item) { return { screenshots: item }; });
-
-                        App.request('activities').done(function(activities) {
-                            activities.set(currentActivities);
-                            self.activitiesRegion.show(new Mod.ActivityGroup({collection: activities}));
-                        });
+                    App.request('activities').done(function(activities) {
+                        activities.set(currentActivities);
+                        self.activitiesRegion.show(new Mod.ActivityGroup({collection: activities}));
                     });
                 });
 

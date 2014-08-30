@@ -19,53 +19,47 @@
      *
      */
     TA.module('ScreenCapture', function(Mod, App, Backbone, Marionette, $, _) {
-        App.request('userSettings').done(function(userSettings) {
+        var intervalId;
 
-            Mod.startCapture = function() {
-                var promise = $.get('/screencapture/start');
+        var startLoop = function(coll, settings) {
+            var start = moment(settings.get('screenCaptureStartTime'), 'hh:mm A'),
+                end = moment(settings.get('screenCaptureEndTime'), 'hh:mm A'),
+                range = moment.range(start, end);
 
-                promise.then(function(data) {
+            intervalId = setInterval(function() {
 
-                    var message = data.message;
+                if (range.contains(moment())) {
+                    coll.create({});
+                }
+            }, settings.get('screenCaptureDuration') * 60 * 1000);
+        };
 
-                    if (userSettings.get('allowBrowserNotifications')) {
-                        new Notification('Tasker Alert', {
-                            body: message,
-                            icon: 'img/numbered-list.png'
-                        });
-                    }
+        Mod.startCapture = function() {
+            $.when(App.request('userSettings'), App.request('screenshots')).done(function(userSettings, screenshots) {
 
-                    if (userSettings.get('allowVoiceNotifications')) {
-                        var utterance = new SpeechSynthesisUtterance(message);
-                        speechSynthesis.speak(utterance);
-                    }
-                });
+                startLoop(screenshots, userSettings);
 
-                return promise;
-            };
+                var message = 'Screen capture enabled';
 
-            Mod.stopCapture = function() {
-                var promise = $.get('/screencapture/stop');
+                if (userSettings.get('allowBrowserNotifications')) {
+                    new Notification('Tasker Alert', _.extend({
+                        body: message,
+                    }, App.Config.get('notification')));
+                } else {
+                    App.Growler.growl({
+                        message: message
+                    });
+                }
 
-                promise.then(function(data) {
+                if (userSettings.get('allowVoiceNotifications')) {
+                    var utterance = new SpeechSynthesisUtterance(message);
+                    speechSynthesis.speak(utterance);
+                }
+            });
+        };
 
-                    var message = data.message;
-
-                    if (userSettings.get('allowBrowserNotifications')) {
-                        new Notification('Takser Alert', {
-                            body: message,
-                            icon: 'img/numbered-list.png'
-                        });
-                    }
-
-                    if (userSettings.get('allowVoiceNotifications')) {
-                        var utterance = new SpeechSynthesisUtterance(message);
-                        speechSynthesis.speak(utterance);
-                    }
-                });
-
-                return promise;
-            };
-        });
+        Mod.stopCapture = function() {
+            clearInterval(intervalId);
+        };
     });
 })(TA, Backbone, Marionette, jQuery, _);

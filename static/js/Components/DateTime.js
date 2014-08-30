@@ -20,7 +20,7 @@
             return {hour: hours, minute: minutes, second: seconds};
         };
 
-        Mod.timeStringToSeconds = function(input) {
+        Mod.jiraTimeStringToSeconds = function(input) {
             var parts = input.split(/\s+/);
 
             var hours, minutes, seconds;
@@ -43,12 +43,27 @@
             return (isNaN(seconds)) ? 0 : seconds;
         };
 
-        Mod.formatTime = function(timeObj, formatter) {
-            return moment(timeObj).format(formatter);
+        Mod.timeStringToDate = function(timeStr, addZone) {
+            var m = moment(timeStr, 'hh:mm A');
+            addZone = addZone || true;
+
+            if (addZone) {
+                m.subtract('hours', 4);
+            }
+
+            return m.toDate();
         };
 
-        Mod.formatDate = function(dateString, formatter) {
-            return moment(dateString).format(formatter);
+        Mod.dateToTimeString = function(date, addZone) {
+            var m = moment(date).zone('-0400');
+            addZone = addZone || true;
+
+            if (addZone) {
+                m.add('hours', 4);
+            }
+
+            return m.format('hh:mm A');
         };
+
     });
 })(TA, Backbone, Marionette, jQuery, _);
