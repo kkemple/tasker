@@ -53,8 +53,14 @@
         var ScreenshotCollection = Backbone.Collection.extend({
             url: '/captures',
             model: Screenshot,
-            comparitor: function(model) {
-                return model.get('moment').unix();
+            parse: function(data) {
+                return data.map(function(d, i) {
+                    if (!d.index) {
+                        d.index = i;
+                    }
+
+                    return d;
+                }).reverse();
             }
         });
 
@@ -77,14 +83,13 @@
             },
             initialize: function(attributes, options) {
                 var coll, firstMoment;
-                if (attributes.screenshots && attributes.screenshots.length) { // TODO: check if it's already a collection
+                if (attributes.screenshots && attributes.screenshots.length) {
+
                     coll = new ScreenshotCollection(attributes.screenshots);
                     firstMoment = coll.at(0).get('moment');
+
                     this.set('screenshots', coll);
-                    // TODO: this "if" can go outside it's parent once the above TODO is done.
-                    if (!attributes.label) {
-                        this.set('label', firstMoment.calendar()); // TODO: customize format
-                    }
+                    this.set('label', firstMoment.calendar()); // TODO: customize format
                     this.set('length', coll.length);
                 }
             }
@@ -102,8 +107,7 @@
          * @public
          */
         var ActivityCollection = Backbone.Collection.extend({
-            model: Activity,
-            localStorage: new Backbone.LocalStorage('ScreenshotActivities')
+            model: Activity
         });
 
 
@@ -119,14 +123,10 @@
             return deferred.promise();
         });
 
-        var activityCollection = new ActivityCollection();
         App.reqres.setHandler('activities', function() {
             var deferred = new $.Deferred();
 
-            activityCollection.fetch().always(function() {
-                deferred.resolve(activityCollection);
-            });
-
+            deferred.resolve(new ActivityCollection());
             return deferred.promise();
         });
 

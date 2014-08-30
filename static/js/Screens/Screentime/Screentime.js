@@ -1,7 +1,7 @@
 ;(function(TA, Backbone, Marionette, $, _) {
     "use strict";
 
-    var DEFAULT_PAGE_SIZE = 150;
+    var DEFAULT_PAGE_SIZE = 100;
 
     TA.module('Screentime', function(Mod, App, Backbone, Marionette, $, _) {
         var ScreentimeLayout = Marionette.Layout.extend({
@@ -20,6 +20,7 @@
                     });
 
                     currentActivities = _(currentActivities).map(function(item) { return { screenshots: item }; });
+                    currentActivities.reverse();
 
                     App.request('activities').done(function(activities) {
                         activities.set(currentActivities);
@@ -27,16 +28,26 @@
                     });
                 });
 
-                // setup prev/next buttons on modal.
-                // TODO: this should be a view
-                $('#image-zoom').find('.modal-header .prev').click(function(evt) { switchImg(this, 'prev'); });
-                $('#image-zoom').find('.modal-header .next').click(function(evt) { switchImg(this, 'next'); });
+                setTimeout(function() {
+                    $('#image-zoom').on('click', '.modal-header .prev', function(evt) {
+                        switchImg(this, 'prev');
+                    });
+                    $('#image-zoom').on('click', '.modal-header .next', function(evt) {
+                        switchImg(this, 'next');
+                    });
+                }, 500);
+
                 var switchImg = function(btn, direction) {
                     var currentIdx = +$(btn).attr('data-current-idx'),
-                        idxToOpen = (direction === 'prev') ? currentIdx - 1 : currentIdx + 1;
+                        idxToOpen = (direction === 'prev') ? currentIdx + 1 : currentIdx - 1;
 
-                    $($('.shot')[idxToOpen]).click(); // TODO: this is kind of a hack
+                    if (idxToOpen > -1) {
+                        $('.shot[data-gid="' + idxToOpen + '"]').click();
+                    }
                 };
+            },
+            onBeforeDestroy: function() {
+                $('#image-zoom').off('click');
             }
         });
 
