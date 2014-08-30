@@ -9,22 +9,11 @@
                 danger: '#F15854',
                 success: '#5cb85c',
                 gray: '#4D4D4D',
-                blue: '#5DA5DA',
-                orange: '#FAA43A',
                 pink: '#F17CB0',
                 purple: '#B276B2',
+                ducky: '#7D9F9C',
+                lavendar: '#5C557E'
             },
-            colorKeys: [
-                'warning',
-                'info',
-                'danger',
-                'success',
-                'gray',
-                'blue',
-                'orange',
-                'pink',
-                'purple',
-            ],
             weekdays: [
                 'Sunday',
                 'Monday',
@@ -35,6 +24,10 @@
                 'Saturday'
             ]
         };
+
+        texts.colorKeys = _(texts.colors).map(function(val, key) {
+            return key;
+        });
 
         Mod.get = function(key) {
             return texts[key];
