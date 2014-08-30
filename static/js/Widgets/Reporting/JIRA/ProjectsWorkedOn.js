@@ -8,6 +8,19 @@
         var colorKeys = App.Texts.get('colorKeys');
         var weekdays = App.Texts.get('weekdays');
 
+        var _usedColors = [];
+
+        var getRandomColor = function() {
+            var color = colorKeys[Math.floor(Math.random() * colorKeys.length)];
+
+            if (_.indexOf(_usedColors, color) === -1) {
+                _usedColors.push(color);
+                return colors[color];
+            } else {
+                return getRandomColor();
+            }
+        };
+
         var ProjectsWorkedOnWidget = Marionette.ItemView.extend({
             template: 'Widgets/Reporting/JIRA/ProjectsWorkedOn',
             className: 'widget projects-worked-on-weekly',
@@ -52,7 +65,7 @@
                     self.model.set('projects', {
                         labels: weekdays,
                         datasets: _(data).map(function(p, key) {
-                            return { label: key, data: p, fillColor: colors[colorKeys[Math.floor(Math.random() * 13)]] };
+                            return { label: key, data: p, fillColor: getRandomColor() };
                         })
                     });
                 });

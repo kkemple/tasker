@@ -60,32 +60,37 @@
                     if (jSettings.get('hasLoginCreds')) {
                         self.ui.$intro.hide();
 
-                        App.request('stats:jira:tracked').done(function(stats) {
-                            self.timeTrackedWeekly.show(App.Widgets.Reporting.JIRA.TimeTracked.get({
-                                model: new Backbone.Model(),
-                                collection: stats.thisWeek()
-                            }));
-                        });
+                        App.request('userSettings').done(function(uSettings) {
 
-                        App.request('stats:jira:logged').done(function(stats) {
-                            self.timeLoggedWeekly.show(App.Widgets.Reporting.JIRA.TimeLogged.get({
-                                model: new Backbone.Model(),
-                                collection: stats.thisWeek()
-                            }));
-                        });
+                            App.request('stats:jira:tracked').done(function(stats) {
+                                self.timeTrackedWeekly.show(App.Widgets.Reporting.JIRA.TimeTracked.get({
+                                    model: new Backbone.Model(),
+                                    collection: stats.thisWeek(),
+                                    userSettings: uSettings
+                                }));
+                            });
 
-                        App.request('stats:jira:priority').done(function(stats) {
-                            self.prioritiesWeekly.show(App.Widgets.Reporting.JIRA.Priority.get({
-                                model: new Backbone.Model(),
-                                collection: stats.thisWeek()
-                            }));
-                        });
+                            App.request('stats:jira:logged').done(function(stats) {
+                                self.timeLoggedWeekly.show(App.Widgets.Reporting.JIRA.TimeLogged.get({
+                                    model: new Backbone.Model(),
+                                    collection: stats.thisWeek(),
+                                    userSettings: uSettings
+                                }));
+                            });
 
-                        App.request('stats:jira:project').done(function(stats) {
-                            self.projectsWeekly.show(App.Widgets.Reporting.JIRA.ProjectsWorkedOn.get({
-                                model: new Backbone.Model(),
-                                collection: stats.thisWeek()
-                            }));
+                            App.request('stats:jira:priority').done(function(stats) {
+                                self.prioritiesWeekly.show(App.Widgets.Reporting.JIRA.Priority.get({
+                                    model: new Backbone.Model(),
+                                    collection: stats.thisWeek()
+                                }));
+                            });
+
+                            App.request('stats:jira:project').done(function(stats) {
+                                self.projectsWeekly.show(App.Widgets.Reporting.JIRA.ProjectsWorkedOn.get({
+                                    model: new Backbone.Model(),
+                                    collection: stats.thisWeek()
+                                }));
+                            });
                         });
                     }
                 });

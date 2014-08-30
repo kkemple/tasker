@@ -7,6 +7,19 @@
         var colors = App.Texts.get('colors');
         var colorKeys = App.Texts.get('colorKeys');
 
+        var _usedColors = [];
+
+        var getRandomColor = function() {
+            var color = colorKeys[Math.floor(Math.random() * colorKeys.length)];
+
+            if (_.indexOf(_usedColors, color) === -1) {
+                _usedColors.push(color);
+                return colors[color];
+            } else {
+                return getRandomColor();
+            }
+        };
+
         var PriorityWorkedOnWidget = Marionette.ItemView.extend({
             template: 'Widgets/Reporting/JIRA/PrioritiesWorkedOn',
             className: 'widget priorities-weekly',
@@ -30,7 +43,7 @@
                 });
 
                 this.model.set('priorities', _(priorities).map(function(p, key) {
-                    return {label: key, value: p, color: colors[colorKeys[Math.floor(Math.random() * 13)]]};
+                    return { label: key, value: p, color: getRandomColor() };
                 }));
             },
             onRender: function() {

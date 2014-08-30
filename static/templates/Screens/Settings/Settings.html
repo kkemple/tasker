@@ -1,37 +1,57 @@
 <section class="settings-container">
-    <div class="basic-settings">
-        <h4>Settings</h4>
+    <div class="settings-group">
+        <h3>Notifications</h3>
         <button class="allow-browser-notifications btn btn-sm <%= (allowBrowserNotifications) ? 'btn-danger' : 'btn-success' %>">
-            <%= (allowBrowserNotifications) ? 'Disable' : 'Enable' %> Browser Notifications
+        <%= (allowBrowserNotifications) ? 'Disable' : 'Enable' %> Browser Notifications
         </button>
         <button class="allow-voice-notifications btn btn-sm <%= (allowVoiceNotifications) ? 'btn-danger' : 'btn-success' %>">
             <%= (allowVoiceNotifications) ? 'Disable' : 'Enable' %> Voice Notifications
         </button>
-        <button class="allow-screencapture btn btn-sm <%= (allowScreenCapture) ? 'btn-danger' : 'btn-success' %>">
-            <%= (allowScreenCapture) ? 'Disable' : 'Enable' %> Screen Capture
-        </button>
-        <button class="btn btn-sm btn-info backup">Backup Local Storage</button>
-        <button class="btn btn-sm btn-warning restore">Restore From Local Storage</button>
         <form class="form-inline duration notifications">
             <div class="form-group">
                 Send notifications every <input type="number" id="notification-duration" class="form-control input-sm" value="<%= notificationDuration %>" /> min
             </div>
         </form>
-        <form class="form-inline duration backups">
-            <div class="form-group">
-                Backup local storage every <input type="number" id="backup-duration" class="form-control input-sm" value="<%= backupDuration %>" /> min
-            </div>
-        </form>
+    </div>
+
+    <div class="settings-group">
+        <h3>Screentime</h3>
+        <button class="allow-screencapture btn btn-sm <%= (allowScreenCapture) ? 'btn-danger' : 'btn-success' %>">
+            <%= (allowScreenCapture) ? 'Disable' : 'Enable' %> Screen Capture
+        </button>
         <form class="form-inline duration notifications">
             <div class="form-group">
                 Record screen captures every <input type="number" id="capture-duration" class="form-control input-sm" value="<%= screenCaptureDuration %>" /> min
             </div>
         </form>
-        <form class="form-inline duration backups">
+        <form class="form-inline">
             <div class="form-group">
                 Record screen captures bewteen:
                 <input type="time" id="capture-start" class="form-control input-sm" /> and
                 <input type="time" id="capture-end" class="form-control input-sm" />
+            </div>
+        </form>
+    </div>
+
+    <div class="settings-group">
+        <h3>Storage</h3>
+
+        <button class="btn btn-sm btn-info backup">Backup Local Storage</button>
+        <button class="btn btn-sm btn-warning restore">Restore From Local Storage</button>
+
+        <form class="form-inline">
+            <div class="form-group">
+                Backup local storage every <input type="number" id="backup-duration" class="form-control input-sm" value="<%= backupDuration %>" /> min
+            </div>
+        </form>
+    </div>
+
+    <div class="settings-group">
+        <h3>Statistics</h3>
+
+        <form class="form-inline">
+            <div class="form-group">
+                Number of hrs per work week <input type="number" id="work-hours" class="form-control input-sm" value="<%= hoursPerWorkWeek %>" />
             </div>
         </form>
     </div>

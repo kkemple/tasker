@@ -3,7 +3,6 @@
 
     TA.module('Widgets.Reporting.JIRA.TimeTracked', function(Mod, App, Backbone, Marionette, $, _) {
 
-        var WEEK = 60 * 60 * 25; // 40 hr work week
         var colors = App.Texts.get('colors');
 
         var TimeTrackedThisWeekWidget = Marionette.ItemView.extend({
@@ -16,7 +15,7 @@
                 var self = this;
 
                 this.collection = opts.collection;
-                this.statsLoaded = true;
+                this.userSettings = opts.userSettings;
 
                 var timetracked = 0;
 
@@ -24,8 +23,9 @@
                     timetracked += m.get('count');
                 });
 
+                this.model.set('workWeek', this.userSettings.get('hoursPerWorkWeek'));
                 this.model.set('tracked', timetracked);
-                this.model.set('untracked', WEEK - timetracked);
+                this.model.set('untracked', (this.model.get('workWeek') * 60 * 60) - timetracked);
 
                 var time = App.DateTime.parseSeconds(timetracked);
                 this.model.set('hours', time.hour);
@@ -37,16 +37,14 @@
 
                 var data = [
                     {value: this.model.get('tracked'), color: colors.info, label: 'Time Tracked'},
-                    {value: this.model.get('untracked'), color: colors.red, label: 'Time Not Tracked'}
+                    {value: this.model.get('untracked'), color: colors.danger, label: 'Time Not Tracked'}
                 ];
                 var ctx = this.ui.$canvas.get(0).getContext('2d');
 
                 this.chart = new Chart(ctx).Doughnut(data, _({
-                    //segmentShowStroke : false,
                     segmentStrokeWidth: 1,
                     segmentStrokeColor: '#3e3634',
                     percentageInnerCutout : 45,
-                    //segmentStrokeWidth : 1
                 }).extend(App.Config.get('chartjs')));
             }
         });

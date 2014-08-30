@@ -47,7 +47,7 @@ module.exports = function(app) {
         user = req.body;
 
         if (saveUser(user)) {
-            res.json({message: 'Settings updated'});
+            res.json(user);
         } else {
             res.json({message: 'Unable to update settings'});
         }

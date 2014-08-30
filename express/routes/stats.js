@@ -62,7 +62,7 @@ module.exports = function(app) {
         });
 
         if (saveStats(stats)) {
-            res.json({message: 'Statistic updated'});
+            res.json(t);
         } else {
             res.json({message: 'Unable to save statistic'});
         }
@@ -122,7 +122,7 @@ module.exports = function(app) {
         });
 
         if (saveStats(stats)) {
-            res.json({message: 'Statistic updated'});
+            res.json(l);
         } else {
             res.json({message: 'Unable to save statistic'});
         }
@@ -131,14 +131,14 @@ module.exports = function(app) {
     app.delete('/stats/jira/logged/:id', function() {
         var index = -1;
 
-        _(stats.jira.logged).each(function(t, i) {
-            if (t.id === req.params.id) {
+        _(stats.jira.logged).each(function(l, i) {
+            if (l.id === req.params.id) {
                 index = i;
             }
         });
 
         if (index > -1) {
-            stats.jira.logged = stats.jira.logged.splice(index, 1);
+            stats.jira.logged.splice(index, 1);
             saveStats(stats);
 
             res.json({message: 'stat deleted'});
@@ -183,7 +183,7 @@ module.exports = function(app) {
         });
 
         if (saveStats(stats)) {
-            res.json({message: 'Statistic updated'});
+            res.json(p);
         } else {
             res.json({message: 'Unable to save statistic'});
         }
@@ -192,14 +192,14 @@ module.exports = function(app) {
     app.delete('/stats/jira/project/:id', function() {
         var index = -1;
 
-        _(stats.jira.project).each(function(t, i) {
-            if (t.id === req.params.id) {
+        _(stats.jira.project).each(function(p, i) {
+            if (p.id === req.params.id) {
                 index = i;
             }
         });
 
         if (index > -1) {
-            stats.jira.project = stats.jira.project.splice(index, 1);
+            stats.jira.project.splice(index, 1);
             saveStats(stats);
 
             res.json({message: 'stat deleted'});
@@ -243,7 +243,7 @@ module.exports = function(app) {
         });
 
         if (saveStats(stats)) {
-            res.json({message: 'Statistic updated'});
+            res.json(p);
         } else {
             res.json({message: 'Unable to save statistic'});
         }
@@ -252,14 +252,14 @@ module.exports = function(app) {
     app.delete('/stats/jira/priority/:id', function() {
         var index = -1;
 
-        _(stats.jira.priority).each(function(t, i) {
-            if (t.id === req.params.id) {
+        _(stats.jira.priority).each(function(p, i) {
+            if (p.id === req.params.id) {
                 index = i;
             }
         });
 
         if (index > -1) {
-            stats.jira.priority = stats.jira.priority.splice(index, 1);
+            stats.jira.priority.splice(index, 1);
             saveStats(stats);
 
             res.json({message: 'stat deleted'});
@@ -304,7 +304,7 @@ module.exports = function(app) {
         });
 
         if (saveStats(stats)) {
-            res.json({message: 'Statistic updated'});
+            res.json(s);
         } else {
             res.json({message: 'Unable to save statistic'});
         }
@@ -313,14 +313,14 @@ module.exports = function(app) {
     app.delete('/stats/jira/status/:id', function() {
         var index = -1;
 
-        _(stats.jira.status).each(function(t, i) {
-            if (t.id === req.params.id) {
+        _(stats.jira.status).each(function(s, i) {
+            if (s.id === req.params.id) {
                 index = i;
             }
         });
 
         if (index > -1) {
-            stats.jira.status = stats.jira.status.splice(index, 1);
+            stats.jira.status.splice(index, 1);
             saveStats(stats);
 
             res.json({message: 'stat deleted'});

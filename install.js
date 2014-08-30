@@ -51,7 +51,8 @@ if (!shell.test('-d', 'data')) {
         screenCaptureDuration: 10,
         allowScreenCapture: false,
         screenCaptureStartTime: '9:00 AM',
-        screenCaptureEndTime: '5:00 PM'
+        screenCaptureEndTime: '5:00 PM',
+        hoursPerWorkWeek: 30
     }));
 
     prompt.logger.info('Creating `data/jira.json` file');

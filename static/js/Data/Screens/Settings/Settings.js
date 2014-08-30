@@ -33,9 +33,7 @@
                 screenCaptureDuration: '',
                 screenCaptureStartTime: '',
                 screenCaptureEndTime: '',
-                jiraUsername: '',
-                jiraPassword: '',
-                hasJiraSettings: false
+                hoursPerWorkWeek: 30
             }
         });
 

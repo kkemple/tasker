@@ -37,7 +37,8 @@
                 'change #backup-duration': 'setBackupDuration',
                 'change #capture-duration': 'setScreenCaptureDuration',
                 'change #capture-start': 'setCaptureStartTime',
-                'change #capture-end': 'setCaptureEndTime'
+                'change #capture-end': 'setCaptureEndTime',
+                'change #work-hours': 'setHoursPerWorkWeek'
             },
             modelEvents: {
                 'change:allowBrowserNotifications': 'render',
@@ -126,12 +127,12 @@
                 }
             },
 
-            setCaptureStartTime: function(e) {
+            setCaptureStartTime: function() {
                 this.model.set('screenCaptureStartTime', App.DateTime.dateToTimeString(this.ui.$captureStart[0].valueAsNumber));
                 this.model.save();
             },
 
-            setCaptureEndTime: function(e) {
+            setCaptureEndTime: function() {
                 this.model.set('screenCaptureEndTime', App.DateTime.dateToTimeString(this.ui.$captureEnd[0].valueAsNumber));
                 this.model.save();
             },
@@ -151,6 +152,11 @@
                 } else {
                     App.ScreenCapture.stopCapture();
                 }
+            },
+
+            setHoursPerWorkWeek: function() {
+                this.model.set('hoursPerWorkWeek', parseInt(this.$('#work-hours').val(), 10));
+                this.model.save();
             },
 
             /**

@@ -44,13 +44,13 @@ module.exports = function(app) {
         var fullPath = path.resolve(__dirname, '../../static/' + req.body.fullSrc);
         var thumbPath = path.resolve(__dirname, '../../static/' + req.body.thumbSrc);
 
-        shell.exec('screencapture -x ' + fullPath, {silent:true});
+        shell.exec('screencapture -x ' + fullPath, {silent: true});
 
         if (!shell.test('-f', fullPath)) { res.json({message: 'failed to capture screen'}); }
 
         shell.cp(fullPath, thumbPath);
 
-        shell.exec('sips -Z 200 ' + thumbPath, {silent:true});
+        shell.exec('sips -Z 200 ' + thumbPath, {silent: true});
 
         if (!shell.test('-f', thumbPath)) { res.json({message: 'failed to capture screen'}); }
 

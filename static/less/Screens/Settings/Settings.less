@@ -7,12 +7,20 @@
         cursor: pointer;
     }
 
-    .basic-settings {
+    .settings-group {
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid @borderDark;
 
-        .duration {
+        &:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .form-inline {
             margin-top: 10px;
 
-            #duration {
+            input[type="number"] {
                 width: 60px;
             }
         }

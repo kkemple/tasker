@@ -3,7 +3,6 @@
 
     TA.module('Widgets.Reporting.JIRA.TimeLogged', function(Mod, App, Backbone, Marionette, $, _) {
 
-        var WEEK = 60 * 60 * 25; // 40 hr work week
         var colors = App.Texts.get('colors');
 
         var TimeLoggedThisWeekWidget = Marionette.ItemView.extend({
@@ -15,15 +14,18 @@
             initialize: function(opts) {
 
                 this.collection = opts.collection;
+                this.userSettings = opts.userSettings;
 
                 var timetracked = 0;
+
 
                 this.collection.each(function(m) {
                     timetracked += m.get('count');
                 });
 
+                this.model.set('workWeek', this.userSettings.get('hoursPerWorkWeek'));
                 this.model.set('tracked', timetracked);
-                this.model.set('untracked', WEEK - timetracked);
+                this.model.set('untracked', (this.model.get('workWeek') * 60 * 60) - timetracked);
 
                 var time = App.DateTime.parseSeconds(timetracked);
                 this.model.set('hours', time.hour);
@@ -35,8 +37,8 @@
                 var self = this;
 
                 var data = [
-                    {value: this.model.get('tracked'), color: colors.green, label: 'Time Tracked'},
-                    {value: this.model.get('untracked'), color: colors.red, label: 'Time Not Tracked'}
+                    {value: this.model.get('tracked'), color: colors.success, label: 'Time Tracked'},
+                    {value: this.model.get('untracked'), color: colors.danger, label: 'Time Not Tracked'}
                 ];
                 var ctx = this.ui.$canvas.get(0).getContext('2d');
 
