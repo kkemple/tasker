@@ -24,8 +24,10 @@
                 });
 
                 this.model.set('workWeek', this.userSettings.get('hoursPerWorkWeek'));
-                this.model.set('tracked', timetracked);
-                this.model.set('untracked', (this.model.get('workWeek') * 60 * 60) - timetracked);
+                var secondCount = (this.model.get('workWeek') * 60) * 60;
+
+                this.model.set('tracked', Math.round((timetracked / secondCount) * 100));
+                this.model.set('untracked', Math.round(((secondCount - timetracked) / secondCount) * 100));
 
                 var time = App.DateTime.parseSeconds(timetracked);
                 this.model.set('hours', time.hour);
@@ -45,6 +47,7 @@
                     segmentStrokeWidth: 1,
                     segmentStrokeColor: '#3e3634',
                     percentageInnerCutout : 45,
+                    tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>%"
                 }).extend(App.Config.get('chartjs')));
             }
         });
