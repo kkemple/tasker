@@ -96,19 +96,15 @@ if (!shell.test('-f', '.password')) {
  *
  */
 
-exec('npm install', function(code, output) {
-  prompt.logger.info('npm install \n', output);
+prompt.logger.info('npm install \n');
+shell.exec('npm install');
 
-    exec('bower install', function(code, output) {
-        prompt.logger.info('bower install \n', output);
+prompt.logger.info('bower install \n');
+shell.exec('bower install');
 
-        exec('grunt build', function(code, output) {
-            prompt.logger.info('grunt build \n', output);
+prompt.logger.info('grunt build \n');
+shell.exec('grunt build');
 
-            prompt.logger.info('Tasker ready for use');
-        });
-    });
-});
 
 
 
