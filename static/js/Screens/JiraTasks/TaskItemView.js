@@ -9,15 +9,16 @@
                     'click .save-worklog': 'saveWorklog'
                 });
             },
-            modelEvents: function() {
-                return _.extend(App.Screens.Tasks.TaskView.prototype.modelEvents, {
+            resetTimer: function() {
 
+                App.execute('stats:jira:tracked', {
+                    taskName: this.model.get('taskName'),
+                    key: this.model.get('key'),
+                    count: this.model.get('count'),
+                    date: moment()
                 });
-            },
-            ui: function() {
-                return _.extend(App.Screens.Tasks.TaskView.prototype.ui, {
-                    $countContainer: '.count span'
-                });
+
+                this.model.clearCount();
             },
             saveWorklog: function(e) {
                 var self = this;

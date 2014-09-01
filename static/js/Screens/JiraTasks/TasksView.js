@@ -2,6 +2,7 @@
     "use strict";
 
     TA.module('Screens.JIRA', function(Mod, App, Backbone, Marionette, $, _) {
+
         var TasksView = App.Screens.Tasks.TasksView.extend({
             template: 'Screens/JIRA/TasksView',
             itemViewContainer: '.jira-tasks',

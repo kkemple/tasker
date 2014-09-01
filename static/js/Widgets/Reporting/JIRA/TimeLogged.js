@@ -39,8 +39,8 @@
                 var self = this;
 
                 var data = [
-                    {value: this.model.get('tracked'), color: colors.success, label: 'Time Tracked'},
-                    {value: this.model.get('untracked'), color: colors.danger, label: 'Time Not Tracked'}
+                    {value: this.model.get('tracked'), color: colors.success, label: 'Time Logged'},
+                    {value: this.model.get('untracked'), color: colors.danger, label: 'Time Not Logged'}
                 ];
                 var ctx = this.ui.$canvas.get(0).getContext('2d');
 

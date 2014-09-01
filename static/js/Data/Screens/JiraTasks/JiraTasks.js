@@ -154,7 +154,7 @@
                             var model = self.findWhere({key: modelAttrs.key});
 
                             if (!model) {
-                                self.add(modelAttrs, {merge: true});
+                                self.add(modelAttrs);
                             } else {
                                 model.set({
                                     priority: modelAttrs.priority,
@@ -192,7 +192,7 @@
              *
              * @method  filterTasks
              * @param  {String} filter the model property to check against
-             * @param  {String} term   the string to match agains model property
+             * @param  {String} term   the string to match against model property
              * @public
              */
             filterTasks: function(filter, term) {
@@ -205,18 +205,22 @@
                         } else {
                             model.set('isFiltered', true);
                         }
+
+                        model.trigger('change:isFiltered');
                     }
                 });
             }
         });
+
+        var jiraTasks;
 
         App.reqres.setHandler('jiraTasks', function() {
 
             var deferred = new $.Deferred();
 
             App.request('jiraSettings').done(function(jiraSettings) {
-                var jiraTasks = new JiraTasks([], {jiraSettings: jiraSettings});
 
+                if (!jiraTasks) { jiraTasks = new JiraTasks([], {jiraSettings: jiraSettings}); }
 
                 jiraTasks.fetch().done(function() {
                     jiraTasks.fetchJiraJSON().done(function() {

@@ -174,6 +174,7 @@
              */
             initSearch: function(route) {
                 var self = this;
+                self.filterContainer.show(App.Loader.get());
 
                 $.when(App.request('tasks'), App.request('jiraTasks')).done(function(tasks, jiraTasks) {
                     self.tasksCollection = tasks;

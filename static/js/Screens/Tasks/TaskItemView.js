@@ -86,16 +86,6 @@
                 this.$el.toggleClass('active', this.model.get('isRunning'));
             },
             resetTimer: function() {
-
-                if (this.model.get('key')) {
-                    App.execute('stats:jira:tracked', {
-                        taskName: this.model.get('taskName'),
-                        key: this.model.get('key'),
-                        tracked: this.model.get('count'),
-                        date: moment()
-                    });
-                }
-
                 this.model.clearCount();
             },
             deleteTask: function() {
