@@ -70,13 +70,15 @@
                 var self = this,
                     files = e.target.files;
 
-
                 _(files).each(function(file) {
                     if (file.type.match('application/json')) {
 
                         var reader = new FileReader();
                         reader.onload = function(event) {
                             self.taskCollection.set(JSON.parse(event.target.result));
+                            self.taskCollection.each(function(m) {
+                                m.save();
+                            });
                         };
 
                         reader.readAsText(file);

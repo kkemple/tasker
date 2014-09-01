@@ -88,7 +88,12 @@
             resetTimer: function() {
 
                 if (this.model.get('key')) {
-                    App.execute('stats:jira:tracked', this.model.attributes);
+                    App.execute('stats:jira:tracked', {
+                        taskName: this.model.get('taskName'),
+                        key: this.model.get('key'),
+                        tracked: this.model.get('count'),
+                        date: moment()
+                    });
                 }
 
                 this.model.clearCount();

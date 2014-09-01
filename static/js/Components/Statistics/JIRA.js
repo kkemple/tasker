@@ -20,11 +20,7 @@
             }
         });
 
-        var JiraStat = Backbone.Model.extend({
-            initialize: function(attrs) {
-                this.id = attrs.key;
-            }
-        });
+        var JiraStat = Backbone.Model.extend({});
 
         var TimeTracked = JiraStat.extend({
             defaults: {

@@ -1,5 +1,6 @@
 var fs = require('fs'),
     path = require('path'),
+    _ = require('underscore'),
     stats = require('../../data/stats.json');
 
 var saveStats = function(stats) {
@@ -39,10 +40,12 @@ module.exports = function(app) {
 
     app.post('/stats/jira/tracked', function(req, res) {
         if (!stats.jira.tracked) { stats.jira.tracked = []; }
+        req.body.id = req.body.key;
+
         stats.jira.tracked.push(req.body);
 
         if (saveStats(stats)) {
-            res.json({message: 'Statistic added'});
+            res.json(req.body);
         } else {
             res.json({message: 'Unable to save statistic'});
         }
@@ -55,14 +58,16 @@ module.exports = function(app) {
     });
 
     app.put('/stats/jira/tracked/:id', function(req, res) {
+        var stat;
         _(stats.jira.tracked).each(function(t, i) {
             if (t.id === req.params.id) {
                 t = req.body;
+                stat = t;
             }
         });
 
         if (saveStats(stats)) {
-            res.json(t);
+            res.json(stat);
         } else {
             res.json({message: 'Unable to save statistic'});
         }
@@ -78,7 +83,7 @@ module.exports = function(app) {
         });
 
         if (index > -1) {
-            stats.jira.tracked = stats.jira.tracked.splice(index, 1);
+            stats.jira.tracked.splice(index, 1);
             saveStats(stats);
 
             res.json({message: 'stat deleted'});
@@ -99,10 +104,12 @@ module.exports = function(app) {
 
     app.post('/stats/jira/logged', function(req, res) {
         if (!stats.jira.logged) { stats.jira.logged = []; }
+        req.body.id = req.body.key;
+
         stats.jira.logged.push(req.body);
 
         if (saveStats(stats)) {
-            res.json({message: 'Statistic added'});
+            res.json(req.body);
         } else {
             res.json({message: 'Unable to save statistic'});
         }
@@ -115,14 +122,17 @@ module.exports = function(app) {
     });
 
     app.put('/stats/jira/logged/:id', function(req, res) {
+        var stat;
+
         _(stats.jira.logged).each(function(l, i) {
             if (l.id === req.params.id) {
                 l = req.body;
+                stat = l;
             }
         });
 
         if (saveStats(stats)) {
-            res.json(l);
+            res.json(stat);
         } else {
             res.json({message: 'Unable to save statistic'});
         }
@@ -160,10 +170,12 @@ module.exports = function(app) {
 
     app.post('/stats/jira/project', function(req, res) {
         if (!stats.jira.project) { stats.jira.project = []; }
+        req.body.id = req.body.key;
+
         stats.jira.project.push(req.body);
 
         if (saveStats(stats)) {
-            res.json({message: 'Statistic added'});
+            res.json(req.body);
         } else {
             res.json({message: 'Unable to save statistic'});
         }
@@ -176,14 +188,17 @@ module.exports = function(app) {
     });
 
     app.put('/stats/jira/project/:id', function(req, res) {
+        var stat;
+
         _(stats.jira.project).each(function(p, i) {
             if (p.id === req.params.id) {
                 p = req.body;
+                stat = p;
             }
         });
 
         if (saveStats(stats)) {
-            res.json(p);
+            res.json(stat);
         } else {
             res.json({message: 'Unable to save statistic'});
         }
@@ -220,10 +235,12 @@ module.exports = function(app) {
 
     app.post('/stats/jira/priority', function(req, res) {
         if (!stats.jira.priority) { stats.jira.priority = []; }
+        req.body.id = req.body.key;
+
         stats.jira.priority.push(req.body);
 
         if (saveStats(stats)) {
-            res.json({message: 'Statistic added'});
+            res.json(req.body);
         } else {
             res.json({message: 'Unable to save statistic'});
         }
@@ -236,14 +253,17 @@ module.exports = function(app) {
     });
 
     app.put('/stats/jira/priority/:id', function(req, res) {
+        var stat;
+
         _(stats.jira.priority).each(function(p, i) {
             if (p.id === req.params.id) {
                 p = req.body;
+                stat = p;
             }
         });
 
         if (saveStats(stats)) {
-            res.json(p);
+            res.json(stat);
         } else {
             res.json({message: 'Unable to save statistic'});
         }
@@ -281,10 +301,12 @@ module.exports = function(app) {
 
     app.post('/stats/jira/status', function(req, res) {
         if (!stats.jira.status) { stats.jira.status = []; }
+        req.body.id = req.body.key;
+
         stats.jira.status.push(req.body);
 
         if (saveStats(stats)) {
-            res.json({message: 'Statistic added'});
+            res.json(req.body);
         } else {
             res.json({message: 'Unable to save statistic'});
         }
@@ -297,14 +319,17 @@ module.exports = function(app) {
     });
 
     app.put('/stats/jira/status/:id', function(req, res) {
+        var stat;
+
         _(stats.jira.status).each(function(s, i) {
             if (s.id === req.params.id) {
                 s = req.body;
+                stat = s;
             }
         });
 
         if (saveStats(stats)) {
-            res.json(s);
+            res.json(stat);
         } else {
             res.json({message: 'Unable to save statistic'});
         }

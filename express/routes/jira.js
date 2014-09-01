@@ -3,6 +3,7 @@ var request = require('request'),
     settings = require('../../data/jira.json'),
     fs = require('fs'),
     path = require('path'),
+    _ = require('underscore'),
     jiraUrl,
     username,
     password;
@@ -67,7 +68,13 @@ module.exports = function(app) {
                 res.json(err);
             }
 
-            res.json({ message: 'Worklog saved for issue: ' + req.body.key, response: body });
+            if (body.errorMessages.length) {
+                var reason = _(body.errors).map(function(error) { return error; });
+
+                res.json({error: true, message: 'Failed to save worklog: ', response: reason.join(', ')});
+            }
+
+            res.json({ error: false, message: 'Worklog saved for issue: ' + req.body.key, response: body });
 
         }).json({
 
@@ -94,7 +101,7 @@ module.exports = function(app) {
         settings = req.body;
 
         if (saveSettings(settings)) {
-            res.json({message: 'Settings updated'});
+            res.json(settings);
         } else {
             res.json({message: 'Unable to update settings'});
         }
