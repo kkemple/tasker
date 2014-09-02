@@ -51,37 +51,37 @@
                     } else {
                         /* stats collecting */
                         App.execute('stats:jira:project', {
-                            taskName: this.model.get('taskName'),
-                            key: this.model.get('key'),
-                            project: this.model.get('project'),
+                            taskName: self.model.get('taskName'),
+                            key: self.model.get('key'),
+                            project: self.model.get('project'),
                             date: moment()
                         });
 
                         App.execute('stats:jira:status', {
-                            taskName: this.model.get('taskName'),
-                            key: this.model.get('key'),
-                            status: this.model.get('status'),
+                            taskName: self.model.get('taskName'),
+                            key: self.model.get('key'),
+                            status: self.model.get('status'),
                             date: moment()
                         });
 
                         App.execute('stats:jira:priority', {
-                            taskName: this.model.get('taskName'),
-                            key: this.model.get('key'),
-                            priority: this.model.get('priority'),
+                            taskName: self.model.get('taskName'),
+                            key: self.model.get('key'),
+                            priority: self.model.get('priority'),
                             date: moment()
                         });
 
                         App.execute('stats:jira:logged', {
-                            taskName: this.model.get('taskName'),
-                            key: this.model.get('key'),
-                            count: this.model.get('count'),
+                            taskName: self.model.get('taskName'),
+                            key: self.model.get('key'),
+                            count: self.model.get('count'),
                             date: moment()
                         });
 
                         App.execute('stats:jira:tracked', {
-                            taskName: this.model.get('taskName'),
-                            key: this.model.get('key'),
-                            count: this.model.get('count'),
+                            taskName: self.model.get('taskName'),
+                            key: self.model.get('key'),
+                            count: self.model.get('count'),
                             date: moment()
                         });
 
