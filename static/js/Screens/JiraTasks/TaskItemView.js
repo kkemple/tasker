@@ -78,13 +78,6 @@
                             date: moment()
                         });
 
-                        App.execute('stats:jira:tracked', {
-                            taskName: self.model.get('taskName'),
-                            key: self.model.get('key'),
-                            count: self.model.get('count'),
-                            date: moment()
-                        });
-
                         // good save, clear count
                         self.model.clearCount();
                         console.log('Worklog saved for task: ' + self.model.get('key'), data.response);
