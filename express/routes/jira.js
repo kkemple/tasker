@@ -68,7 +68,7 @@ module.exports = function(app) {
                 res.json(err);
             }
 
-            if (body.errorMessages.length) {
+            if (body.errorMessages) {
                 var reason = _(body.errors).map(function(error) { return error; });
 
                 res.json({error: true, message: 'Failed to save worklog: ', response: reason.join(', ')});
