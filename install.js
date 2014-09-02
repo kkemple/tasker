@@ -91,14 +91,10 @@ if (!shell.test('-f', '.password')) {
  *
  * Run commands and pray lol
  *
- * npm install
  * bower install
  * grunt build
  *
  */
-
-prompt.logger.info('npm install \n');
-shell.exec('npm install');
 
 prompt.logger.info('bower install \n');
 shell.exec('bower install');

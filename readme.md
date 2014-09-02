@@ -22,6 +22,8 @@ ___
 
 #### Running the Install Script
 
+First install all npm modules with `npm install` (if you get access errors look [here](http://stackoverflow.com/questions/16151018/npm-throws-error-without-sudo))
+
 Copy the following command in to the terminal to get the app set up `node install.js`
 
 ___
