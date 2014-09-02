@@ -50,11 +50,6 @@
                 $captureStart: '#capture-start',
                 $captureEnd: '#capture-end'
             },
-            initialize: function() {
-                if (this.model.get('allowScreenCapture')) {
-                    App.ScreenCapture.startCapture();
-                }
-            },
             onRender: function() {
                 this.ui.$captureStart[0].valueAsNumber = App.DateTime.timeStringToDate(this.model.get('screenCaptureStartTime'));
                 this.ui.$captureEnd[0].valueAsNumber = App.DateTime.timeStringToDate(this.model.get('screenCaptureEndTime'));

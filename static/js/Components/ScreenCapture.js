@@ -61,5 +61,13 @@
         Mod.stopCapture = function() {
             clearInterval(intervalId);
         };
+
+        Mod.addInitializer(function() {
+            App.request('userSettings').done(function(settings) {
+                if (settings.get('allowScreenCapture')) {
+                    Mod.startCapture();
+                }
+            });
+        });
     });
 })(TA, Backbone, Marionette, jQuery, _);
