@@ -8,6 +8,8 @@ var request = require('request'),
     username,
     password;
 
+
+// handles file write
 var saveSettings = function(settings) {
     var updatedSettings;
 
@@ -61,19 +63,23 @@ module.exports = function(app) {
     // log jira work
     app.post('/jira/tasks/worklog', function(req, res) {
 
+        // send request to JIRA, work with response
         request.post(jiraUrl + 'rest/api/2/issue/' + req.body.key + '/worklog', function(err, httpResponse, body) {
 
+            // if request error
             if (err) {
                 console.log(err);
                 res.json(err);
             }
 
+            // if POST error
             if (body.errorMessages) {
                 var reason = _(body.errors).map(function(error) { return error; });
 
                 res.json({error: true, message: 'Failed to save worklog: ', response: reason.join(', ')});
             }
 
+            // send good response
             res.json({ error: false, message: 'Worklog saved for issue: ' + req.body.key, response: body });
 
         }).json({
@@ -83,10 +89,12 @@ module.exports = function(app) {
         }).auth(username, password, true);
     });
 
+    // return settings model
     app.get('/jira/settings', function(req, res) {
         res.json(settings);
     });
 
+    // create settings model
     app.post('/jira/settings', function(req, res) {
         settings = req.body;
 
@@ -97,6 +105,7 @@ module.exports = function(app) {
         }
     });
 
+    // update settings model, does same as post
     app.put('/jira/settings', function(req, res) {
         settings = req.body;
 
@@ -107,6 +116,7 @@ module.exports = function(app) {
         }
     });
 
+    // delete, never used but here anyway!! =]
     app.delete('/jira/settings', function(req, res) {
         settings = {};
 

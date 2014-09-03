@@ -3,6 +3,7 @@ var fs = require('fs'),
     _ = require('underscore'),
     stats = require('../../data/stats.json');
 
+// handle file write
 var saveStats = function(stats) {
     var updatedStats;
 
@@ -52,9 +53,19 @@ module.exports = function(app) {
     });
 
     app.get('/stats/jira/tracked/:id', function(req, res) {
+        var stat;
 
-        // if not found need to 304 status??
-        res.json(stats.jira.tracked[req.params.id]);
+        _(stats.jira.tracked).each(function(t) {
+            if (t.id === req.params.id) {
+                stat = t;
+            }
+        });
+
+        if (!stat) {
+            res.json({error: true, message: 'stat not found'});
+        }
+
+        res.json(stat);
     });
 
     app.put('/stats/jira/tracked/:id', function(req, res) {
@@ -116,9 +127,19 @@ module.exports = function(app) {
     });
 
     app.get('/stats/jira/logged/:id', function(req, res) {
+        var stat;
 
-        // if not found need to 304 status??
-        res.json(stats.jira.logged[req.params.id]);
+        _(stats.jira.logged).each(function(l) {
+            if (l.id === req.params.id) {
+                stat = l;
+            }
+        });
+
+        if (!stat) {
+            res.json({error: true, message: 'stat not found'});
+        }
+
+        res.json(stat);
     });
 
     app.put('/stats/jira/logged/:id', function(req, res) {
@@ -182,9 +203,19 @@ module.exports = function(app) {
     });
 
     app.get('/stats/jira/project/:id', function(req, res) {
+        var stat;
 
-        // if not found need to 304 status??
-        res.json(stats.jira.project[req.params.id]);
+        _(stats.jira.project).each(function(p) {
+            if (p.id === req.params.id) {
+                stat = p;
+            }
+        });
+
+        if (!stat) {
+            res.json({error: true, message: 'stat not found'});
+        }
+
+        res.json(stat);
     });
 
     app.put('/stats/jira/project/:id', function(req, res) {
@@ -247,9 +278,19 @@ module.exports = function(app) {
     });
 
     app.get('/stats/jira/priority/:id', function(req, res) {
+        var stat;
 
-        // if not found need to 304 status??
-        res.json(stats.jira.priority[req.params.id]);
+        _(stats.jira.priority).each(function(p) {
+            if (p.id === req.params.id) {
+                stat = p;
+            }
+        });
+
+        if (!stat) {
+            res.json({error: true, message: 'stat not found'});
+        }
+
+        res.json(stat);
     });
 
     app.put('/stats/jira/priority/:id', function(req, res) {
@@ -313,9 +354,19 @@ module.exports = function(app) {
     });
 
     app.get('/stats/jira/status/:id', function(req, res) {
+        var stat;
 
-        // if not found need to 304 status??
-        res.json(stats.jira.status[req.params.id]);
+        _(stats.jira.status).each(function(s) {
+            if (s.id === req.params.id) {
+                stat = s;
+            }
+        });
+
+        if (!stat) {
+            res.json({error: true, message: 'stat not found'});
+        }
+
+        res.json(stat);
     });
 
     app.put('/stats/jira/status/:id', function(req, res) {

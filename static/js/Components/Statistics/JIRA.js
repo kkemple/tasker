@@ -1,14 +1,26 @@
 ;(function(TA, Backbone, Marionette, $, _) {
     "use strict";
 
+    /**
+     * @module Statistics
+     * @namespace  TA
+     * @main  Statistics
+     */
     TA.module('Statistics.JIRA', function(Mod, App, Backbone, Marionette, $, _) {
 
-        // project worked on
-        // time tracked
-        // time logged
-        // priority worked on
-        // marked for today
 
+        /**
+         * ## StatsCollection
+         *
+         * The default class that all stats collections should extend from
+         * Offers helper functions to filter the collection
+         *
+         * @class StatsCollection
+         * @constructor
+         * @namespace TA.Statistics
+         * @extends Backbone.Collection
+         * @private
+         */
         var StatsCollection = Backbone.Collection.extend({
             thisWeek: function() {
                 var today = moment();
@@ -20,8 +32,31 @@
             }
         });
 
+        /**
+         * ## JiraStat
+         *
+         * Proxy Model class, placeholder in case we need stat specific model functionality
+         *
+         * @class JiraStat
+         * @constructor
+         * @namespace TA.Statistics
+         * @extends Backbone.Model
+         * @private
+         */
         var JiraStat = Backbone.Model.extend({});
 
+
+        /**
+         * ## TimeTracked
+         *
+         * Model behind each time tracked statistic
+         *
+         * @class TimeTracked
+         * @constructor
+         * @namespace TA.Statistics
+         * @extends JiraStat
+         * @private
+         */
         var TimeTracked = JiraStat.extend({
             defaults: {
                 taskName: '',
@@ -31,11 +66,23 @@
             }
         });
 
+        /**
+         * ## TimesTracked
+         *
+         * Collection behind all time tracked statistics models
+         *
+         * @class TimesTracked
+         * @constructor
+         * @namespace TA.Statistics
+         * @extends StatsCollection
+         * @private
+         */
         var TimesTracked = StatsCollection.extend({
             url: '/stats/jira/tracked',
             model: TimeTracked
         });
 
+        // set up handlers
         var timesTracked = new TimesTracked();
 
         timesTracked.fetch().always(function() {
@@ -56,7 +103,17 @@
 
         /*****************************************/
 
-
+        /**
+         * ## TimeLogged
+         *
+         * Model behind each time logged statistic
+         *
+         * @class TimeLogged
+         * @constructor
+         * @namespace TA.Statistics
+         * @extends JiraStat
+         * @private
+         */
         var TimeLogged = JiraStat.extend({
             defaults: {
                 taskName: '',
@@ -66,11 +123,23 @@
             }
         });
 
+        /**
+         * ## TimesLogged
+         *
+         * Collection behind all time logged statistics models
+         *
+         * @class TimesLogged
+         * @constructor
+         * @namespace TA.Statistics
+         * @extends StatsCollection
+         * @private
+         */
         var TimesLogged = StatsCollection.extend({
             url: '/stats/jira/logged',
             model: TimeLogged
         });
 
+        // add handlers
         var timesLogged = new TimesLogged();
 
         timesLogged.fetch().always(function() {
@@ -91,7 +160,17 @@
 
         /*****************************************/
 
-
+        /**
+         * ## ProjectWorkedOn
+         *
+         * Model behind each project statistic
+         *
+         * @class ProjectWorkedOn
+         * @constructor
+         * @namespace TA.Statistics
+         * @extends JiraStat
+         * @private
+         */
         var ProjectWorkedOn = JiraStat.extend({
             defaults: {
                 taskName: '',
@@ -101,11 +180,23 @@
             }
         });
 
+        /**
+         * ## ProjectsWorkedOn
+         *
+         * Collection behind all project statistics models
+         *
+         * @class ProjectsWorkedOn
+         * @constructor
+         * @namespace TA.Statistics
+         * @extends StatsCollection
+         * @private
+         */
         var ProjectsWorkedOn = StatsCollection.extend({
             url: '/stats/jira/project',
             model: ProjectWorkedOn
         });
 
+        // add handlers
         var projectsWorkedOn = new ProjectsWorkedOn();
 
         projectsWorkedOn.fetch().always(function() {
@@ -126,7 +217,17 @@
 
         /*****************************************/
 
-
+        /**
+         * ## PriorityWorkedOn
+         *
+         * Model behind each priority statistic
+         *
+         * @class PriorityWorkedOn
+         * @constructor
+         * @namespace TA.Statistics
+         * @extends JiraStat
+         * @private
+         */
         var PriorityWorkedOn = JiraStat.extend({
             defaults: {
                 taskName: '',
@@ -136,11 +237,23 @@
             }
         });
 
+        /**
+         * ## PrioritiesWorkedOn
+         *
+         * Collection behind all prioriy statistics models
+         *
+         * @class PrioritiesWorkedOn
+         * @constructor
+         * @namespace TA.Statistics
+         * @extends StatsCollection
+         * @private
+         */
         var PrioritiesWorkedOn = StatsCollection.extend({
             url: '/stats/jira/priority',
             model: PriorityWorkedOn
         });
 
+        // add handlers
         var prioritiesWorkedOn = new PrioritiesWorkedOn();
 
         prioritiesWorkedOn.fetch().always(function() {
@@ -161,7 +274,17 @@
 
         /*****************************************/
 
-
+        /**
+         * ## StatusWorkedOn
+         *
+         * Model behind each status statistic
+         *
+         * @class StatusWorkedOn
+         * @constructor
+         * @namespace TA.Statistics
+         * @extends JiraStat
+         * @private
+         */
         var StatusWorkedOn = JiraStat.extend({
             defaults: {
                 taskName: '',
@@ -171,11 +294,23 @@
             }
         });
 
+        /**
+         * ## StatusesWorkedOn
+         *
+         * Collection behind all status statistics models
+         *
+         * @class StatusesWorkedOn
+         * @constructor
+         * @namespace TA.Statistics
+         * @extends StatsCollection
+         * @private
+         */
         var StatusesWorkedOn = StatsCollection.extend({
             url: '/stats/jira/status',
             model: StatusWorkedOn
         });
 
+        // add handlers
         var statusesWorkedOn = new StatusesWorkedOn();
 
         statusesWorkedOn.fetch().always(function() {

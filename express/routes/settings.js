@@ -2,6 +2,7 @@ var user = require('../../data/user.json'),
     fs = require('fs'),
     path = require('path');
 
+// handle file write
 var saveUser = function(user) {
     "use strict";
 
@@ -29,10 +30,12 @@ var saveUser = function(user) {
 
 module.exports = function(app) {
 
+    // return settings
     app.get('/settings', function(req, res) {
         res.json(user);
     });
 
+    // update/create user settings
     app.post('/settings', function(req, res) {
         user = req.body;
 
@@ -43,6 +46,7 @@ module.exports = function(app) {
         }
     });
 
+    // update user settings, same as app.post
     app.put('/settings', function(req, res) {
         user = req.body;
 
@@ -53,6 +57,7 @@ module.exports = function(app) {
         }
     });
 
+    // delete, never used
     app.delete('/settings', function(req, res) {
         user = {};
 

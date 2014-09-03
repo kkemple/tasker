@@ -1,6 +1,7 @@
 ;(function(Backbone, Marionette, $, _) {
     "use strict";
 
+    // use syncronous ajax for template fetching
     Marionette.TemplateCache.prototype.loadTemplate = function(templateId) {
         var template = '';
 
@@ -16,6 +17,7 @@
         return template;
     };
 
+    // Create the app
     var TA = new Marionette.Application();
 
     // add our app regions
