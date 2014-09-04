@@ -58,6 +58,7 @@
         });
 
         Mod.get = function(opts) {
+            _usedColors = [];
             return new PriorityWorkedOnWidget(opts);
         };
     });

@@ -104,6 +104,7 @@
         });
 
         Mod.get = function() {
+            _usedColors = [];
             return new ProjectsWorkedOnWidget();
         };
     });
