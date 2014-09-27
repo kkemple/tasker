@@ -57,6 +57,19 @@
                         &:hover {
                             background-color: #352e2d;
                         }
+
+                        .task-info {
+                            width: 22px;
+                            height: 22px;
+                            background-color: @backgroundDark;
+                            border: 1px solid @borderDark;
+                            .border-radius(50%);
+
+                            i {
+                                display: block;
+                                text-align: center;
+                            }
+                        }
                     }
                 }
             }
@@ -77,7 +90,7 @@
         .well {
             padding: 5px;
             background-color: @backgroundDark;
-            border: 1px solid @backgroundDark;
+            border: 1px solid @borderDark;
         }
 
         .controls {

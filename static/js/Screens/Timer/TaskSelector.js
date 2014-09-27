@@ -19,10 +19,33 @@
                 };
             },
             events: {
-                'click': 'notify'
+                'click': 'notify',
             },
             modelEvents: {
                 'change:isFiltered': 'toggleVisibility'
+            },
+            ui: {
+                $taskInfo: '.task-info'
+            },
+            onRender: function() {
+                var self = this;
+
+                this.ui.$taskInfo.popover({
+                    html: true,
+                    content: function() {
+                        var template = _.template(
+                            '<div class="well">URL: <a href="<%= jiraUrl %>"><%= jiraUrl %></a></div>' +
+                            '<div class="well">KEY: <%= key %></div>' +
+                            '<div class="well">STATUS: <%= status %></div>' +
+                            '<div class="well">PRIORITY: <%= priority %></div>'
+                        );
+
+                        return template(self.model.toJSON());
+                    },
+                    title: this.model.get('key'),
+                    trigger: 'hover',
+                    container: 'body'
+                });
             },
             toggleVisibility: function() {
                 var showHide = (this.model.get('isFiltered')) ? 'hide' : 'show';
