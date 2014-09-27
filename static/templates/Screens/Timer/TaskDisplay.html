@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-xs-8">
+        <div class="task-name"><%= taskName %></div>
+
+        <div class="display count">
+            <span><%= displayTime %></span>
+        </div>
+    </div>
+    <div class="col-xs-4">
+
+
+        <div class="well">URL: <a href="<%= jiraUrl %>" target="_blank"><%= jiraUrl %></a></div>
+        <div class="well">KEY: <%= key %></div>
+        <div class="well">STATUS: <%= status %></div>
+        <div class="well">PRIORITY: <%= priority %></div>
+
+        <div class="controls">
+            <button class="btn btn-lg btn-default"><i class="toggle-timer fa <%= (isRunning) ? 'fa-pause' : 'fa-play' %>"></i></button>
+            <button class="btn btn-lg btn-default today"><i class="fa fa-calendar"></i></button>
+            <button class="btn btn-lg btn-default reset-count"><i class="fa fa-repeat"></i></button>
+            <button class="btn btn-lg btn-default save-worklog"><i class="fa fa-rocket"></i></button>
+
+        </div>
+    </div>
+</div>

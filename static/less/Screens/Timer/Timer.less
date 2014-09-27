@@ -1,0 +1,99 @@
+.timer-screen {
+    padding-top: 10px;
+
+    .task-selector {
+        padding: 10px 0;
+        border-bottom: 1px solid @borderDark;
+
+        .current-task {
+            display: inline-block;
+            margin-left: 10px;
+            width: 400px;
+            cursor: pointer;
+            position: relative;
+
+            i {
+                padding-top: 3px;
+            }
+
+            .menu {
+                background-color: #352e2d;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                border: 1px solid #2d2726;
+                margin-top: 1px;
+                z-index: 1000;
+
+                .controls {
+                    padding: 15px;
+
+                    .close-container {
+                        overflow: hidden;
+                        margin-top: -12px;
+                        margin-bottom: 4px;
+                    }
+
+                    .filter-options {
+
+                        .form-control {
+                            height: 35px;
+                        }
+                    }
+                }
+
+                .list-group {
+                    margin-bottom: 0;
+
+                    .list-group-item {
+                        border-radius: 0;
+                        border-left: none;
+                        border-right: none;
+
+                        &:hover {
+                            background-color: #352e2d;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .btn:focus, .btn:active:focus, .btn.active:focus {
+        outline: none;
+    }
+
+    .task-display {
+        margin-top: 20px;
+        border: 1px solid @backgroundDark;
+        background-color: @backgroundLight;
+        padding: 10px;
+        border-radius: 3px;
+
+        .well {
+            padding: 5px;
+            background-color: @backgroundDark;
+            border: 1px solid @backgroundDark;
+        }
+
+        .controls {
+            margin-top: 15px;
+
+            .fa-calendar.active {
+                color: @warning;
+            }
+        }
+
+        .task-name {
+            text-align: center;
+        }
+
+        .display {
+           font-size: 180px;
+           line-height: 1.3;
+           text-align: center;
+           cursor: pointer;
+        }
+    }
+}

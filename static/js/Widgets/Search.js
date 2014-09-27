@@ -17,115 +17,6 @@
     TA.module('Search', function(Mod, App, Backbone, Marionette, $, _) {
 
         /**
-         * ## FilterModel
-         *
-         * The model behind each filter option view
-         *
-         * @class FilterModel
-         * @constructor
-         * @namespace TA.Search
-         * @extends Backbone.Model
-         * @private
-         */
-        var FilterModel = Backbone.Model.extend({
-            defaults: {
-                isActive: false
-            }
-        });
-
-        /**
-         * ## FiltersCollection
-         *
-         * The collection behind each growl collection view
-         *
-         * @class FiltersCollection
-         * @constructor
-         * @namespace TA.Search
-         * @extends Backbone.Collection
-         * @private
-         */
-        var FiltersCollection = Backbone.Collection.extend({
-            model: FilterModel,
-
-            /**
-             * Responsible for updating the isActive flag on the model
-             * with the id that matches the value passed in
-             *
-             * @method  setActive
-             * @param {String} val the value/id of the filter option to set active
-             */
-            setActive: function(val) {
-                this.each(function(model) {
-                    if (model.get('id') === val) {
-                        model.set('isActive', true);
-                    } else {
-                        model.set('isActive', false);
-                    }
-                });
-            }
-        });
-
-        /**
-         * ## FilterOption
-         *
-         * The view created when a new FilterModel is added to the FiltersCollection
-         *
-         * @class FilterOption
-         * @constructor
-         * @namespace TA.Search
-         * @extends Marionette.ItemView
-         * @private
-         */
-        var FilterOption = Marionette.ItemView.extend({
-            template: 'Widgets/SearchFilterOption',
-            tagName: 'option',
-            modelEvents: {
-                'change:isActive': 'toggleSelected'
-            },
-            onRender: function() {
-                this.$el.attr('value', this.model.get('id'));
-            },
-            toggleSelected: function() {
-                this.$el.prop('selected', this.model.get('isActive'));
-            }
-        });
-
-        /**
-         * ## FilterOptions
-         *
-         * The view that contains all current filter options
-         *
-         * @class FilterOptions
-         * @constructor
-         * @namespace TA.Search
-         * @extends Marionette.CollectionView
-         * @private
-         */
-        var FilterOptions = Marionette.CollectionView.extend({
-            tagName: 'select',
-            id: 'tasks-search-filter',
-            className: 'form-control',
-            itemView: FilterOption,
-            events: {
-                'change': 'updateActiveFilter',
-            },
-            onRender: function() {
-                this.updateActiveFilter();
-            },
-
-            /**
-             * Responsible for letting the FiltersCollection instance know that a new option has been selected
-             *
-             * @method  updateActiveFilter
-             * @public
-             */
-            updateActiveFilter: function() {
-                this.collection.setActive(this.$el.val());
-                this.collection.trigger('active:changed');
-            }
-        });
-
-        /**
          * ## SearchView
          *
          * The layout that is rendered when a search view is requested
@@ -187,11 +78,11 @@
                         self.currentCollection = self.jiraTasksCollection;
                     }
 
-                    self.optionsCollection = new FiltersCollection(self.currentCollection.filters);
+                    self.optionsCollection = new App.Data.FiltersCollection(self.currentCollection.filters);
 
                     self.listenTo(self.optionsCollection, 'active:changed', self.filterTasks);
 
-                    self.optionsCollectionView = new FilterOptions({collection: self.optionsCollection});
+                    self.optionsCollectionView = new App.FilterOptions.get({collection: self.optionsCollection});
                     self.filterContainer.show(self.optionsCollectionView);
 
                     if (self.model.get(route)) {
