@@ -19,13 +19,17 @@
                 };
             },
             events: {
-                'click': 'notify',
+                'click .display-text': 'notifySelected',
+                'click .task-info': 'notifyInfo'
             },
             modelEvents: {
                 'change:isFiltered': 'toggleVisibility'
             },
             ui: {
                 $taskInfo: '.task-info'
+            },
+            initialize: function() {
+                this.listenTo(this.model, 'hide:info', this.hideInfo);
             },
             onRender: function() {
                 var self = this;
@@ -34,7 +38,7 @@
                     html: true,
                     content: function() {
                         var template = _.template(
-                            '<div class="well">URL: <a href="<%= jiraUrl %>"><%= jiraUrl %></a></div>' +
+                            '<div class="well">URL: <a href="<%= jiraUrl %>" target="_blank"><%= jiraUrl %></a></div>' +
                             '<div class="well">KEY: <%= key %></div>' +
                             '<div class="well">STATUS: <%= status %></div>' +
                             '<div class="well">PRIORITY: <%= priority %></div>'
@@ -43,8 +47,12 @@
                         return template(self.model.toJSON());
                     },
                     title: this.model.get('key'),
-                    trigger: 'hover',
+                    trigger: 'click',
                     container: 'body'
+                });
+
+                this.ui.$taskInfo.on('clickoutside', function() {
+                    self.hideInfo();
                 });
             },
             toggleVisibility: function() {
@@ -52,10 +60,16 @@
 
                 this.$el[showHide]();
             },
-            notify: function(e) {
+            notifySelected: function(e) {
                 e.preventDefault();
 
                 this.trigger('selected');
+            },
+            notifyInfo: function() {
+                this.trigger('info');
+            },
+            hideInfo: function() {
+                this.ui.$taskInfo.popover('hide');
             }
         });
 
@@ -71,12 +85,14 @@
             },
             events: {
                 'keydown .tasks-filter': 'filterTasks',
-                'click .text': 'showMenu',
+                'click .text': 'toggleMenu',
                 'click .close-container i': 'clearMenu',
                 'click .list-group-item': 'fireChange'
             },
-            initialize: function() {
+            initialize: function(options) {
                 var self = this;
+
+                this.currentModel = options.currentModel;
 
                 this.model = new Backbone.Model({
                     filter: 'taskName'
@@ -86,6 +102,14 @@
                     self.ui.$currentTask.find('.text').text(getDisplayText(view.model));
                     self.collection.trigger('task:selected', view.model);
                     self.clearMenu();
+                });
+
+                this.on('itemview:info', function(view) {
+                    self.collection.each(function(m) {
+                        if (m.get('key') !== view.model.get('key')) {
+                            m.trigger('hide:info');
+                        }
+                    });
                 });
             },
             onRender: function() {
@@ -99,7 +123,9 @@
 
                 this.ui.$options.append(new App.FilterOptions.get({collection: filterOptions}).render().$el);
 
-                this.ui.$currentTask.find('.text').text(getDisplayText(this.collection.at(0)));
+                this.ui.$currentTask.find('.text').text(getDisplayText(
+                    this.collection.findWhere({ key: this.options.currentModel })
+                ));
             },
             filterTasks: function(e) {
                 var self = this;
@@ -114,11 +140,15 @@
                     self.collection.filterTasks(self.model.get('filter'), term);
                 }, 500);
             },
-            showMenu: function(e) {
+            toggleMenu: function(e) {
                 e.preventDefault();
                 e.stopPropagation();
 
-                this.ui.$menu.show();
+                if (!this.ui.$menu.is(':visible')) {
+                    this.ui.$menu.show();
+                } else {
+                    this.clearMenu();
+                }
             },
             clearMenu: function(e) {
                 this.ui.$menu.hide();

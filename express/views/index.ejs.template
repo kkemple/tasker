@@ -24,6 +24,7 @@
         <script src="js/libraries/notification.js"></script>
         <script src="js/libraries/chartjs/Chart.min.js"></script>
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="js/libraries/jquery/clickoutside.min.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="bower_components/underscore/underscore.js"></script>
         <script src="bower_components/momentjs/moment.js"></script>
