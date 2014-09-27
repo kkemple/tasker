@@ -5,7 +5,13 @@
 
         var TaskDisplay = App.Screens.JIRA.TaskView.extend({
             template: 'Screens/Timer/TaskDisplay',
-            className: 'timer-task'
+            className: 'timer-task',
+            modelEvents: function() {
+                return _.extend(App.Screens.Tasks.TaskView.prototype.modelEvents, {
+                    'change:isFiltered': 'noop'
+                });
+            },
+            noop: function() {}
         });
 
         Mod.TaskDisplay = TaskDisplay;
