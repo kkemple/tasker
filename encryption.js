@@ -1,6 +1,15 @@
 var fs = require('fs'),
     crypto = require('crypto'),
-    passKey = fs.readFileSync('.password').toString('utf8').trim();
+    shell = require('shelljs');
+
+// check for .password file, if not there do the encryption thing
+if (!shell.test('-f', '.password')) {
+
+    prompt.logger.info('Creating encryption passkey for JIRA login');
+    shell.exec('openssl rand -base64 48 > .password');
+}
+
+var passKey = fs.readFileSync('.password').toString('utf8').trim();
 
 module.exports = {
     encrypt: function (text) {

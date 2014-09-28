@@ -1,13 +1,9 @@
 var prompt = require('prompt'),
-    //Q = require('Q'),
     fs = require('fs'),
-    //path = require('path'),
-    //sys = require('sys'),
     prompt = require('prompt'),
     exec = require('child_process').exec,
     shell = require('shelljs'),
     encryption = require('./encryption');
-
 
 /**
  *
@@ -51,13 +47,6 @@ var schema = {
 
 prompt.logger.info('Please enter your JIRA credentials (username, password, url)...');
 prompt.get(schema, function (err, result) {
-
-    // check for .password file, if not there do the encryption thing
-    if (!shell.test('-f', '.password')) {
-
-        prompt.logger.info('Creating encryption passkey for JIRA login');
-        exec('openssl rand -base64 48 > .password');
-    }
 
     // check for data dir, if not found build files/folders
     if (!shell.test('-d', 'data')) {
