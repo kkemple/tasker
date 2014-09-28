@@ -1,5 +1,6 @@
 var fs = require('fs'),
     crypto = require('crypto'),
+    prompt = require('prompt'),
     shell = require('shelljs');
 
 // check for .password file, if not there do the encryption thing
