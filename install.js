@@ -45,7 +45,8 @@ var schema = {
     }
 }
 
-prompt.logger.info('Please enter your JIRA credentials (username, password, url)...');
+prompt.logger.info('Starting install...\n');
+
 prompt.get(schema, function (err, result) {
 
     // check for data dir, if not found build files/folders
@@ -77,7 +78,7 @@ prompt.get(schema, function (err, result) {
         fs.writeFileSync('data/jira.json', JSON.stringify({
             id: 1,
             username: result.username,
-            password: encryption.encrypt(result.password),
+            password: result.password,
             jiraUrl: result.url,
             hasLoginCreds: true,
             isVisible: false
