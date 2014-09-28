@@ -97,7 +97,7 @@ if (!shell.test('-f', '.password')) {
  */
 
 prompt.logger.info('bower install \n');
-shell.exec('node_modules/.bin/bower install');
+shell.exec('sudo node_modules/.bin/bower install');
 
 prompt.logger.info('grunt build \n');
 shell.exec('grunt build');
