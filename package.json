@@ -5,8 +5,7 @@
   "main": "index.html",
   "scripts": {
     "test": "grunt test",
-    "start": "NODE_ENV=production node server.js",
-    "postinstall": "node install.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",

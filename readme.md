@@ -5,12 +5,14 @@ Tasker is a very simple task runner that will verbally and visually notify you o
 ### Quick Start Guide
 ___
 
-#### Prerequisites
+#### Dependencies
 
-**You must use Chrome Browser to run this app!**
+The following dependencies are required to run Tasker:
 
-**You must have Node.js installed to run this app!**
-> If you do not have Node.js installed, you can get it [here](https://nodejs.org).
+- Node.js [nodejs.org](http://nodejs.org)
+- Bower.js [bower.io](http://bower.io)
+
+**Note: Tasker runs best in Chrome**
 
 ___
 
@@ -20,9 +22,15 @@ In the terminal, navigate to the directory you wish to install Tasker and run `g
 
 ___
 
-#### Installing Tasker
+#### Installing Node Dependencies
 
 Simply run `npm install` (if you get access errors look [here](http://stackoverflow.com/questions/16151018/npm-throws-error-without-sudo))
+
+___
+
+#### Setting Up Tasker
+
+To set up Tasker run `node install.js`
 
 ___
 
