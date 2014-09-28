@@ -24,6 +24,24 @@
         }
     }
 
+    .screenshot-title-modal {
+        text-align: left;
+        overflow: hidden;
+
+        button {
+            cursor: pointer;
+        }
+    }
+
+    .modal {
+        .prev, .next, .delete {
+            background-color: @backgroundLight;
+            &:hover {
+                background-color: @backgroundDark;
+            }
+        }
+    }
+
     .modal-body {
         padding-top: 5px;
     }
@@ -57,13 +75,4 @@
         to   { transform: scale( 1 ) rotate( 360deg ); }
     }
     /* end spinner code */
-}
-
-.screenshot-title-modal {
-    text-align: left;
-    overflow: hidden;
-
-    button {
-        cursor: pointer;
-    }
 }
