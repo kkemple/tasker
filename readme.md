@@ -9,7 +9,7 @@ ___
 
 **You must use Chrome Browser to run this app!**
 
-**You must have Node.js installed to run this app!!**
+**You must have Node.js installed to run this app!**
 > If you do not have Node.js installed, you can get it [here](https://nodejs.org).
 
 ___
@@ -20,11 +20,9 @@ In the terminal, navigate to the directory you wish to install Tasker and run `g
 
 ___
 
-#### Running the Install Script
+#### Installing Tasker
 
-First install all npm modules with `npm install` (if you get access errors look [here](http://stackoverflow.com/questions/16151018/npm-throws-error-without-sudo))
-
-Copy the following command in to the terminal to get the app set up `node install.js`
+Simply run `npm install` (if you get access errors look [here](http://stackoverflow.com/questions/16151018/npm-throws-error-without-sudo))
 
 ___
 
@@ -51,7 +49,7 @@ ___
 #### Helpful Tips:
 
 - You can enable all of Tasker's great features on the "App Settings" page.
-- In order to get Jira Tasks, on Jira Tasks screen you must enter your JIRA username, password, and JIRA url. (The url of your JIRA instance)
+- In order to get Jira Tasks, on Jira Tasks screen you must enter your JIRA username (not email), password, and JIRA url. (The url of your JIRA instance)
 - Use the "Report Bug" link in the header if you discover something amiss! :smiley:
 
 ___
