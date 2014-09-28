@@ -78,7 +78,7 @@ prompt.get(schema, function (err, result) {
         fs.writeFileSync('data/jira.json', JSON.stringify({
             id: 1,
             username: result.username,
-            password: result.password,
+            password: encryption.encrypt(result.password),
             jiraUrl: result.url,
             hasLoginCreds: true,
             isVisible: false
