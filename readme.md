@@ -9,8 +9,9 @@ ___
 
 The following dependencies are required to run Tasker:
 
-- Node.js [nodejs.org](http://nodejs.org)
-- Bower.js [bower.io](http://bower.io)
+- Node.js: [nodejs.org](http://nodejs.org)
+- Grunt.js: [gruntjs.com](http://gruntjs.com)
+- Bower.js: [bower.io](http://bower.io)
 
 **Note: Tasker runs best in Chrome**
 

@@ -5,7 +5,8 @@ var prompt = require('prompt'),
     //sys = require('sys'),
     prompt = require('prompt'),
     exec = require('child_process').exec,
-    shell = require('shelljs');
+    shell = require('shelljs'),
+    encryption = require('./encryption');
 
 
 /**
@@ -29,82 +30,86 @@ if (!shell.which('bower')) {
     return;
 }
 
-
-// check for data dir, if not found build files/folders
-if (!shell.test('-d', 'data')) {
-    prompt.logger.info('Creating `data` directory');
-    shell.mkdir('data');
-
-    prompt.logger.info('Creating `data/stats.json` file');
-    fs.writeFileSync('data/stats.json', JSON.stringify({
-        jira: {}
-    }));
-
-    prompt.logger.info('Creating `data/user.json` file');
-    fs.writeFileSync('data/user.json', JSON.stringify({
-        id: 1,
-        allowBrowserNotifications: false,
-        allowVoiceNotifications: false,
-        allowVoiceCommands: false,
-        notificationDuration: 10,
-        backupDuration: 60,
-        screenCaptureDuration: 10,
-        allowScreenCapture: false,
-        screenCaptureStartTime: '9:00 AM',
-        screenCaptureEndTime: '5:00 PM',
-        hoursPerWorkWeek: 30
-    }));
-
-    prompt.logger.info('Creating `data/jira.json` file');
-    fs.writeFileSync('data/jira.json', JSON.stringify({
-        id: 1,
-        username: '',
-        password: '',
-        jiraUrl: '',
-        hasLoginCreds: false,
-        isVisible: true
-    }));
-
-    prompt.logger.info('Creating `data/captures.json` file');
-    fs.writeFileSync('data/captures.json', JSON.stringify([]));
+var schema = {
+    properties: {
+        username: {
+            required: true,
+            description: 'Please enter your JIRA username (not email address)'
+        },
+        password: {
+            hidden: true,
+            description: 'Please enter your JIRA password (password is encrypted)'
+        },
+        url: {
+            pattern: /.+\/$/,
+            message: 'JIRA url must have trailing slash ("/")',
+            required: true,
+            description: 'Please enter your JIRA url (include the trailing slash ("http://jiraurl.com/")'
+        }
+    }
 }
 
-// check for static/img/screens dir, if not found build files/folders
-if (!shell.test('-d', 'static/img/screens')) {
-    prompt.logger.info('Creating `static/img/screens/full` directory');
-    shell.mkdir('-p', 'static/img/screens/full');
+prompt.logger.info('Please enter your JIRA credentials (username, password, url)...');
+prompt.get(schema, function (err, result) {
 
-    prompt.logger.info('Creating `static/img/screens/thumbs` directory');
-    shell.mkdir('static/img/screens/thumbs');
-}
+    // check for .password file, if not there do the encryption thing
+    if (!shell.test('-f', '.password')) {
 
+        prompt.logger.info('Creating encryption passkey for JIRA login');
+        exec('openssl rand -base64 48 > .password');
+    }
 
-// check for .password file, if not there do the encryption thing
-if (!shell.test('-f', '.password')) {
+    // check for data dir, if not found build files/folders
+    if (!shell.test('-d', 'data')) {
+        prompt.logger.info('Creating `data` directory');
+        shell.mkdir('data');
 
-    prompt.logger.info('Creating encryption passkey for JIRA login');
-    exec('openssl rand -base64 48 > .password');
-}
+        prompt.logger.info('Creating `data/stats.json` file');
+        fs.writeFileSync('data/stats.json', JSON.stringify({
+            jira: {}
+        }));
 
+        prompt.logger.info('Creating `data/user.json` file');
+        fs.writeFileSync('data/user.json', JSON.stringify({
+            id: 1,
+            allowBrowserNotifications: false,
+            allowVoiceNotifications: false,
+            allowVoiceCommands: false,
+            notificationDuration: 10,
+            backupDuration: 60,
+            screenCaptureDuration: 10,
+            allowScreenCapture: false,
+            screenCaptureStartTime: '9:00 AM',
+            screenCaptureEndTime: '5:00 PM',
+            hoursPerWorkWeek: 30
+        }));
 
-/**
- *
- * Run commands and pray lol
- *
- * bower install
- * grunt build
- *
- */
+        prompt.logger.info('Creating `data/jira.json` file');
+        fs.writeFileSync('data/jira.json', JSON.stringify({
+            id: 1,
+            username: result.username,
+            password: encryption.encrypt(result.password),
+            jiraUrl: result.url,
+            hasLoginCreds: true,
+            isVisible: false
+        }));
 
-prompt.logger.info('bower install \n');
-shell.exec('bower install');
+        prompt.logger.info('Creating `data/captures.json` file');
+        fs.writeFileSync('data/captures.json', JSON.stringify([]));
+    }
 
-prompt.logger.info('grunt build \n');
-shell.exec('grunt build');
+    // check for static/img/screens dir, if not found build files/folders
+    if (!shell.test('-d', 'static/img/screens')) {
+        prompt.logger.info('Creating `static/img/screens/full` directory');
+        shell.mkdir('-p', 'static/img/screens/full');
 
+        prompt.logger.info('Creating `static/img/screens/thumbs` directory');
+        shell.mkdir('static/img/screens/thumbs');
+    }
 
+    prompt.logger.info('bower install \n');
+    shell.exec('bower install');
 
-
-
-
-
+    prompt.logger.info('grunt build \n');
+    shell.exec('grunt build');
+});
