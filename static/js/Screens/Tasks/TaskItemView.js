@@ -107,7 +107,8 @@
                 }
 
                 this.ui.$countContainer.empty().append(new TimeEdit({model: this.model}).render().$el);
-            }
+            },
+            noop: function() {}
         });
 
         Mod.TaskView = TaskView;

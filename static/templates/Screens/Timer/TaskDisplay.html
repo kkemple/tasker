@@ -16,7 +16,7 @@
 
         <div class="controls">
             <button class="btn btn-lg btn-default"><i class="toggle-timer fa <%= (isRunning) ? 'fa-pause' : 'fa-play' %>"></i></button>
-            <button class="btn btn-lg btn-default today"><i class="fa fa-calendar"></i></button>
+            <button class="btn btn-lg btn-default today"><i class="fa fa-calendar <%= (today) ? 'active' : '' %>"></i></button>
             <button class="btn btn-lg btn-default reset-count"><i class="fa fa-repeat"></i></button>
             <button class="btn btn-lg btn-default save-worklog"><i class="fa fa-rocket"></i></button>
 

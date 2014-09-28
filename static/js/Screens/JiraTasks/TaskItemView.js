@@ -20,6 +20,7 @@
 
                 this.model.clearCount();
             },
+            noop: function() {},
             saveWorklog: function(e) {
                 var self = this;
 
