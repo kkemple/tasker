@@ -7,6 +7,7 @@ var fs = require('fs'),
 if (!shell.test('-f', '.password')) {
 
     prompt.logger.info('Creating encryption passkey for JIRA login');
+    fs.writeFileSync('.password', '');
     shell.exec('openssl rand -base64 48', {silent: true}).output.to('./password');
 }
 
