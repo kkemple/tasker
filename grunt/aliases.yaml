@@ -12,7 +12,7 @@ lint:
 build:
     - 'clean'
     - 'buildJS'
-    - 'newer:less'
+    - 'less'
     - 'yuidoc'
 dev:
     - 'newer:jshint:beforeconcat'

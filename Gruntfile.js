@@ -5,8 +5,7 @@ module.exports = function (grunt) {
 
     // builds JS depending on development mode
     grunt.registerTask('buildJS', 'Minifies and concats JS files if not in development mode', function() {
-        var isDev = (process.env.NODE_ENV && process.env.NODE_ENV === 'production') ?
-                false : (packageConfig.development_mode) ? true : false;
+        var isDev = packageConfig.development_mode;
 
         if (isDev) {
             grunt.task.run(['dev']);
