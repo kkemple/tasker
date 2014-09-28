@@ -21,5 +21,4 @@ dev:
 prod:
     - 'newer:jshint:beforeconcat'
     - 'uglify'
-    - 'newer:jshint:afterconcat'
     - 'writeProdJsFiles'
