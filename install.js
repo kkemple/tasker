@@ -22,12 +22,12 @@ if (!shell.which('grunt')) {
     return;
 }
 
-// if (!shell.which('bower')) {
-//     prompt.logger.error('You need to install bower globally :: http://bower.io/');
-//     prompt.logger.warn('If you get access errors, you need to set the proper permissions on your node_modules folder =>');
-//     prompt.logger.info('   http://stackoverflow.com/questions/16151018/npm-throws-error-without-sudo');
-//     return;
-// }
+if (!shell.which('bower')) {
+    prompt.logger.error('You need to install bower globally :: http://bower.io/');
+    prompt.logger.warn('If you get access errors, you need to set the proper permissions on your node_modules folder =>');
+    prompt.logger.info('   http://stackoverflow.com/questions/16151018/npm-throws-error-without-sudo');
+    return;
+}
 
 
 // check for data dir, if not found build files/folders
@@ -97,7 +97,7 @@ if (!shell.test('-f', '.password')) {
  */
 
 prompt.logger.info('bower install \n');
-shell.exec('sudo node_modules/.bin/bower install --allow-root');
+shell.exec('bower install');
 
 prompt.logger.info('grunt build \n');
 shell.exec('grunt build');
