@@ -12,6 +12,9 @@ The following dependencies are required to run Tasker:
 - Node.js: [nodejs.org](http://nodejs.org)
 - Grunt.js: [gruntjs.com](http://gruntjs.com)
 - Bower.js: [bower.io](http://bower.io)
+- JIRA user account
+
+> You need an active JIRA account to install Tasker
 
 **Note: Tasker runs best in Chrome**
 
@@ -33,6 +36,10 @@ ___
 
 To set up Tasker run `node install.js`
 
+During the install process you will prompted for your JIRA credentials. You will need to provide:
+
+- username: the username you use to
+
 ___
 
 #### Starting the Server
@@ -51,14 +58,15 @@ ___
 
 #### Development Documentation
 
-You can view all development documentation by navigating to `http://localhost:8888/docs/`
+- Annotated Source Code: [kkemple.github.io/tasker](http://kkemple.github.io/tasker)
+- Module and Class Definitions file://path/to/tasker/docs - or - http://localhost:8000/docs if server is running
 
 ___
 
 #### Helpful Tips:
 
+- Make sure you have grunt-cli and bower installed before setting up Tasker
 - You can enable all of Tasker's great features on the "App Settings" page.
-- In order to get Jira Tasks, on Jira Tasks screen you must enter your JIRA username (not email), password, and JIRA url. (The url of your JIRA instance)
 - Use the "Report Bug" link in the header if you discover something amiss! :smiley:
 
 ___
