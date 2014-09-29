@@ -38,7 +38,9 @@ To set up Tasker run `node install.js`
 
 During the install process you will prompted for your JIRA credentials. You will need to provide:
 
-- username: the username you use to
+- username: the username you use to login to JIRA (not your JIRA email)
+- password: the password you use to login to JIRA
+- url: the url to your JIRA account (include the trailing slash: http://my.jira.com/)
 
 ___
 
