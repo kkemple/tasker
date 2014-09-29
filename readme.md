@@ -61,7 +61,7 @@ ___
 #### Development Documentation
 
 - Annotated Source Code: [kkemple.github.io/tasker](http://kkemple.github.io/tasker)
-- Module and Class Definitions file://path/to/tasker/docs - or - http://localhost:8000/docs if server is running
+- Module and Class Definitions: `file://path/to/tasker/docs` - or - `http://localhost:8000/docs` if server is running
 
 ___
 
